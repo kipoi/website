@@ -29,11 +29,13 @@ pip3 install -r requirements.txt
 
 ## Deployment
 
-Development web server can be run by executing following command from within the `app` folder, but for production purposes a Dockerfile is supplied.
+Development web server can be run by executing following command from within the `app` folder, but for production purposes a Dockerfile is supplied. For development purposes, webserver is listening on the port 5000.
 
 ```bash
 python main.py
 ```
+
+### Docker
 
 Base docker image can be seen [here](https://github.com/tiangolo/uwsgi-nginx-flask-docker).
 
