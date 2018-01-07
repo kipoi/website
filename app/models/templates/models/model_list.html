@@ -1,0 +1,57 @@
+<table id="model-list-table" class="mdl-data-table" cellspacing="0" style="width:100%">
+    <thead>
+        <tr>
+            <th class="text-left">Model name</th>
+            <!-- <th>Source</th> -->
+            <th>Version</th>
+            <th>Authors</th>
+            <th>Type</th>
+            <!-- <th>Inputs</th> -->
+            <!-- <th>Targets</th> -->
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th class="text-left">Model name</th>
+            <!-- <th>Source</th>-->
+            <th>Version</th>
+            <th>Authors</th>
+            <th>Type</th>
+            <!-- <th>Inputs</th> -->
+            <!-- <th>Targets</th> -->
+        </tr>
+    </tfoot>
+    <tbody>
+        {% for item in models %}
+        <tr>
+            <td class="text-left">
+                <a class="" href="{{ url_for('models.model_details', source=item.source, model_name=item.model|b64encode) }}">
+                {{ item.model }}
+                </a>
+            </td>
+            <!--<td>{{ item.source }}</td>-->
+            <td>{{ item.version }}</td>
+            <td>
+            {% for author in item.authors %}
+                {{ author.name}}
+                {% if author.github %}
+                    <a href="https://github.com/{{ author.github }}" class="github">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
+                {% if author.email %}
+                    <a href="mailto:{{ author.email }}">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
+                {% if not loop.last %}, {% endif %}
+            {%endfor %}
+            </td>
+            <td>{{ item.type }}</td>
+            <!-- <td>{{ item.inputs }}</td> -->
+            <!-- <td>{{ item.targets }}</td> -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!--/Section: Intro-->

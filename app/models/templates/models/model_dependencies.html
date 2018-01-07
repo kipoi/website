@@ -1,0 +1,36 @@
+<div class="card">
+    <div class="card-header primary-color white-text">
+        Dependencies
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>Model</strong></li>
+                    <li class="list-group-item">
+                        <strong>conda</strong>:
+                        {{ list_dependencies(model.dependencies.conda) }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>pip</strong>:
+                        {{ list_dependencies(model.dependencies.pip) }}
+                    </li>
+                </ul>
+            </div>
+            <hr class="w-100 clearfix d-md-none">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>Dataloader</strong></li>
+                    <li class="list-group-item">
+                        <strong>conda</strong>:
+                        {{ list_dependencies(dataloader.dependencies.conda) }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>pip</strong>:
+                        {{ list_dependencies(dataloader.dependencies.pip) }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

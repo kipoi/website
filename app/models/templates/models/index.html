@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <!--Section: model-list content-->
+        <section class="model-list">
+            <h2 class="overlayed-title">Model list</h2>
+            
+            {% include 'models/model_list.html' %}
+        </section>
+        <!--/Section: model-list content-->                        
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script language="JavaScript">
+        $(document).ready(function() {
+            $('#model-list-table').DataTable({
+                "lengthMenu": [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
+                "pageLength": 50
+            });
+            $('.dt-table').css('width', '100%');
+        });
+    </script>
+{% endblock%}

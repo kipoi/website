@@ -1,0 +1,62 @@
+body {
+    color: #4c5568;
+    /* color: #4c5568; */
+}
+
+/* Model-list DataTables */
+.dataTables_wrapper div.mdl-grid:first-child {
+    margin-top: 0.5rem;
+}
+
+.dataTables_wrapper div.mdl-grid.dt-table {
+    margin-top: 0.5rem;
+}
+
+.dataTables_wrapper div.mdl-grid:last-child {
+    width: 100%;
+}
+
+.dataTables_wrapper div.mdl-grid:first-child div.mdl-cell:first-child label {
+    margin-top: 4px;
+}
+
+.dataTables_wrapper div.mdl-grid:first-child div.mdl-cell:first-child select {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.2rem;
+}
+
+.dataTables_wrapper div.mdl-grid:first-child div.mdl-cell:last-child input {
+    padding-bottom: 0rem;
+    margin-bottom: 0.6rem;
+}
+
+.mdl-button.previous {
+    min-width: 100px;
+}
+
+.mdl-button--raised {
+    background: #45526E !important;
+}
+
+.overlayed-title {
+    color: #5b657c;
+    position: absolute;
+}
+
+/* Nav bar */
+.related-content-heading {
+    -webkit-align-self: flex-start;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+    overflow: visible;
+    font-size: 1.2em;
+    padding: .6rem 1rem;
+    white-space: nowrap;
+}
+
+/* Footer */
+footer.page-footer {
+    background-color: #4c5568;
+    margin-top: 2rem;
+}

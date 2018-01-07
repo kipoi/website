@@ -1,0 +1,67 @@
+<!-- Parse and show authors macro -->
+{% macro show_authors(authors) %}
+    {% for author in authors %}
+        {{ author.name}}
+        {% if author.github %}
+            <a href="https://github.com/{{ author.github }}" class="github">
+                <i class="fa fa-github" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        {% if author.email %}
+            <a href="mailto:{{ author.email }}">
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        {% if not loop.last %}, {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+<!-- Postprocessing tooltip macro -->
+{% macro postprocessing_info(info) %}
+    <div>
+        {% for key, values in info.args.items() %}
+            <strong>{{ key }}</strong>:
+            {% for value in values %}
+                {{ value }}{% if not loop.last %}, <br>{% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+<!-- Model schema input macro -->
+{% macro display_schema_inputs(inputs) %}
+    {% for input in inputs %}
+        <p><strong>Name</strong>: {{ input.name }}</p>
+        <p><strong>Shape</strong>: {{ input.shape }}</p>
+        <p><strong>Doc</strong>: {{ input.doc }}</p>
+    {% endfor %}
+{% endmacro %}
+
+<!-- Model arguments tooltip macro -->
+{% macro model_args_info(args) %}
+    <div>
+        {% for key, values in args.items() %}
+            <strong>{{ key }}</strong>: {{ values }}<br>
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+<!-- Dataloaders info tooltip macro -->
+{% macro dataloaders_info(model, dataloaders) %}
+{% endmacro %}
+
+<!-- Dataloader arguments macro -->
+{% macro dataloaders_args(args) %}
+    <div>
+        {% for key, values in args.items() %}
+            <p><strong>{{ key }}</strong>: {{ values.doc }}</p>
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+<!-- List dependencies -->
+{% macro list_dependencies(dependencies) %}
+    {% for item in dependencies %}
+        {{ item }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+{% endmacro %}
