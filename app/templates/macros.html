@@ -54,7 +54,10 @@
 {% macro dataloaders_args(args) %}
     <div>
         {% for key, values in args.items() %}
-            <p><strong>{{ key }}</strong>: {{ values.doc }}</p>
+            <p>
+                <strong>{{ key }}</strong> {% if values.optional %}(optional){% endif %}:
+                {{ values.doc }}
+            </p>
         {% endfor %}
     </div>
 {% endmacro %}

@@ -50,9 +50,15 @@ body {
     -ms-flex-item-align: start;
     align-self: flex-start;
     overflow: visible;
-    font-size: 1.2em;
-    padding: .6rem 1rem;
+    font-size: 1.3em;
+    padding: .7rem 1rem;
     white-space: nowrap;
+}
+
+.nav-title-link, .nav-title-link:hover, .nav-title-link:active {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
 }
 
 /* Footer */
