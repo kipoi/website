@@ -21,7 +21,11 @@ def get_view(model_path, df):
     to be used in combination with:
     ```
     df = kipoi.get_source("kipoi").list_models()
-    vtype, path = get_view(model_path, df)
+    vtype_path = get_view(model_path, df)
+    if vtype_path is None:
+       # run 404
+    else:
+       vtype, path = vtype_path
     if vtype == "model":
         # render the normal model view
         pass
