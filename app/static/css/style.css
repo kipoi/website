@@ -6,6 +6,27 @@ body {
 /* Model-list DataTables */
 .dataTables_wrapper div.mdl-grid:first-child {
     margin-top: 0.5rem;
+    /* width: 100%; */
+    /* margin-left: 0; */
+    /* margin-right: 0; */
+}
+
+/* Override dataTable.material.css */
+div.dataTables_wrapper div.dataTables_length {
+    /* text-align: right; */
+    /* width: 300px; */
+}
+div.dataTables_wrapper div.dataTables_length label{
+    /* max-width: 400px; */
+    /* width: inherit; */
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+    /* text-align: left; */
+    /* min-width: 300px; */
+}
+div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: 0.5em;
 }
 
 .dataTables_wrapper div.mdl-grid.dt-table {
@@ -39,13 +60,13 @@ body {
     background: #45526E !important;
 }
 
-.overlayed-title {
+/* .overlayed-title {
     color: #5b657c;
     position: absolute;
-}
+} */
 
 /* Nav bar */
-.related-content-heading {
+/* .related-content-heading {
     -webkit-align-self: flex-start;
     -ms-flex-item-align: start;
     align-self: flex-start;
@@ -53,12 +74,64 @@ body {
     font-size: 1.3em;
     padding: .7rem 1rem;
     white-space: nowrap;
+} */
+
+/* .nav-title-link, .nav-title-link:hover, .nav-title-link:active { */
+
+.nav-title-link {
+    /* text-decoration: none; */
+    font-weight: bold;
+    /* color: white; */
 }
 
-.nav-title-link, .nav-title-link:hover, .nav-title-link:active {
-    text-decoration: none;
-    font-weight: bold;
-    color: white;
+/* .model-search {
+    width: 400px !important;
+} */
+
+.promenent-search {
+    background-color: white;
+}
+
+.promenent-search input.model-search {
+    width: 500px !important;
+    color: #4c5568 !important;
+}
+
+.promenent-search input::-webkit-input-placeholder {
+    color: #4c5568 !important;
+}
+    
+.promenent-search input:-moz-placeholder { /* Firefox 18- */
+    color: #4c5568 !important;  
+}
+    
+.promenent-search input::-moz-placeholder {  /* Firefox 19+ */
+    color: #4c5568 !important;  
+}
+    
+.promenent-search input:-ms-input-placeholder {  
+    color: #4c5568 !important;  
+}
+
+.navbar.navbar-dark form input[type=text] {
+    /* border-bottom: none !important; */
+}
+.navbar.navbar-dark form input[type=text]:focus:not([readonly]) {
+    box-shadow: none;
+}
+
+/* 
+*
+* Overvrite material design shadows
+*
+*/
+.card:not([class*=card-outline-]), .jumbotron {
+    border: 1px solid rgba(0,0,0,.125);
+    box-shadow: none;
+}
+
+hr.clearfix {
+    border-color: rgba(0,0,0,.125);
 }
 
 /* Footer */

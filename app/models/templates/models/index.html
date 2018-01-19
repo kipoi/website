@@ -3,8 +3,8 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
         <!--Section: model-list content-->
         <section class="model-list">
-            <h2 class="overlayed-title">Model list</h2>
-            
+            <!--<h2 class="overlayed-title">Model list</h2>-->
+            <hr class="w-100 clearfix d-lg-none">
             {% include 'models/model_list.html' %}
         </section>
         <!--/Section: model-list content-->                        
@@ -16,9 +16,17 @@
         $(document).ready(function() {
             $('#model-list-table').DataTable({
                 "lengthMenu": [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
-                "pageLength": 50
+                "pageLength": 50,
+                "dom": 'rtip'
             });
             $('.dt-table').css('width', '100%');
+
+            oTable = $('#model-list-table').DataTable();
+            $('#search-bar').keyup(function(){
+                oTable.search($(this).val()).draw() ;
+            })
+            $('.dataTables_info').addClass('col-md-5 text-right mt-2');
+            $('.dataTables_paginate').addClass('col-md-7 mt-4');
         });
     </script>
 {% endblock%}

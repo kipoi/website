@@ -32,7 +32,8 @@
 {% macro display_schema_inputs(inputs) %}
     {% for input in inputs %}
         <p><strong>Name</strong>: {{ input.name }}</p>
-        <p><strong>Shape</strong>: {{ input.shape }}</p>
+        <p>
+            <strong>Shape</strong>: {{ input.shape }}&nbsp;<a data-toggle="tooltip" data-placement="top" data-html="true" title="Numpy array shape for a single data point (i.e. batch dimension excluded)."><i class="fa fa-question-circle blue-grey-text" style="font-size: 0.9em;" aria-hidden="true"></i></a></p>
         <p><strong>Doc</strong>: {{ input.doc }}</p>
     {% endfor %}
 {% endmacro %}
@@ -65,6 +66,7 @@
 <!-- List dependencies -->
 {% macro list_dependencies(dependencies) %}
     {% for item in dependencies %}
-        {{ item }}{% if not loop.last %}, {% endif %}
+        &nbsp;&nbsp;&nbsp;&nbsp;-
+        {{ item }}{% if not loop.last %}<br>{% endif %}
     {% endfor %}
 {% endmacro %}
