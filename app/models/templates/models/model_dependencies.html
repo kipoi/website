@@ -1,34 +1,40 @@
 <div class="card">
-    <div class="card-header primary-color white-text">
-        Dependencies
+    <div class="card-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                Model dependencies
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                Dataloader dependencies
+            </div>
+        </div>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <ul class="list-group">
-                    <li class="list-group-item"><strong>Model</strong></li>
-                    <li class="list-group-item">
-                        <strong>conda</strong>:
+                    <p>
+                        <strong>conda</strong>:<br>
                         {{ list_dependencies(model.dependencies.conda) }}
-                    </li>
-                    <li class="list-group-item">
-                        <strong>pip</strong>:
+                    </p>
+                    <p>
+                        <strong>pip</strong>:<br>
                         {{ list_dependencies(model.dependencies.pip) }}
-                    </li>
+                    </p>
                 </ul>
             </div>
-            <hr class="w-100 clearfix d-md-none">
+            <hr class="w-100 clearfix d-lg-none">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <ul class="list-group">
-                    <li class="list-group-item"><strong>Dataloader</strong></li>
-                    <li class="list-group-item">
-                        <strong>conda</strong>:
+                    <p>
+                        <strong>conda</strong>:<br>
                         {{ list_dependencies(dataloader.dependencies.conda) }}
-                    </li>
-                    <li class="list-group-item">
-                        <strong>pip</strong>:
+                    </p>
+                    <p>
+                        <strong>pip</strong>:<br>
                         {{ list_dependencies(dataloader.dependencies.pip) }}
-                    </li>
+                    </p>
                 </ul>
             </div>
         </div>
