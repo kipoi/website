@@ -10,6 +10,63 @@ from flask import Blueprint, render_template
 
 models = Blueprint('models', __name__, template_folder='templates')
 
+
+def get_view(model_path, df):
+    """Test if the queried string is a model
+
+    Args:
+      relative path to the model: i.e. "" for the root, "rbp_eclip" for accessing the rbp_eclip data subset
+      df: pd.DataFrame returned by `kipoi.get_source("kipoi").list_models()`
+
+    to be used in combination with:
+    ```
+    df = kipoi.get_source("kipoi").list_models()
+    vtype_path = get_view(model_path, df)
+    if vtype_path is None:
+       # run 404
+    else:
+       vtype, path = vtype_path
+    if vtype == "model":
+        # render the normal model view
+        pass
+    elif vtype == "model_list":
+        # run the normal model list view on a subseted table
+        df_subset = df[df.model.str.contains("^" + path)]
+        pass
+    elif vtype == "group_list":
+        df_groups = kipoi.get_source("kipoi").list_models_by_group(path)
+        # render the normal path
+        # render the group view
+    ```
+
+    Returns:
+       a tuple: (type, path), where type can be "model", "model_list" or "group_list"
+    """
+    names = df.model[df.model.str.contains("^" + model_path)]
+    sub_names = names.str.replace("^" + model_path, "")
+    # sub_models = sub_names[~sub_names.str.contains("^/")]
+    sub_groups = sub_names[sub_names.str.contains("^/")].str.replace("^/", "")
+
+    if len(sub_names) == 0:
+        # error - no right string was found
+        return None
+    elif len(sub_names) == 1:
+        # we have found a single one
+        name = sub_names.iloc[0]
+        if name == "":
+            return ("model", model_path)
+        else:
+            return ("model", model_path + "/" + name)
+    elif len(names) > 1:
+        # there is more than one element in the list
+        if sub_groups.str.contains("/").any():
+            # some names contain further slashed in the name -
+            return ("group_list", model_path)
+        else:
+            # remain just regular models in the list
+            return ("model_list", model_path)
+
+
 @models.route("/models/")
 def list_models():
     """ Model list view """
