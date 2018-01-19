@@ -26,7 +26,8 @@ def get_view(model_path, df):
         # render the normal model view
         pass
     elif vtype == "model_list":
-        # run the normal view and subset the table via javascript using `path`
+        # run the normal model list view on a subseted table
+        df_subset = df[df.model.str.contains("^" + path)]
         pass
     elif vtype == "group_list":
         df_groups = kipoi.get_source("kipoi").list_models_by_group(path)
