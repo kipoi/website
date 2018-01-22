@@ -94,7 +94,6 @@ def model_list(source, model_name):
         # Model dataloaders info retrieved from kipoi
         dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader))
         title = model_name.split('/')
-        print(title)
 
         return render_template("models/model_details.html",
                                model_name=model_name,
