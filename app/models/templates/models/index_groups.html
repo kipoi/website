@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="row" style="margin-right: 0; margin-left: 0;">
     <div class="col-lg-9 col-md-9 col-sm-9">
         <!--Section: model-list content-->
         <section class="model-list">
             <!--<h2 class="overlayed-title">Model list</h2>-->
             <hr class="w-100 clearfix d-lg-none">
+            <!--/Section: model-list content-->
+            {% include 'models/group_list.html' %}
         </section>
-        <!--/Section: model-list content-->
-        {% include 'models/group_list.html' %}
     </div>
     <div class="col-lg-3 col-md-3 col-sm-3">
-            <!-- <a class="twitter-timeline" href="https://twitter.com/ZupanNejc/lists/kipoi?ref_src=twsrc%5Etfw">A Twitter List by ZupanNejc</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+            <a class="twitter-timeline" href="https://twitter.com/ZupanNejc/lists/kipoi?ref_src=twsrc%5Etfw">A Twitter List by ZupanNejc</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>
+</div>
 {% endblock %}
 
 {% block script %}
