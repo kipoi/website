@@ -60,37 +60,16 @@ div.dataTables_wrapper div.dataTables_filter input {
     background: #45526E !important;
 }
 
-/* .overlayed-title {
-    color: #5b657c;
-    position: absolute;
-} */
-
-/* Nav bar */
-/* .related-content-heading {
-    -webkit-align-self: flex-start;
-    -ms-flex-item-align: start;
-    align-self: flex-start;
-    overflow: visible;
-    font-size: 1.3em;
-    padding: .7rem 1rem;
-    white-space: nowrap;
-} */
-
-/* .nav-title-link, .nav-title-link:hover, .nav-title-link:active { */
-
 .nav-title-link {
-    /* text-decoration: none; */
     font-weight: bold;
-    /* color: white; */
 }
-
-/* .model-search {
-    width: 400px !important;
-} */
 
 .promenent-search {
     background-color: white;
 }
+/* .promenent-search div {
+    white-space: nowrap !important;
+} */
 
 .promenent-search input.model-search {
     width: 500px !important;
@@ -118,6 +97,58 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 .navbar.navbar-dark form input[type=text]:focus:not([readonly]) {
     box-shadow: none;
+}
+
+ul.dependencies > li {
+    padding-left: 10px;
+}
+
+/* 
+*
+* Code snippet box
+*
+*/
+.code-snippet-container {
+    border-color: #ddd !important;
+}
+
+.code-title {
+    background-color: #eaeaea;
+    padding: 0.4em 0.3em 0.1em 0.3em;
+    
+}
+
+.code-container {
+    position: relative;
+}
+
+.code-toolbar {
+    display: block;
+    position: absolute;
+    top: 0rem;
+    right: 0rem;
+}
+
+pre[class*=language-] {
+    margin-bottom: 0;
+    min-height: 38px;
+    overflow: auto;
+    padding: 0.5em;
+    color: #4c5568;
+    font-family: Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    font-size: .85rem;
 }
 
 /* 

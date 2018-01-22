@@ -76,6 +76,7 @@ def list_groups():
 @models.route('/models/<source>/<path:model_name>')
 def model_list(source, model_name):
     """ Models list view """
+    model_name = model_name.rstrip('/')
     df = kipoi.get_source("kipoi").list_models()
     vtype_path = get_view(model_name, df)
     print(vtype_path)
@@ -92,11 +93,14 @@ def model_list(source, model_name):
 
         # Model dataloaders info retrieved from kipoi
         dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader))
+        title = model_name.split('/')
+        print(title)
 
         return render_template("models/model_details.html",
                                model_name=model_name,
                                model=model,
-                               dataloader=dataloader)
+                               dataloader=dataloader,
+                               title=title)
 
     # run the normal model list view on a subsetted table
     elif vtype == "model_list":

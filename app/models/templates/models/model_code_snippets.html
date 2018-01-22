@@ -1,0 +1,41 @@
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#cli" role="tab">CLI</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#python" role="tab">python</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#r" role="tab">R</a>
+    </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <!-- CLI code snippet tab -->
+    <div class="tab-pane active" id="cli" role="tabpanel">
+        <div class="border border-top-0 code-snippet-container">
+            {{ code_snippet("Title to the CLI code below 1...","echo 'Hello World' >> file.txt") }}
+            {{ code_snippet("Title to the CLI code below 2...","echo 'Hello World' >> file.txt") }}
+            {{ code_snippet("Title to the CLI code below 3...","echo 'Hello World' >> file.txt") }}
+        </div>
+    </div>
+
+    <!-- python code snippet tab -->
+    <div class="tab-pane" id="python" role="tabpanel">
+        <div class="border border-top-0 code-snippet-container">
+            {{ code_snippet("Title to the python code below 1...","echo 'Hello World' >> file.txt") }}
+            {{ code_snippet("Title to the python code below 2...","echo 'Hello World' >> file.txt") }}
+            {{ code_snippet("Title to the python code below 3...","echo 'Hello World' >> file.txt") }}
+        </div>
+    </div>
+    
+    <!-- R code snippet tab -->
+    <div class="tab-pane" id="r" role="tabpanel">
+        <div class="border border-top-0 code-snippet-container">
+            {{ code_snippet("Title to the R code below 1...","echo 'Hello World' >> file.txt") }}
+            {{ code_snippet("Title to the R code below 2...","echo 'Hello World' >> file.txt") }}
+            {{ code_snippet("Title to the R code below 3...","echo 'Hello World' >> file.txt") }}
+        </div>
+    </div>
+</div>
