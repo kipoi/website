@@ -6,8 +6,7 @@ import os
 import base64
 from datetime import datetime
 from flask import Flask
-from models.views import models, list_models
-
+from models.views import models, list_groups
 
 def get_app_base_path():
     """ Get app base path. """
@@ -50,7 +49,7 @@ def parse_schema(schema):
 @app.route("/")
 def entry():
     """ For root url redirect to model list. """
-    return list_models()
+    return list_groups()
 
 @app.context_processor
 def app_processor():

@@ -4,18 +4,17 @@ models and the second is the models detail view that describes
 selected model. """
 
 import os
-import base64
 import kipoi
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for
 
 models = Blueprint('models', __name__, template_folder='templates')
-
 
 def get_view(model_path, df):
     """Test if the queried string is a model
 
     Args:
-      relative path to the model: i.e. "" for the root, "rbp_eclip" for accessing the rbp_eclip data subset
+      relative path to the model: i.e. "" for the root, "rbp_eclip" for 
+      accessing the rbp_eclip data subset
       df: pd.DataFrame returned by `kipoi.get_source("kipoi").list_models()`
 
     to be used in combination with:
@@ -66,31 +65,65 @@ def get_view(model_path, df):
             # remain just regular models in the list
             return ("model_list", model_path)
 
+@models.route("/groups/")
+def list_groups():
+    """ Group list view """
 
-@models.route("/models/")
-def list_models():
-    """ Model list view """
-    # Retrieve model list
-    model_df = kipoi.list_models()
+    group_df = kipoi.get_source("kipoi").list_models_by_group()
+    group_list = group_df.to_dict(orient='records')
+    return render_template("models/index_groups.html", groups=group_list)
 
-    # Convert dataframe to dictionary of records
-    model_list = model_df.to_dict(orient='records')
+@models.route('/models/<source>/<path:model_name>')
+def model_list(source, model_name):
+    """ Models list view """
+    df = kipoi.get_source("kipoi").list_models()
+    vtype_path = get_view(model_name, df)
+    print(vtype_path)
+    if vtype_path is None:
+       # run 404
+        pass
+    else:
+        vtype, path = vtype_path
 
-    return render_template("models/index.html", models=model_list)
+    # render the model detail view
+    if vtype == "model":
+        # Model info retrieved from kipoi
+        model = kipoi.get_model_descr(model_name, source=source)
 
-@models.route("/model/<source>/<model_name>")
-def model_details(source, model_name):
-    """ Model detail view """
-    # Model name parsed from url
-    model_name = (base64.b64decode(model_name)).decode("utf-8")
+        # Model dataloaders info retrieved from kipoi
+        dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader))
 
-    # Model info retrieved from kipoi
-    model = kipoi.get_model_descr(model_name, source=source)
+        return render_template("models/model_details.html",
+                               model_name=model_name,
+                               model=model,
+                               dataloader=dataloader)
 
-    # Model dataloaders info retrieved from kipoi
-    dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader))
+    # run the normal model list view on a subsetted table
+    elif vtype == "model_list":
+        model_df = kipoi.list_models()
+        # Filter the results
+        model_df = model_df[model_df.model.str.contains("^" + path)]
 
-    return render_template("models/model_details.html",
-                           model_name=model_name,
-                           model=model,
-                           dataloader=dataloader)
+        filtered_models = model_df.to_dict(orient='records')
+        return render_template("models/index.html", models=filtered_models)
+
+    # redirect to the group list
+    elif vtype == "group_list":
+        return redirect(url_for('models.list_groups'))
+
+# @models.route("/model/<source>/<path:model_name>")
+# def model_details(source, model_name):
+#     """ Model detail view """
+#     # Model name parsed from url
+#     # model_name = (base64.b64decode(model_name)).decode("utf-8")
+
+#     # Model info retrieved from kipoi
+#     model = kipoi.get_model_descr(model_name, source=source)
+
+#     # Model dataloaders info retrieved from kipoi
+#     dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader))
+
+#     return render_template("models/model_details.html",
+#                            model_name=model_name,
+#                            model=model,
+#                            dataloader=dataloader)
