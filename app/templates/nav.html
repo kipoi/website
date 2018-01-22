@@ -15,7 +15,7 @@
         
         <!-- Links -->
         <ul class="navbar-nav mr-auto text-center">
-            <li class="nav-item {% if request.endpoint == "models.list_models" or request.endpoint == "entry" %}active{% endif %}">
+            <li class="nav-item {% if request.endpoint == "models.list_groups" or request.endpoint == "entry" %}active{% endif %}">
                 <a id="components-related-1" class="nav-link waves-effect waves-light" href="{{ url_for('models.list_groups') }}">Group list</a>
             </li>
             {% if request.endpoint == "models.model_details" %}
@@ -26,7 +26,7 @@
         </ul>
 
         <!-- Search form -->
-        {% if request.endpoint == "models.list_models" or request.endpoint == "entry" or request.endpoint == "models.list_groups" %}
+        {% if (request.endpoint == "models.model_list" or request.endpoint == "entry" or request.endpoint == "models.list_groups") and not model %}
         <form class="form-inline promenent-search rounded">
             <label for="search-bar"><i class="fa fa-search fa-fw px-3" aria-hidden="true"></i></label>
             <input id="search-bar" class="form-control model-search" type="text" placeholder="Search" aria-label="Search" autofocus/>

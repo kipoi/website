@@ -1,4 +1,4 @@
-{% from "macros.html" import show_authors, list_dependencies, postprocessing_info, model_args_info, display_schema_inputs, dataloaders_info, dataloaders_args %}
+{% from "macros.html" import show_authors, list_dependencies, postprocessing_info, model_args_info, display_schema_inputs, dataloaders_info, dataloaders_args, code_snippet %}
 {% extends 'base.html' %}
 {% block content %}
     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -10,7 +10,16 @@
                     <div class="row">
                         <div class="col-lg-7">
                             <!-- Model title -->
-                            <h1 class="h1-responsive">{{ model_name }}</h1>
+                            <h1 class="h1-responsive">
+                                {%- for level in title -%}
+                                {%- if not loop.last -%}
+                                <a href="{{ url_for('models.model_list', source="kipoi", model_name=title[0:loop.index]|join('/')) }}">{{ level }}</a>/
+                                {%- else -%}
+                                {{ level }}
+                                {%- endif -%}
+                                {%- endfor -%}
+
+                            </h1>
                         </div>
                         <!-- Model details -->
                         <div class="col-lg-5">
@@ -29,7 +38,6 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-xs-12">
                                     <!-- Model name -->
-                                    
 
                                     <!-- Model type -->
                                     <p>
@@ -63,8 +71,8 @@
                         </div>
 
                         <div class="col-lg-5 col-md-12 col-sm-12">
-                            <!-- Model and dataloader dependencies -->
-                            {% include 'models/model_dependencies.html' %}
+                            <!-- Model code snippets -->
+                            {% include 'models/model_code_snippets.html' %}
                         </div>
                     </div>
                     
@@ -81,6 +89,17 @@
                             {% include 'models/model_dataloaders.html' %}
                         </div>
                     </div>
+                
+                    <hr class="w-100 clearfix">
+                    
+                    <!-- Model and dataloader dependencies -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-xs-12">
+                            <div class="row">
+                                {% include 'models/model_dependencies.html' %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
         </section>
         <!--/Section: model-details content-->                        
@@ -90,7 +109,18 @@
 {% block script %}
     <script language="JavaScript">
         $(document).ready(function() {
-            $('[data-toggle="tooltip"]').tooltip()
+            $('[data-toggle="tooltip"]').tooltip();
+
+            $('.copy-to-clipboard').on('click', function() {
+                /* Get the code field */
+                var copyCode = $(this).closest('.code-container').find('code').text();
+
+                var $temp = $("<input>");
+                $("body").append($temp);
+                $temp.val(copyCode).select();
+                document.execCommand("copy");
+                $temp.remove();
+            });
         });
     </script>
 {% endblock%}
