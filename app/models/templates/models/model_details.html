@@ -34,7 +34,11 @@
                                     <!-- Model type -->
                                     <p>
                                         Type:
-                                        <a data-toggle="tooltip" data-placement="top" data-html="true" title="{{ model_args_info(model.args) }}"><span class="badge badge-pill rgba-stylish-strong hoverable" >{{ model.type }}</span></a>
+                                        {% if model.type %}
+                                            <a data-toggle="tooltip" data-placement="top" data-html="true" title="{{ model_args_info(model.args) }}"><span class="badge badge-pill rgba-stylish-strong hoverable" >{{ model.type }}</span></a>
+                                        {% else %}
+                                            None
+                                        {% endif %}
                                     </p>
 
                                     <!-- Model postprocessing -->
