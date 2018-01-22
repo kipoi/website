@@ -57,4 +57,7 @@ batch = next(it)
 model.predict_on_batch(batch)""".format(**ctx))]
 
 
+def get_snippets(model_name):
+    snp = py_snippet(model_name)
+    return {"cli": snp, "python": snp, "R": snp}
 # print(py_snippet("DeepSEA")[2][1])
