@@ -15,27 +15,27 @@
     <!-- CLI code snippet tab -->
     <div class="tab-pane active" id="cli" role="tabpanel">
         <div class="border border-top-0 code-snippet-container">
-            {{ code_snippet("Title to the CLI code below 1...","echo 'Hello World' >> file.txt") }}
-            {{ code_snippet("Title to the CLI code below 2...","echo 'Hello World' >> file.txt") }}
-            {{ code_snippet("Title to the CLI code below 3...","echo 'Hello World' >> file.txt") }}
+            {% for label,snippet in code_snippets['cli']%}
+                {{ code_snippet(label, snippet) }}
+            {% endfor %}
         </div>
     </div>
 
     <!-- python code snippet tab -->
     <div class="tab-pane" id="python" role="tabpanel">
         <div class="border border-top-0 code-snippet-container">
-            {{ code_snippet("Title to the python code below 1...","echo 'Hello World' >> file.txt") }}
-            {{ code_snippet("Title to the python code below 2...","echo 'Hello World' >> file.txt") }}
-            {{ code_snippet("Title to the python code below 3...","echo 'Hello World' >> file.txt") }}
+            {% for label,snippet in code_snippets['python']%}
+                {{ code_snippet(label, snippet) }}
+            {% endfor %}
         </div>
     </div>
     
     <!-- R code snippet tab -->
     <div class="tab-pane" id="r" role="tabpanel">
         <div class="border border-top-0 code-snippet-container">
-            {{ code_snippet("Title to the R code below 1...","echo 'Hello World' >> file.txt") }}
-            {{ code_snippet("Title to the R code below 2...","echo 'Hello World' >> file.txt") }}
-            {{ code_snippet("Title to the R code below 3...","echo 'Hello World' >> file.txt") }}
+            {% for label,snippet in code_snippets['R']%}
+                {{ code_snippet(label, snippet) }}
+            {% endfor %}
         </div>
     </div>
 </div>
