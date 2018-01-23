@@ -97,7 +97,7 @@ def model_list(source, model_name):
         title = model_name.split('/')
         # obtain snippets
         code_snippets = get_snippets(model_name)
-        
+
         return render_template("models/model_details.html",
                                model_name=model_name,
                                model=model,
