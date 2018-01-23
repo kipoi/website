@@ -6,6 +6,7 @@ selected model. """
 import os
 import kipoi
 from flask import Blueprint, render_template, redirect, url_for
+from models.code_snippets import get_snippets
 
 models = Blueprint('models', __name__, template_folder='templates')
 
@@ -94,12 +95,15 @@ def model_list(source, model_name):
         # Model dataloaders info retrieved from kipoi
         dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader))
         title = model_name.split('/')
+        # obtain snippets
+        code_snippets = get_snippets(model_name)
 
         return render_template("models/model_details.html",
                                model_name=model_name,
                                model=model,
                                dataloader=dataloader,
-                               title=title)
+                               title=title,
+                               code_snippets=code_snippets)
 
     # run the normal model list view on a subsetted table
     elif vtype == "model_list":
