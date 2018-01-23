@@ -126,7 +126,7 @@ model <- kipoi$get_model('{model_name}')""".format(**ctx)),
             ("Make a prediction the example files",
              "predictions <- model$pipeline$predict_example()".format(**ctx)
              ),
-            ("filesUse dataloader and model separately",
+            ("Use dataloader and model separately",
              """# Get the dataloader
 setwd('~/.kipoi/models/{model_name}')
 dl <- model$default_dataloader({example_kwargs})
