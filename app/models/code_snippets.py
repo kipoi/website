@@ -41,16 +41,13 @@ def py_snippet(model_name):
     return [("Get the model", """import kipoi
 model = kipoi.get_model('{model_name}')""".format(**ctx)),
             ("Make a prediction the example files",
-             """# setup the example dataloader kwargs
-import os
-dl_kwargs = {example_kwargs}
-os.chdir(os.path.expanduser('~/.kipoi/models/{model_name}'))
-
-# predict
-pred = model.pipeline.predict(**dl_kwargs)""".format(**ctx)
+             """pred = model.pipeline.predict_example()""".format(**ctx)
              ),
             ("Use dataloader and model separately",
-             """# Get the dataloader and instantiate it
+             """# setup the example dataloader kwargs
+dl_kwargs = {example_kwargs}
+import os; os.chdir(os.path.expanduser('~/.kipoi/models/{model_name}'))
+# Get the dataloader and instantiate it
 dl = model.default_dataloader(**dl_kwargs)
 # get a batch iterator
 it = dl.batch_iter(batch_size=4)
@@ -64,16 +61,21 @@ model.predict_on_batch(batch['inputs'])""".format(**ctx))]
 
 def bash_snippet(model_name):
     ctx = {"model_name": model_name,
+           "model_name_no_slash": model_name.replace("/", "|"),
            "example_kwargs": get_example_kwargs(model_name)}
-    return [("Make a prediction", """cd ~/.kipoi/models/{model_name}
-kipoi predict {model_name} \
-  --batch_size 32 \
-  -n 4 \
-  --dataloader_args='{example_kwargs}' \
-  -f tsv \
-  -o /tmp/{model_name}.example_pred.tsv""".format(**ctx)),
-            ("Create a custom conda environment", "kipoi env create {model_name}".format(**ctx)),
-            ("Test the model", "kipoi test {model_name} --source=kipoi".format(**ctx))]
+    return [("Test the model", "kipoi test {model_name} --source=kipoi".format(**ctx)),
+            ("Make a prediction", """cd ~/.kipoi/models/{model_name}
+kipoi predict {model_name} \\
+  --batch_size 32 \\
+  -n 4 \\
+  --dataloader_args='{example_kwargs}' \\
+  -f tsv \\
+  -o '/tmp/{model_name_no_slash}.example_pred.tsv'
+# check the results
+head '/tmp/{model_name_no_slash}.example_pred.tsv'
+""".format(**ctx)),
+        ("Create a custom conda environment", "kipoi env create {model_name}".format(**ctx)),
+    ]
 
 # --------------------------------------------
 # R
@@ -143,3 +145,15 @@ def test_get_snippets():
     models = kipoi.list_models().model.unique()
     for model_name in models:
         assert isinstance(get_snippets(model_name), dict)
+
+
+def test_print(model_name):
+    """Test the printed snippets
+    """
+    snippets = get_snippets(model_name)
+    for lang, l in snippets.items():
+        print("---------------")
+        print("Language: {0}".format(lang))
+        print("---------------")
+        for k, v in l:
+            print("--> " + k + "\n" + v + "\n")
