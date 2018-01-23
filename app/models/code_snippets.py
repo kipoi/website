@@ -36,8 +36,12 @@ def py_set_example_kwargs(model_name):
 def py_snippet(model_name):
     """Generate the python code snippet
     """
+    try:
+        kw = get_example_kwargs(model_name)
+    except:
+        kw = "Error"
     ctx = {"model_name": model_name,
-           "example_kwargs": get_example_kwargs(model_name)}
+           "example_kwargs": kw}
     return [("Get the model", """import kipoi
 model = kipoi.get_model('{model_name}')""".format(**ctx)),
             ("Make a prediction the example files",
@@ -60,9 +64,13 @@ model.predict_on_batch(batch['inputs'])""".format(**ctx))]
 # Bash / CLI
 
 def bash_snippet(model_name):
+    try:
+        kw = get_example_kwargs(model_name)
+    except:
+        kw = "Error"
     ctx = {"model_name": model_name,
            "model_name_no_slash": model_name.replace("/", "|"),
-           "example_kwargs": get_example_kwargs(model_name)}
+           "example_kwargs": kw}
     return [("Test the model", "kipoi test {model_name} --source=kipoi".format(**ctx)),
             ("Make a prediction", """cd ~/.kipoi/models/{model_name}
 kipoi predict {model_name} \\
@@ -106,8 +114,12 @@ def format_R_obj(obj):
 def R_snippet(model_name):
     """Generate the python code snippet
     """
+    try:
+        kw = format_R_kwargs(get_example_kwargs(model_name))
+    except:
+        kw = "Error"
     ctx = {"model_name": model_name,
-           "example_kwargs": format_R_kwargs(get_example_kwargs(model_name))}
+           "example_kwargs": kw}
     return [("Get the model", """library(reticulate)
 kipoi <- import('kipoi')
 model <- kipoi$get_model('{model_name}')""".format(**ctx)),
