@@ -74,10 +74,7 @@ def bash_snippet(model_name):
     return [("Test the model", "kipoi test {model_name} --source=kipoi".format(**ctx)),
             ("Make a prediction", """cd ~/.kipoi/models/{model_name}
 kipoi predict {model_name} \\
-  --batch_size 32 \\
-  -n 4 \\
   --dataloader_args='{example_kwargs}' \\
-  -f tsv \\
   -o '/tmp/{model_name_no_slash}.example_pred.tsv'
 # check the results
 head '/tmp/{model_name_no_slash}.example_pred.tsv'
