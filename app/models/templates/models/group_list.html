@@ -4,6 +4,8 @@
             <th class="text-left">Model name</th>
             <th>Authors</th>
             <th>Type</th>
+            <th>Cite as</th>
+            <th>License</th>
             <th>Tags</th>
         </tr>
     </thead>
@@ -12,6 +14,8 @@
             <th class="text-left">Model name</th>
             <th>Authors</th>
             <th>Type</th>
+            <th>Cite as</th>
+            <th>License</th>
             <th>Tags</th>
         </tr>
     </tfoot>
@@ -40,9 +44,13 @@
             {%endfor %}
             </td>
             <td>
-                {% for type in item.type %}
-                    {{ type }}{% if not loop.last %}, {% endif %}
-                {% endfor %}
+                {{ list_set(item.type) }}
+            </td>
+            <td>
+                {{ list_set(item.cite_as) }}
+            </td>
+            <td>
+                {{ list_set(item.license) }}
             </td>
             <td>{{ item.tag }}</td>
         </tr>

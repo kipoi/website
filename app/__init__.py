@@ -18,12 +18,9 @@ def get_instance_folder_path():
 
 app = Flask(__name__,
             instance_path=get_instance_folder_path(),
-            instance_relative_config=True,
             template_folder='templates')
 
-app.config.update(
-    EXPLAIN_TEMPLATE_LOADING=False
-)
+app.config.from_pyfile('config.py')
 
 @app.template_filter('b64encode')
 def base64encode(text):

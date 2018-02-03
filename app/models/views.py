@@ -6,7 +6,6 @@ selected model. """
 import os
 import kipoi
 from flask import Blueprint, render_template, redirect, url_for
-from flask_cache import Cache
 
 from app.models.code_snippets import get_snippets
 from app.models.cache import cache
@@ -14,19 +13,13 @@ from app.models.cache import cache
 
 mod = Blueprint('models', __name__, template_folder='templates')
 
-@cache.cached(timeout=60*10, key_prefix='model_groups')
+@cache.cached(key_prefix='model_groups')
 def get_model_groups():
     """ Cache for list model groups """
     group_df = kipoi.get_source("kipoi").list_models_by_group()
     return group_df
 
-@cache.cached(timeout=60*10, key_prefix='list_models')
-def get_list_models():
-    """ Cache for list models """
-    df = kipoi.list_models()
-    return df
-
-@cache.cached(timeout=60*10, key_prefix='model_list')
+@cache.cached(key_prefix='model_list')
 def get_model_list():
     """ Cache for kipoi's list models """
     df = kipoi.get_source("kipoi").list_models()
@@ -129,7 +122,7 @@ def model_list(source, model_name):
 
     # run the normal model list view on a subsetted table
     elif vtype == "model_list":
-        model_df = get_list_models()
+        model_df = get_model_list()
         # Filter the results
         model_df = model_df[model_df.model.str.contains("^" + path)]
 
