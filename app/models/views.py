@@ -6,9 +6,31 @@ selected model. """
 import os
 import kipoi
 from flask import Blueprint, render_template, redirect, url_for
-from models.code_snippets import get_snippets
+from flask_cache import Cache
 
-models = Blueprint('models', __name__, template_folder='templates')
+from app.models.code_snippets import get_snippets
+from app.models.cache import cache
+
+
+mod = Blueprint('models', __name__, template_folder='templates')
+
+@cache.cached(timeout=60*10, key_prefix='model_groups')
+def get_model_groups():
+    """ Cache for list model groups """
+    group_df = kipoi.get_source("kipoi").list_models_by_group()
+    return group_df
+
+@cache.cached(timeout=60*10, key_prefix='list_models')
+def get_list_models():
+    """ Cache for list models """
+    df = kipoi.list_models()
+    return df
+
+@cache.cached(timeout=60*10, key_prefix='model_list')
+def get_model_list():
+    """ Cache for kipoi's list models """
+    df = kipoi.get_source("kipoi").list_models()
+    return df
 
 def get_view(model_path, df):
     """Test if the queried string is a model
@@ -66,21 +88,21 @@ def get_view(model_path, df):
             # remain just regular models in the list
             return ("model_list", model_path)
 
-@models.route("/groups/")
+@mod.route("/")
+@mod.route("/groups/")
 def list_groups():
     """ Group list view """
-
-    group_df = kipoi.get_source("kipoi").list_models_by_group()
+    group_df = get_model_groups()
     group_list = group_df.to_dict(orient='records')
     return render_template("models/index_groups.html", groups=group_list)
 
-@models.route('/models/<source>/<path:model_name>')
+@mod.route('/models/<source>/<path:model_name>')
 def model_list(source, model_name):
     """ Models list view """
+    df = get_model_list()
     model_name = model_name.rstrip('/')
-    df = kipoi.get_source("kipoi").list_models()
     vtype_path = get_view(model_name, df)
-    print(vtype_path)
+
     if vtype_path is None:
        # run 404
         pass
@@ -107,7 +129,7 @@ def model_list(source, model_name):
 
     # run the normal model list view on a subsetted table
     elif vtype == "model_list":
-        model_df = kipoi.list_models()
+        model_df = get_list_models()
         # Filter the results
         model_df = model_df[model_df.model.str.contains("^" + path)]
 
@@ -117,20 +139,3 @@ def model_list(source, model_name):
     # redirect to the group list
     elif vtype == "group_list":
         return redirect(url_for('models.list_groups'))
-
-# @models.route("/model/<source>/<path:model_name>")
-# def model_details(source, model_name):
-#     """ Model detail view """
-#     # Model name parsed from url
-#     # model_name = (base64.b64decode(model_name)).decode("utf-8")
-
-#     # Model info retrieved from kipoi
-#     model = kipoi.get_model_descr(model_name, source=source)
-
-#     # Model dataloaders info retrieved from kipoi
-#     dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader))
-
-#     return render_template("models/model_details.html",
-#                            model_name=model_name,
-#                            model=model,
-#                            dataloader=dataloader)
