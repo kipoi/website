@@ -72,6 +72,20 @@
     </u>
 {% endmacro %}
 
+<!-- List set of strings -->
+{% macro list_set(set) %}
+    {% for element in set %}
+        {{ element }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+<!-- Display if not none -->
+{% macro not_none(element) %}
+    {% if element is not none %}
+        {{ element }}
+    {% endif %}
+{% endmacro %}
+
 <!-- Code snippet block -->
 {% macro code_snippet(title, code) %}
 <div class="row">
