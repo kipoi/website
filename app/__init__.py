@@ -30,7 +30,6 @@ def base64encode(text):
 @app.template_filter('parse_cite_as')
 def parse_cite_as(cite):
     """Convert set of strings to list of strings."""
-    print(type(cite))
     if isinstance(cite, set):
         if not cite:
             return []
