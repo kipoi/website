@@ -1,4 +1,4 @@
-<table id="model-list-table" class="mdl-data-table" cellspacing="0" style="width:100%">
+<table id="model-list-table" class="mdl-data-table table-responsive-lg" cellspacing="0" style="width:100%">
     <thead>
         <tr>
             <th class="text-left">Model name</th>
@@ -7,8 +7,7 @@
             <th>Type</th>
             <th>Cite as</th>
             <th>License</th>
-            <th>Trained on</th>
-            <th>Training procedure</th>
+            <th class="d-lg-none d-md-none d-sm-none d-xs-none">Training procedure</th>
         </tr>
     </thead>
     <tfoot>
@@ -19,8 +18,7 @@
             <th>Type</th>
             <th>Cite as</th>
             <th>License</th>
-            <th>Trained on</th>
-            <th>Training procedure</th>
+            <th class="d-lg-none d-md-none d-sm-none d-xs-none">Training procedure</th>
         </tr>
     </tfoot>
     <tbody>
@@ -33,32 +31,16 @@
             </td>
             <td>{{ item.version }}</td>
             <td>
-            {% for author in item.authors %}
-                {{ author.name}}
-                {% if author.github %}
-                    <a href="https://github.com/{{ author.github }}" class="github">
-                        <i class="fa fa-github" aria-hidden="true"></i>
-                    </a>
-                {% endif %}
-                {% if author.email %}
-                    <a href="mailto:{{ author.email }}">
-                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                    </a>
-                {% endif %}
-                {% if not loop.last %}, {% endif %}
-            {%endfor %}
+                {{ show_authors(item.authors, short=True) }}
             </td>
             <td>{{ item.type }}</td>
             <td>
-                {{ not_none(item.cite_as) }}
+                {{ parse_cite_as(item.cite_as) }}
             </td>
             <td>
                 {{ not_none(item.license) }}
             </td>
-            <td>
-                {{ not_none(item.trained_on) }}
-            </td>
-            <td>
+            <td class="d-lg-none d-md-none d-sm-none d-xs-none">
                 {{ not_none(item.training_procedure) }}
             </td>
         </tr>

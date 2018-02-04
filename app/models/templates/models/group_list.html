@@ -1,4 +1,4 @@
-<table id="model-list-table" class="mdl-data-table" cellspacing="0" style="width:100%">
+<table id="model-list-table" class="mdl-data-table table-responsive-lg" cellspacing="0" style="width:100%">
     <thead>
         <tr>
             <th class="text-left">Model name</th>
@@ -28,26 +28,13 @@
                 </a>
             </td>
             <td>
-            {% for author in item.authors %}
-                {{ author.name}}
-                {% if author.github %}
-                    <a href="https://github.com/{{ author.github }}" class="github">
-                        <i class="fa fa-github" aria-hidden="true"></i>
-                    </a>
-                {% endif %}
-                {% if author.email %}
-                    <a href="mailto:{{ author.email }}">
-                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                    </a>
-                {% endif %}
-                {% if not loop.last %}, {% endif %}
-            {%endfor %}
+                {{ show_authors(item.authors, short=True) }}
             </td>
             <td>
                 {{ list_set(item.type) }}
             </td>
             <td>
-                {{ list_set(item.cite_as) }}
+                {{ parse_cite_as(item.cite_as) }}
             </td>
             <td>
                 {{ list_set(item.license) }}

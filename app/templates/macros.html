@@ -1,19 +1,29 @@
-<!-- Parse and show authors macro -->
-{% macro show_authors(authors) %}
+{% macro show_authors(authors, short=False) %}
     {% for author in authors %}
-        {{ author.name}}
-        {% if author.github %}
-            <a href="https://github.com/{{ author.github }}" class="github">
-                <i class="fa fa-github" aria-hidden="true"></i>
-            </a>
+        {% if short %} 
+            {% if loop.first %}
+                {{ show_author(author) }}{% if not loop.last %}, et al.{% endif %}
+            {% endif %}
+        {% else %}
+            {{ show_author(author) }}
         {% endif %}
-        {% if author.email %}
-            <a href="mailto:{{ author.email }}">
-                <i class="fa fa-envelope-o" aria-hidden="true"></i>
-            </a>
-        {% endif %}
-        {% if not loop.last %},{% endif %}
+        {% if not short and not loop.last%}, {% endif %}
     {% endfor %}
+{% endmacro %}
+
+<!-- Parse and show authors macro -->
+{% macro show_author(author) %}
+    {{ author.name}}
+    {% if author.github %}
+        <a href="https://github.com/{{ author.github }}" class="github">
+            <i class="fa fa-github" aria-hidden="true"></i>
+        </a>
+    {% endif %}
+    {% if author.email %}
+        <a href="mailto:{{ author.email }}">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        </a>
+    {% endif %}
 {% endmacro %}
 
 <!-- Postprocessing tooltip macro -->
@@ -78,6 +88,18 @@
         {{ element }}{% if not loop.last %}, {% endif %}
     {% endfor %}
 {% endmacro %}
+
+<!-- List set of strings -->
+{% macro parse_cite_as(set) %}
+    {% for element in set|parse_cite_as %}
+        {{ cite_as(element) }}{% if not loop.last %}<br/>{% endif %}
+    {% endfor %}
+{% endmacro %}
+
+<!-- Parse cite as link -->
+{% macro cite_as(cite) %}
+    <a href="{{ cite }}">{{ cite }}</a>
+{% endmacro%}
 
 <!-- Display if not none -->
 {% macro not_none(element) %}
