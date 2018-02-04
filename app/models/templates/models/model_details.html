@@ -1,4 +1,4 @@
-{% from "macros.html" import show_authors, list_dependencies, postprocessing_info, model_args_info, display_schema_inputs, dataloaders_info, dataloaders_args, code_snippet, not_none %}
+{% from "macros.html" import show_authors, list_dependencies, postprocessing_info, model_args_info, display_schema_inputs, dataloaders_info, dataloaders_args, code_snippet, not_none, parse_cite_as %}
 {% extends 'base.html' %}
 {% block content %}
     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-xs-12">
                                     <!-- Cite as -->
-                                    <p>Cite as: {{ not_none(model.info.cite_as) }}</p>
+                                    <p>Cite as: {{ parse_cite_as(model.info.cite_as) }}</p>
 
                                     <!-- Trained on -->
                                     <p>Trained on: {{ not_none(model.info.trained_on) }}</p>

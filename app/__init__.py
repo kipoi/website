@@ -27,6 +27,17 @@ def base64encode(text):
     """Convert a string to base64."""
     return base64.b64encode(str.encode(text))
 
+@app.template_filter('parse_cite_as')
+def parse_cite_as(cite):
+    """Convert set of strings to list of strings."""
+    print(type(cite))
+    if isinstance(cite, set):
+        if not cite:
+            return []
+        return cite.pop().split(',')
+    elif isinstance(cite, str):
+        return cite.split(',')
+
 @app.template_filter('parse_schema')
 def parse_schema(schema):
     """Parse model schema by removing unneeded fields and reordering them."""
