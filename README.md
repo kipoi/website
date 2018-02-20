@@ -70,3 +70,19 @@ Run a container based on your image:
 ```bash
 docker run -d --name kipoi -p 80:80 kipoi-webapp
 ```
+
+### Static webpage
+
+Run
+
+```bash
+make freeze
+```
+
+This will generate a static webpage located under `app/build`. If you wish to serve that directory, run
+
+```bash
+make serve-freeze
+```
+
+This will start python's simple http server from directory `app/build` on port 8000.
