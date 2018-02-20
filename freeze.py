@@ -3,7 +3,16 @@ from app import app
 import os
 import kipoi
 from tqdm import tqdm
-freezer = Freezer(app)
+
+from app.models.cache import cache
+
+# override the database memcache
+cache.init_app(app, config={'CACHE_TYPE': 'simple'})
+# http://pythonhosted.org/Frozen-Flask/#api-reference
+freezer = Freezer(app,
+                  # with_no_argument_rules=False
+                  # ignore all other url's
+                  log_url_for=False)
 
 
 @freezer.register_generator
@@ -20,9 +29,7 @@ def all_urls():
 
 
 if __name__ == '__main__':
-    # freezer.freeze()
-
-    urls = all_urls()
+    urls = list(freezer.all_urls())
     for x in tqdm(freezer.freeze_yield(), total=len(urls)):
         pass
     print("Done!")
