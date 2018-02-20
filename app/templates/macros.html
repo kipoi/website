@@ -27,13 +27,19 @@
 {% endmacro %}
 
 <!-- Postprocessing tooltip macro -->
-{% macro postprocessing_info(info) %}
+{% macro postprocessing_info(info_args) %}
     <div>
-        {% for key, values in info.args.items() %}
-            <strong>{{ key }}</strong>:
-            {% for value in values %}
-                {{ value }}{% if not loop.last %}, <br>{% endif %}
-            {% endfor %}
+        {% for key, values in info_args.items() %}
+	    {% if values is not none %}
+                <strong>{{ key }}</strong>:
+    	        {% if values is iterable and values is not string %}
+                    {% for value in values %}
+                        {{ value }}{% if not loop.last %}, <br>{% endif %}
+                    {% endfor %}
+	        {% else %}
+	            {{ value|e}}
+	        {% endif %}
+	    {% endif %}
         {% endfor %}
     </div>
 {% endmacro %}
@@ -91,14 +97,20 @@
 
 <!-- List set of strings -->
 {% macro parse_cite_as(set) %}
-    {% for element in set|parse_cite_as %}
-        {{ cite_as(element) }}{% if not loop.last %}<br/>{% endif %}
-    {% endfor %}
+    {% if set is not none %}
+        {% for element in set|parse_cite_as %}
+            {{ cite_as(element) }}{% if not loop.last %}<br/>{% endif %}
+        {% endfor %}
+    {% endif %}
 {% endmacro %}
 
 <!-- Parse cite as link -->
 {% macro cite_as(cite) %}
-    <a href="{{ cite }}">{{ cite }}</a>
+    {% if cite is not none %}
+        <a href="{{ cite }}">{{ cite }}</a>
+    {% else %}
+	/
+    {% endif %}
 {% endmacro%}
 
 <!-- Display if not none -->
