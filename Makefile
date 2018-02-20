@@ -12,7 +12,7 @@ freeze:
 	@echo "Build finished"
 
 serve:
-	python app.py
+	python run.py
 
 serve-freeze:
 	cd app/build && python -m http.server
