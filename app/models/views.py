@@ -13,17 +13,20 @@ from app.models.cache import cache
 
 mod = Blueprint('models', __name__, template_folder='templates')
 
+
 @cache.cached(key_prefix='model_groups')
 def get_model_groups():
     """ Cache for list model groups """
     group_df = kipoi.get_source("kipoi").list_models_by_group()
     return group_df
 
+
 @cache.cached(key_prefix='model_list')
 def get_model_list():
     """ Cache for kipoi's list models """
     df = kipoi.get_source("kipoi").list_models()
     return df
+
 
 def get_view(model_path, df):
     """Test if the queried string is a model
@@ -81,6 +84,7 @@ def get_view(model_path, df):
             # remain just regular models in the list
             return ("model_list", model_path)
 
+
 @mod.route("/")
 @mod.route("/groups/")
 def list_groups():
@@ -88,6 +92,7 @@ def list_groups():
     group_df = get_model_groups()
     group_list = group_df.to_dict(orient='records')
     return render_template("models/index_groups.html", groups=group_list)
+
 
 @mod.route('/models/<source>/<path:model_name>')
 def model_list(source, model_name):
@@ -97,7 +102,7 @@ def model_list(source, model_name):
     vtype_path = get_view(model_name, df)
 
     if vtype_path is None:
-       # run 404
+        # run 404
         pass
     else:
         vtype, path = vtype_path
