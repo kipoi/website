@@ -1,136 +1,136 @@
 {% macro show_authors(authors, short=False) %}
-    {% for author in authors %}
-        {% if short %} 
-            {% if loop.first %}
-                {{ show_author(author) }}{% if not loop.last %}, et al.{% endif %}
-            {% endif %}
-        {% else %}
-            {{ show_author(author) }}
-        {% endif %}
-        {% if not short and not loop.last%}, {% endif %}
+{% for author in authors %}
+{% if short %} 
+{% if loop.first %}
+{{ show_author(author) }}{% if not loop.last %} <i>et al.</i>{% endif %}
+  {% endif %}
+  {% else %}
+  {{ show_author(author) }}
+  {% endif %}
+  {% if not short and not loop.last%}, {% endif %}
+  {% endfor %}
+  {% endmacro %}
+
+  <!-- Parse and show authors macro -->
+  {% macro show_author(author) %}
+  {{ author.name}}
+  {% if author.github %}
+  <a href="https://github.com/{{ author.github }}" class="github">
+    <i class="fa fa-github" aria-hidden="true"></i>
+  </a>
+  {% endif %}
+  {% if author.email %}
+  <a href="mailto:{{ author.email }}">
+    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+  </a>
+  {% endif %}
+  {% endmacro %}
+
+  <!-- Postprocessing tooltip macro -->
+  {% macro postprocessing_info(info_args) %}
+  <div>
+    {% for key, values in info_args.items() %}
+    {% if values is not none %}
+    <strong>{{ key }}</strong>:
+    {% if values is iterable and values is not string %}
+    {% for value in values %}
+    {{ value }}{% if not loop.last %}, <br>{% endif %}
     {% endfor %}
-{% endmacro %}
-
-<!-- Parse and show authors macro -->
-{% macro show_author(author) %}
-    {{ author.name}}
-    {% if author.github %}
-        <a href="https://github.com/{{ author.github }}" class="github">
-            <i class="fa fa-github" aria-hidden="true"></i>
-        </a>
-    {% endif %}
-    {% if author.email %}
-        <a href="mailto:{{ author.email }}">
-            <i class="fa fa-envelope-o" aria-hidden="true"></i>
-        </a>
-    {% endif %}
-{% endmacro %}
-
-<!-- Postprocessing tooltip macro -->
-{% macro postprocessing_info(info_args) %}
-    <div>
-        {% for key, values in info_args.items() %}
-	    {% if values is not none %}
-                <strong>{{ key }}</strong>:
-    	        {% if values is iterable and values is not string %}
-                    {% for value in values %}
-                        {{ value }}{% if not loop.last %}, <br>{% endif %}
-                    {% endfor %}
-	        {% else %}
-	            {{ value|e}}
-	        {% endif %}
-	    {% endif %}
-        {% endfor %}
-    </div>
-{% endmacro %}
-
-<!-- Model schema input macro -->
-{% macro display_schema_inputs(inputs) %}
-    {% for input in inputs %}
-        <p><strong>Name</strong>: {{ input.name }}</p>
-        <p>
-            <strong>Shape</strong>: {{ input.shape }}&nbsp;<a data-toggle="tooltip" data-placement="top" data-html="true" title="Numpy array shape for a single data point (i.e. batch dimension excluded)."><i class="fa fa-question-circle blue-grey-text" style="font-size: 0.9em;" aria-hidden="true"></i></a></p>
-        <p><strong>Doc</strong>: {{ input.doc }}</p>
-    {% endfor %}
-{% endmacro %}
-
-<!-- Model arguments tooltip macro -->
-{% macro model_args_info(args) %}
-    <div>
-        {% for key, values in args.items() %}
-            <strong>{{ key }}</strong>: {{ values }}<br>
-        {% endfor %}
-    </div>
-{% endmacro %}
-
-<!-- Dataloaders info tooltip macro -->
-{% macro dataloaders_info(model, dataloaders) %}
-{% endmacro %}
-
-<!-- Dataloader arguments macro -->
-{% macro dataloaders_args(args) %}
-    <div>
-        {% for key, values in args.items() %}
-            <p>
-                <strong>{{ key }}</strong> {% if values.optional %}(optional){% endif %}:
-                {{ values.doc }}
-            </p>
-        {% endfor %}
-    </div>
-{% endmacro %}
-
-<!-- List dependencies -->
-{% macro list_dependencies(dependencies) %}
-    <ul class="dependencies">
-    {% for item in dependencies %}
-        <li>{{ item }}{% if not loop.last %}<br>{% endif %}</li>
-    {% endfor %}
-    </u>
-{% endmacro %}
-
-<!-- List set of strings -->
-{% macro list_set(set) %}
-    {% for element in set %}
-        {{ element }}{% if not loop.last %}, {% endif %}
-    {% endfor %}
-{% endmacro %}
-
-<!-- List set of strings -->
-{% macro parse_cite_as(set) %}
-    {% if set is not none %}
-        {% for element in set|parse_cite_as %}
-            {{ cite_as(element) }}{% if not loop.last %}<br/>{% endif %}
-        {% endfor %}
-    {% endif %}
-{% endmacro %}
-
-<!-- Parse cite as link -->
-{% macro cite_as(cite) %}
-    {% if cite is not none %}
-        <a href="{{ cite }}">{{ cite }}</a>
     {% else %}
-	/
+    {{ value|e}}
     {% endif %}
-{% endmacro%}
-
-<!-- Display if not none -->
-{% macro not_none(element) %}
-    {% if element is not none %}
-        {{ element }}
     {% endif %}
-{% endmacro %}
+    {% endfor %}
+  </div>
+  {% endmacro %}
 
-<!-- Code snippet block -->
-{% macro code_snippet(title, code) %}
-<div class="row">
+  <!-- Model schema input macro -->
+  {% macro display_schema_inputs(inputs) %}
+  {% for input in inputs %}
+  <p><strong>Name</strong>: {{ input.name }}</p>
+  <p>
+    <strong>Shape</strong>: {{ input.shape }}&nbsp;<a data-toggle="tooltip" data-placement="top" data-html="true" title="Numpy array shape for a single data point (i.e. batch dimension excluded)."><i class="fa fa-question-circle blue-grey-text" style="font-size: 0.9em;" aria-hidden="true"></i></a></p>
+  <p><strong>Doc</strong>: {{ input.doc }}</p>
+  {% endfor %}
+  {% endmacro %}
+
+  <!-- Model arguments tooltip macro -->
+  {% macro model_args_info(args) %}
+  <div>
+    {% for key, values in args.items() %}
+    <strong>{{ key }}</strong>: {{ values }}<br>
+    {% endfor %}
+  </div>
+  {% endmacro %}
+
+  <!-- Dataloaders info tooltip macro -->
+  {% macro dataloaders_info(model, dataloaders) %}
+  {% endmacro %}
+
+  <!-- Dataloader arguments macro -->
+  {% macro dataloaders_args(args) %}
+  <div>
+    {% for key, values in args.items() %}
+    <p>
+      <strong>{{ key }}</strong> {% if values.optional %}(optional){% endif %}:
+      {{ values.doc }}
+    </p>
+    {% endfor %}
+  </div>
+  {% endmacro %}
+
+  <!-- List dependencies -->
+  {% macro list_dependencies(dependencies) %}
+  <ul class="dependencies">
+    {% for item in dependencies %}
+    <li>{{ item }}{% if not loop.last %}<br>{% endif %}</li>
+    {% endfor %}
+  </u>
+  {% endmacro %}
+
+  <!-- List set of strings -->
+  {% macro list_set(set) %}
+  {% for element in set %}
+  {{ element }}{% if not loop.last %}, {% endif %}
+  {% endfor %}
+  {% endmacro %}
+
+  <!-- List set of strings -->
+  {% macro parse_cite_as(set) %}
+  {% if set is not none %}
+  {% for element in set|parse_cite_as %}
+  {{ cite_as(element) }}{% if not loop.last %}<br/>{% endif %}
+  {% endfor %}
+  {% endif %}
+  {% endmacro %}
+
+  <!-- Parse cite as link -->
+  {% macro cite_as(cite) %}
+  {% if cite is not none %}
+  <a href="{{ cite }}">{{ cite }}</a>
+  {% else %}
+  /
+  {% endif %}
+  {% endmacro%}
+
+  <!-- Display if not none -->
+  {% macro not_none(element) %}
+  {% if element is not none %}
+  {{ element }}
+  {% endif %}
+  {% endmacro %}
+
+  <!-- Code snippet block -->
+  {% macro code_snippet(title, code) %}
+  <div class="row">
     <div class="col-lg-12 col-xs-12">
-        <div class="code-title">{{ title }}</div>
+      <div class="code-title">{{ title }}</div>
     </div>
     <div class="col-lg-12 col-xs-12">
-        <div class="code-container">
-            <pre class="language-markup"><code>{{ code }}</code></pre>
-            <div class="code-toolbar"><a data-toggle="tooltip" data-placement="top" data-html="true" title="Copy to clipboard!" class="btn btn-sm btn-info copy-to-clipboard">Copy</a></div>
-        </div>
+      <div class="code-container">
+        <pre class="language-markup"><code>{{ code }}</code></pre>
+        <div class="code-toolbar"><a data-toggle="tooltip" data-placement="top" data-html="true" title="Copy to clipboard!" class="btn btn-sm btn-info copy-to-clipboard">Copy</a></div>
+      </div>
     </div>
-</div>
-{% endmacro %}
+  </div>
+  {% endmacro %}
