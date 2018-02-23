@@ -4,6 +4,7 @@
             <th class="text-left">Model name</th>
             <th>Version</th>
             <th>Authors</th>
+            <th>Contributed by</th>
             <th>Type</th>
             <th>Cite as</th>
             <th>License</th>
@@ -15,6 +16,7 @@
             <th class="text-left">Model name</th>
             <th>Version</th>
             <th>Authors</th>
+            <th>Contributed by</th>
             <th>Type</th>
             <th>Cite as</th>
             <th>License</th>
@@ -31,7 +33,10 @@
             </td>
             <td>{{ item.version }}</td>
             <td>
-                {{ show_authors(item.authors, short=True) }}
+              {{ show_authors(item.authors, short=True) }}
+            </td>
+            <td>
+              {{ show_authors(item.contributors, short=True) }}
             </td>
             <td>{{ item.type }}</td>
             <td>
