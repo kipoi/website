@@ -1,9 +1,21 @@
+/* old main color: #4c5568*/
+/*   new main color: #4B515D */
+
+/*   Old table button color: #45526E */
+/*   New table button color: #45526E */
+
 body {
     color: #4c5568;
     /* color: #4c5568; */
 }
+/* nav-title-link navbar-brand text-hide {
+   width: 70px;
+   height: 38px;
+   background-size: contain;
+   background-repeat: no-repeat;
+   } */
 
-/* Model-list DataTables */
+/* model-list DataTables */
 .dataTables_wrapper div.mdl-grid:first-child {
     margin-top: 0.5rem;
     /* width: 100%; */
@@ -11,6 +23,9 @@ body {
     /* margin-right: 0; */
 }
 
+.kipoi-descr {
+  font-size: 28px;
+}
 /* Override dataTable.material.css */
 div.dataTables_wrapper div.dataTables_length {
     /* text-align: right; */
@@ -57,7 +72,7 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 
 .mdl-button--raised {
-    background: #45526E !important;
+  background: #45526E !important;
 }
 
 .nav-title-link {
