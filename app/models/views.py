@@ -10,7 +10,6 @@ from flask import Blueprint, render_template, redirect, url_for
 from app.models.code_snippets import get_snippets
 from app.models.cache import cache
 
-
 mod = Blueprint('models', __name__, template_folder='templates')
 
 
@@ -92,6 +91,39 @@ def list_groups():
     group_df = get_model_groups()
     group_list = group_df.to_dict(orient='records')
     return render_template("models/index_groups.html", groups=group_list)
+
+
+@mod.route("/main")
+def main():
+    """Main view
+    """
+    # TODO - get the following numbers:
+    #
+    # - Total number of models
+    # - number of models supporting variant effect prediction
+    # - Number of models by framework
+    # - Total number of output dimensions for a variant
+    models_by_framework = {"Pytorch": 2, "Tensorflow": 1, "Keras": 3, "Custom": 3, "Scikit-learn": 0}
+
+    df = get_model_list()
+    dfg = get_model_groups()
+
+    # models_by_framework = dict(df.type.value_counts())
+    # models_by_license = dict(df.license.value_counts())
+    models_by_framework = dict(dfg.type.apply(lambda x: list(x)[0]).value_counts())
+    models_by_license = dict(dfg.license.apply(lambda x: list(x)[0]).value_counts())
+
+    # TODO - postprocessing functionality barplot ...
+
+    # TODO - put the colors also here:
+    return render_template("models/main.html",
+                           n_models=len(df),
+                           n_groups=len(dfg),
+                           n_contributors=len({x.name for contributors in df.contributors for x in contributors}),
+                           models_by_framework_keys=list(models_by_framework),
+                           models_by_framework_values=list(models_by_framework.values()),
+                           models_by_license_keys=list(models_by_license),
+                           models_by_license_values=list(models_by_license.values()))
 
 
 @mod.route('/models/<source>/<path:model_name>')
