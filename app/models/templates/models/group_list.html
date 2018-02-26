@@ -25,9 +25,15 @@
         {% for item in groups %}
         <tr>
             <td class="text-left">
-                <a class="" href="{{ url_for('models.model_list', model_name=item.abs_group) }}">
-                    {{ item.group }}
-                </a>
+	      {% if item.N_subgroups %}
+              <a class="" href="{{ url_for('models.list_groups', group_name=item.abs_group) }}">
+                {{ item.group }}
+              </a>
+	      {% else %}
+              <a class="" href="{{ url_for('models.model_list', model_name=item.abs_group) }}">
+                {{ item.group }}
+              </a>
+	      {% endif %}
             </td>
             <td>
               {{ show_authors(item.authors, short=True) }}
