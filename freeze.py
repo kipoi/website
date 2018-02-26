@@ -29,7 +29,7 @@ def all_urls():
     # exclude the final models
     groups = groups - set(model)
 
-    return ["/", "/groups/"] + [f"/groups/{x}/" for x in groups] + [f"/models/{x}/" for x in urls]
+    return ["/", "/groups/"] + ["/groups/{x}/".format(x) for x in groups] + ["/models/{x}/".format(x) for x in urls]
 
 
 if __name__ == '__main__':
