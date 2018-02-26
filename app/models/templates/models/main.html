@@ -1,0 +1,173 @@
+{% from "macros.html" import not_none, parse_cite_as, show_authors %}
+{% extends 'base.html' %}
+{% block content %}
+<!-- <div class="row" style="margin-right: 0; margin-left: 0;"> -->
+<div class="row justify-content-center">
+
+  <div class="col-lg-1"></div>
+  <div class="col-lg-10">
+    <h2> Kipoi: Model zoo for genomics</h2>
+    <!-- <section class="card"> -->
+    <div class="row">
+      <div class="col-lg-5">
+	<img src="{{ url_for('static', filename='img/fig1.svg')}}">
+      </div>
+      <div class="col-lg-5">
+	<h4>
+	  Kipoi is an API and a repository of ready-to-use 
+	  trained models for regulatory genomics. It currently contains {{ n_groups }}
+	  different models, covering canonical predictive tasks in transcriptional and post-transcriptional gene regulation.
+
+	  Kipoi's API is implemented as a python package (github.com/kipoi/kipoi) and it is also accessible from the command line or R. 
+	  <!-- API to use, re-use and combine these models efficiently
+	       and a flexible toolbox for downstream analysis like variant effect prediction. -->
+
+
+	  <!-- The model is an abstraction over the model from major machine-learning frameworks in python 
+	       (Keras, TensorFlow, PyTorch, Scikit-learn) with the option to write a custom model. 
+	       The dataloader loads data from raw files and returns processed data, ready to be consumed by the 
+	       model together with the metadata. 
+	       This allows the models to be used directly with typical bioinformatics file formats like fasta or 
+	       bed and to, out-of-the-box, predict the effects of genetic variants. 
+	       The source is a remote storage for models and dataloaders. Users can access models from private or public sources. 
+	       The main public Kipoi source is hosted on github.com/kipoi/models with model parameters being stored with Git Large File Storage (LFS). 
+	       Model and dataloader are defined with YAML description files. 
+	       These provide general information about the model, authors, supported downstream analysis and required dependencies managed by pip or conda. 
+	       Models and dataloaders are contributed and reviewed through pull-requests on github.  -->
+
+	  <!-- - Unified and easy way to run models on new data
+	     - Model dependencies managed by Conda
+	     - Variant effect prediction for x models
+	     - Transparency and overview
+	     - Enriched functionality for the contributed models (less boilerplate code)
+	     - Flexibility and ease of contribution
+	  -->
+	</h4>
+      </div>
+    </div>
+    <!-- </section> -->
+    
+    <hr class="w-100 clearfix">
+    <div class="row">
+      <div class="col-lg-3">
+	<h4>Numbers</h4>
+	<p><strong># of models:</strong> {{n_models}}</p>
+	<p><strong># of model groups:</strong> {{n_groups}}</p>
+	<p><strong># of contributors:</strong> {{n_contributors}}</p>
+	<p><strong># of model groups supporting postprocessing:</strong>
+	  <ul>
+	    <li><strong>Variant effect prediction:</strong> {{ n_postproc_score_variants }}/{{ n_groups }}</li>
+	  </ul>
+	</p>
+      </div>
+      <div class="col-lg-3">
+	<h4># Model groups by framework</h4>
+	<canvas id="models-by-framework"></canvas>
+      </div>
+      <div class="col-lg-3">
+	<h4># Model groups by License</h4>
+	<canvas id="models-by-license"></canvas>
+      </div>
+    </div>
+    <hr class="w-100 clearfix">
+    <div class="row">
+      <h3>Getting Started</h3>
+    </div>
+    <div class="row">
+      <div class="col-lg-3">
+	<h4>Use models</h4>
+	<ul>
+	  <li>Install Kipoi: <code>$ pip install kipoi</code></li>
+	  <li>Choose the model from <a href="{{ url_for('models.list_groups', group_name='') }}">http://kipoi.org/models</a></li>
+	  <li>Use the model from CLI/python/bash by copying code snippets from <a href="../models/kipoi/basenji">http://kipoi.org/models/my_model</a></li>
+	</ul>
+	<a class="btn btn-outline-info waves-effect" href="../docs/using/01_Getting_started/">Learn more</a>
+
+      </div>
+      <div class="col-lg-3">
+	<h4>Contribute models</h4>
+	<ul>
+	  <li>Install Kipoi: <code>$ pip install kipoi</code></li>
+	  <li>Run <code>$ kipoi ls</code></li>
+	  <li>Explore the models locally at <code>~/.kipoi/models</code></li>
+	  <li>Add the model to <code>~/.kipoi/models/</code> (copy&edit the existing model or run <code>kipoi init</code>)</li>
+	  <li>Test test model: <code>kipoi test ~/.kipoi/models/my_model</code></li>
+	  <li>Submit the pull-request to <a href="https://github.com/kipoi/models">github.com/kipoi/models</a></li>
+	</ul>
+	<a class="btn btn-outline-info waves-effect" href="../docs/contributing/01_Getting_started/">Learn more</a>
+      </div>
+      <div class="col-lg-3">
+	<h4>Contribute code</h4>
+	<ul>
+	  <li>Setup the development environment: <code>$ pip install kipoi[develop]</code></li>
+	  <li>Read <a href="https://github.com/kipoi/kipoi/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a></li>
+	  <li>Submit an issue/pull-request to <a href="https://github.com/kipoi/models">github.com/kipoi/models</a></li>
+	</ul>
+      </div>
+    </div>
+    <!--Show some plots about Kipoi-->
+    
+    <!--/Section: model-list content-->                        
+  </div>
+</div>
+</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script language="JavaScript">
+  $(document).ready(function() {
+    $('#model-list-table').DataTable({
+      "lengthMenu": [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
+      "pageLength": 50,
+      "dom": 'rtip'
+    });
+    $('.dt-table').css('width', '100%');
+
+    oTable = $('#model-list-table').DataTable();
+    $('#search-bar').keyup(function(){
+      oTable.search($(this).val()).draw() ;
+    })
+    $('.dataTables_info').addClass('col-md-5 text-right mt-2');
+    $('.dataTables_paginate').addClass('col-md-7 mt-4');
+
+    // models-by-framework
+    var ctxP = document.getElementById("models-by-framework").getContext('2d');
+    var myPieChart = new Chart(ctxP, {
+      type: 'doughnut',
+      data: {
+        labels: {{ models_by_framework_keys | safe }},
+        datasets: [
+          {
+            data: {{ models_by_framework_values }},
+            backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+            hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+          }
+        ]
+      },
+      options: {
+        responsive: false
+      }    
+    });
+    // models-by-license
+    var ctxP = document.getElementById("models-by-license").getContext('2d');
+    var myPieChart = new Chart(ctxP, {
+      type: 'doughnut',
+      data: {
+        labels: {{ models_by_license_keys | safe }},
+        datasets: [
+          {
+            data: {{ models_by_license_values }},
+            backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+            hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+          }
+        ]
+      },
+      options: {
+        responsive: false
+      }    
+    });
+    
+  });
+</script>
+{% endblock%}

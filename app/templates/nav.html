@@ -1,11 +1,12 @@
 
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-expand-md navbar-expand-sm navbar-dark mdb-color">
+<nav class="navbar navbar-expand-lg navbar-expand-md navbar-expand-sm navbar-dark unique-color">
 
     <!-- Navbar brand -->
-    <span class="related-content-heading text-white">
-      <a class="nav-title-link navbar-brand" href="{{ url_for('models.list_groups') }}">Kipoi</a>
-    </span>
+  <!-- <span class="related-content-heading text-white"> -->
+      <a class="nav-title-link navbar-brand text-hide" href="{{ url_for('models.main') }}"
+	 style="background-image: url('{{ url_for('static', filename='img/logo-white-kipoi.svg') }}'); width: 70px; height: 38px; background-position: center; background-size: contain; background-repeat: no-repeat;">Kipoi</a>
+      <!-- </span> -->
     
     <!-- Collapse button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -17,7 +18,7 @@
         <ul class="navbar-nav mr-auto text-center">
 	   <!-- Group list --> 
             <li class="nav-item {% if request.endpoint == "models.list_groups" or request.endpoint == "entry" %}active{% endif %}">
-              <a id="components-related-1" class="nav-link waves-effect waves-light" href="{{ url_for('models.list_groups') }}">Group list</a>
+              <a id="components-related-1" class="nav-link waves-effect waves-light" href="{{ url_for('models.list_groups', group_name='') }}">Models</a>
             </li>
             {% if request.endpoint == "models.model_details" %}
             <li class="nav-item {% if request.endpoint == "models.model_details" %}active{% endif %}">
@@ -39,9 +40,12 @@
         {% endif %}
 
         <ul class="navbar-nav ml-auto nav-flex-icons text-center">
-            <li class="nav-item">
-                <a id="components-related-3" class="nav-link waves-effect waves-light" href="https://github.com/kipoi/models">Model repository</a>
-            </li>
+          <li class="nav-item">
+            <a id="components-related-3" class="nav-link waves-effect waves-light" href="https://github.com/kipoi/models">Model repository<i class="fa fa-github" aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item">
+            <a id="components-related-3" class="nav-link waves-effect waves-light" href="https://github.com/kipoi/kipoi">API repository<i class="fa fa-github" aria-hidden="true"></i></a>
+          </li>
         </ul>
         
     </div>
