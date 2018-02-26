@@ -10,7 +10,7 @@
     <!-- <section class="card"> -->
     <div class="row">
       <div class="col-lg-5">
-	<img src="{{ url_for('static', filename='img/fig1.svg')}}">
+	<img src="{{ url_for('static', filename='img/fig1.svg')}}" alt="Kipoi overview figure">
       </div>
       <div class="col-lg-5">
 	<p class="header-text">
@@ -54,11 +54,10 @@
 	<p><strong># of models:</strong> {{n_models}}</p>
 	<p><strong># of model groups:</strong> {{n_groups}}</p>
 	<p><strong># of contributors:</strong> {{n_contributors}}</p>
-	<p><strong># of model groups supporting postprocessing:</strong>
-	  <ul>
-	    <li><strong>Variant effect prediction:</strong> {{ n_postproc_score_variants }}/{{ n_groups }}</li>
-	  </ul>
-	</p>
+	<p><strong># of model groups supporting postprocessing:</strong></p>
+	<ul>
+	  <li><strong>Variant effect prediction:</strong> {{ n_postproc_score_variants }}/{{ n_groups }}</li>
+	</ul>
       </div>
       <div class="col-lg-3">
 	<h4># Model groups by framework</h4>
@@ -109,8 +108,6 @@
     
     <!--/Section: model-list content-->                        
   </div>
-</div>
-</div>
 </div>
 {% endblock %}
 
