@@ -25,7 +25,7 @@
         {% for item in groups %}
         <tr>
             <td class="text-left">
-                <a class="" href="{{ url_for('models.model_list', source="kipoi", model_name=item.group) }}">
+                <a class="" href="{{ url_for('models.model_list', model_name=item.abs_group) }}">
                     {{ item.group }}
                 </a>
             </td>
