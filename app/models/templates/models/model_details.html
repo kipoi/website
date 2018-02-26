@@ -13,7 +13,7 @@
                             <h1 class="h1-responsive">
                                 {%- for level in title -%}
                                 {%- if not loop.last -%}
-                                <a href="{{ url_for('models.model_list', source="kipoi", model_name=title[0:loop.index]|join('/')) }}">{{ level }}</a>/
+                                <a href="{{ url_for('models.model_list', model_name=title[0:loop.index]|join('/')) }}">{{ level }}</a>/
                                 {%- else -%}
                                 {{ level }}
                                 {%- endif -%}
