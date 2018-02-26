@@ -27,11 +27,11 @@
             <td class="text-left">
 	      {% if item.N_subgroups %}
               <a class="" href="{{ url_for('models.list_groups', group_name=item.abs_group) }}">
-                {{ item.group }}
+                {{ item.abs_group }}
               </a>
 	      {% else %}
               <a class="" href="{{ url_for('models.model_list', model_name=item.abs_group) }}">
-                {{ item.group }}
+                {{ item.abs_group }}
               </a>
 	      {% endif %}
             </td>
