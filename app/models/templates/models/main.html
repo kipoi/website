@@ -3,36 +3,35 @@
 {% block content %}
 <!-- <div class="row" style="margin-right: 0; margin-left: 0;"> -->
 <div class="row justify-content-center">
-
-  <div class="col-lg-1"></div>
-  <div class="col-lg-10">
+  <div class="col-lg-9 output min_width_panel_1" style="min-width: 900px">
     <h2> Kipoi: Model zoo for genomics</h2>
     <!-- <section class="card"> -->
+	  <div style="padding:10px"></div>
     <div class="row">
-      <div class="col-lg-5">
-	<img src="{{ url_for('static', filename='img/fig1.svg')}}" alt="Kipoi overview figure">
+      <div class="col-lg-6">
+	<img src="{{ url_for('static', filename='img/fig1.svg')}}" alt="Kipoi overview figure" width="420px">
       </div>
-      <div class="col-lg-5">
-	<p class="header-text">
-	  Kipoi is an API and a repository of ready-to-use 
+      <div class="col-lg-6">
+	<p style="padding:10px">
+	  Kipoi is an API and a repository of ready-to-use
 	  trained models for regulatory genomics. It currently contains {{ n_groups }}
 	  different models, covering canonical predictive tasks in transcriptional and post-transcriptional gene regulation.
 
-	  Kipoi's API is implemented as a python package (github.com/kipoi/kipoi) and it is also accessible from the command line or R. 
+	  Kipoi's API is implemented as a python package (github.com/kipoi/kipoi) and it is also accessible from the command line or R.
 	  <!-- API to use, re-use and combine these models efficiently
 	       and a flexible toolbox for downstream analysis like variant effect prediction. -->
 
 
-	  <!-- The model is an abstraction over the model from major machine-learning frameworks in python 
-	       (Keras, TensorFlow, PyTorch, Scikit-learn) with the option to write a custom model. 
-	       The dataloader loads data from raw files and returns processed data, ready to be consumed by the 
-	       model together with the metadata. 
-	       This allows the models to be used directly with typical bioinformatics file formats like fasta or 
-	       bed and to, out-of-the-box, predict the effects of genetic variants. 
-	       The source is a remote storage for models and dataloaders. Users can access models from private or public sources. 
-	       The main public Kipoi source is hosted on github.com/kipoi/models with model parameters being stored with Git Large File Storage (LFS). 
-	       Model and dataloader are defined with YAML description files. 
-	       These provide general information about the model, authors, supported downstream analysis and required dependencies managed by pip or conda. 
+	  <!-- The model is an abstraction over the model from major machine-learning frameworks in python
+	       (Keras, TensorFlow, PyTorch, Scikit-learn) with the option to write a custom model.
+	       The dataloader loads data from raw files and returns processed data, ready to be consumed by the
+	       model together with the metadata.
+	       This allows the models to be used directly with typical bioinformatics file formats like fasta or
+	       bed and to, out-of-the-box, predict the effects of genetic variants.
+	       The source is a remote storage for models and dataloaders. Users can access models from private or public sources.
+	       The main public Kipoi source is hosted on github.com/kipoi/models with model parameters being stored with Git Large File Storage (LFS).
+	       Model and dataloader are defined with YAML description files.
+	       These provide general information about the model, authors, supported downstream analysis and required dependencies managed by pip or conda.
 	       Models and dataloaders are contributed and reviewed through pull-requests on github.  -->
 
 	  <!-- - Unified and easy way to run models on new data
@@ -44,12 +43,13 @@
 	  -->
 	</p>
       </div>
+		<div style="padding:15px"></div>
     </div>
     <!-- </section> -->
-    
+
     <hr class="w-100 clearfix">
     <div class="row">
-      <div class="col-lg-3">
+      <div class="col-lg-4">
 	<h4>Numbers</h4>
 	<p><strong># of models:</strong> {{n_models}}</p>
 	<p><strong># of model groups:</strong> {{n_groups}}</p>
@@ -59,21 +59,23 @@
 	  <li><strong>Variant effect prediction:</strong> {{ n_postproc_score_variants }}/{{ n_groups }}</li>
 	</ul>
       </div>
-      <div class="col-lg-3">
-	<h4># Model groups by framework</h4>
+      <div class="col-lg-4">
+	<h4>Model groups by <br />framework</h4>
 	<canvas id="models-by-framework"></canvas>
       </div>
-      <div class="col-lg-3">
-	<h4># Model groups by License</h4>
+      <div class="col-lg-4">
+	<h4>Model groups by <br />license</h4>
 	<canvas id="models-by-license"></canvas>
       </div>
     </div>
+	  <div style="padding:15px"></div>
     <hr class="w-100 clearfix">
     <div class="row">
       <h3>Getting Started</h3>
     </div>
+	  <div style="padding:10px"></div>
     <div class="row">
-      <div class="col-lg-3">
+      <div class="col-lg-4">
 	<h4>Use models</h4>
 	<ul>
 	  <li>Install Kipoi: <code>$ pip install kipoi</code></li>
@@ -83,7 +85,7 @@
 	<a class="btn btn-outline-info waves-effect" href="../docs/using/01_Getting_started/">Learn more</a>
 
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-4">
 	<h4>Contribute models</h4>
 	<ul>
 	  <li>Install Kipoi: <code>$ pip install kipoi</code></li>
@@ -95,7 +97,7 @@
 	</ul>
 	<a class="btn btn-outline-info waves-effect" href="../docs/contributing/01_Getting_started/">Learn more</a>
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-4">
 	<h4>Contribute code</h4>
 	<ul>
 	  <li>Setup the development environment: <code>$ pip install kipoi[develop]</code></li>
