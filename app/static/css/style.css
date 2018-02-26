@@ -23,6 +23,11 @@ body {
     /* margin-right: 0; */
 }
 
+p.header-text {
+  /* Kipoi short description on the root page (top right) */
+  font-size: 21px;
+}
+
 .kipoi-descr {
   font-size: 28px;
 }
