@@ -14,11 +14,13 @@ from app.models.cache import cache
 mod = Blueprint('models', __name__, template_folder='templates')
 
 
-@cache.cached(key_prefix='model_groups')
+@cache.memoize()
 def get_model_groups(group_filter):
     """ Cache for list model groups """
     group_df = kipoi.get_source(SOURCE).list_models_by_group(group_filter=group_filter)
 
+    if group_df is None:
+        raise ValueError("Unable to handle group_filter: {0}".format(group_filter))
     # add the information about the absolute path
     if group_filter == "":
         group_df["abs_group"] = group_df['group']
@@ -66,6 +68,8 @@ def get_view(model_path, df):
     Returns:
        a tuple: (type, path), where type can be "model", "model_list" or "group_list"
     """
+    if (df.model == model_path).any():
+        return ("model", model_path)
     names = df.model[df.model.str.contains("^" + model_path)]
     if model_path is not "":
         sub_names = names.str.replace("^" + model_path + "/", "")
@@ -99,7 +103,6 @@ def list_groups(group_name=None):
     """ Group list view """
     if group_name is None:
         group_name = ""
-
     group_name = group_name.rstrip('/')
     group_df = get_model_groups(group_name)
     group_list = group_df.to_dict(orient='records')
