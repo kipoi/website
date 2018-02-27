@@ -8,10 +8,10 @@
     <!-- <section class="card"> -->
 	  <div style="padding:10px"></div>
     <div class="row">
-      <div class="col-lg-6">
-	<img src="{{ url_for('static', filename='img/fig1.svg')}}" alt="Kipoi overview figure" width="420px">
+      <div class="col-md-6">
+	<img src="{{ url_for('static', filename='img/fig1.svg')}}" alt="Kipoi overview figure">
       </div>
-      <div class="col-lg-6">
+      <div class="col-md-6">
 	<p style="padding:10px">
 	  Kipoi (pronounce: kípi; from the Greek &kappa;&#x3AE;&pi;&omicron;&iota;: gardens) is an API and a repository of ready-to-use
 	  trained models for regulatory genomics. It currently contains {{ n_groups }}
@@ -43,7 +43,7 @@
 	  -->
 	</p>
       </div>
-		<div style="padding:15px"></div>
+      <div style="padding:15px"></div>
     </div>
     <!-- </section> -->
 
@@ -59,11 +59,11 @@
 	  <li><strong>Variant effect prediction:</strong> {{ n_postproc_score_variants }}/{{ n_groups }}</li>
 	</ul>
       </div>
-      <div class="col-lg-4">
+      <div class="col-md-4">
 	<h4>Model groups by <br />framework</h4>
 	<canvas id="models-by-framework"></canvas>
       </div>
-      <div class="col-lg-4">
+      <div class="col-md-4">
 	<h4>Model groups by <br />license</h4>
 	<canvas id="models-by-license"></canvas>
       </div>
