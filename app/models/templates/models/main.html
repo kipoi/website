@@ -60,12 +60,20 @@
 	</ul>
       </div>
       <div class="col-md-4">
-	<h4>Model groups by <br />framework</h4>
-	<canvas id="models-by-framework"></canvas>
+	<h4>Model groups by framework</h4>
+	<div style="height: 200px">
+	  <canvas id="models-by-framework"></canvas>
+	</div>
       </div>
+      <!-- <div class="col-md-4">
+	   <h4>Model groups by <br />license</h4>
+	   <canvas id="models-by-license"></canvas>
+	   </div> -->
       <div class="col-md-4">
-	<h4>Model groups by <br />license</h4>
-	<canvas id="models-by-license"></canvas>
+	<h4>Model groups by tag</h4>
+	<div style="height: 300px">
+	  <canvas id="models-by-genomics-tag"></canvas>
+	</div>
       </div>
     </div>
 	  <div style="padding:15px"></div>
@@ -114,6 +122,7 @@
 {% endblock %}
 
 {% block script %}
+<script src="https://codepen.io/anon/pen/aWapBE.js"></script>
 <script language="JavaScript">
   $(document).ready(function() {
     $('#model-list-table').DataTable({
@@ -130,7 +139,11 @@
     $('.dataTables_info').addClass('col-md-5 text-right mt-2');
     $('.dataTables_paginate').addClass('col-md-7 mt-4');
 
+    var color_pallete = 'cb-Set2';
     // models-by-framework
+    var colors = palette(color_pallete, {{ models_by_framework_values | length }}).map(function(hex) {
+      return '#' + hex;
+    });
     var ctxP = document.getElementById("models-by-framework").getContext('2d');
     var myPieChart = new Chart(ctxP, {
       type: 'doughnut',
@@ -139,8 +152,10 @@
         datasets: [
           {
             data: {{ models_by_framework_values }},
-            backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-            hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+            backgroundColor: {{ models_by_framework_colors | safe }},
+	    hoverBackgroundColor: {{ models_by_framework_colors | safe }},
+            /* backgroundcolor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+	       hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]*/
           }
         ]
       },
@@ -149,22 +164,75 @@
       }    
     });
     // models-by-license
-    var ctxP = document.getElementById("models-by-license").getContext('2d');
-    var myPieChart = new Chart(ctxP, {
-      type: 'doughnut',
+    /* var ctxP = document.getElementById("models-by-license").getContext('2d');
+     * var myPieChart = new Chart(ctxP, {
+     *   type: 'doughnut',
+     *   data: {
+     *     labels: {{ models_by_license_keys | safe }},
+     *     datasets: [
+     *       {
+     *         data: {{ models_by_license_values }},
+     *         backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+     *         hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+     *       }
+     *     ]
+     *   },
+     *   options: {
+     *     responsive: false
+     *   }    
+     * });*/
+    //bar
+    var ctxB = document.getElementById("models-by-genomics-tag").getContext('2d');
+    var myBarChart = new Chart(ctxB, {
+      type: 'horizontalBar',
       data: {
-        labels: {{ models_by_license_keys | safe }},
-        datasets: [
-          {
-            data: {{ models_by_license_values }},
-            backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-            hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-          }
-        ]
+        labels: {{ models_by_genomics_tag_keys | safe}},
+        datasets: [{
+          label: null,
+          data: {{ models_by_genomics_tag_values}},
+          /* backgroundColor: ["#F7464A80", "#46BFBD80", "#FDB45C80", "#949FB180", "#F3E06980", "#4D536080", "#AAABAA80"],*/
+	  backgroundColor: palette(color_pallete, {{ models_by_genomics_tag_values | length }}).map(function(hex) {
+	    return '#' + hex;
+	  }),
+	  /* borderColor: [
+	     'rgba(255,99,132,1)',
+	     'rgba(54, 162, 235, 1)',
+	     'rgba(255, 206, 86, 1)',
+	     'rgba(75, 192, 192, 1)',
+	     'rgba(153, 102, 255, 1)',
+	     'rgba(255, 159, 64, 1)',
+	     'rgba(255, 159, 64, 1)'
+	     ],*/
+          /* borderWidth: 1*/
+        }]
       },
       options: {
-        responsive: false
-      }    
+        maintainAspectRatio: false,
+	responsive: true,
+	legend: {
+	  display: false,
+	},
+
+        scales: {
+	  ticks: {
+	    autoSkip: false
+	  },
+	  xAxes: [{
+	    beginAtZero: true,
+	    ticks: {
+	      beginAtZero: true,
+	      autoSkip: false
+	      /* maxRotation: 90*/
+	    },
+	  }],
+          yAxes: [{
+            beginAtZero:true,
+            ticks: {
+              beginAtZero:true
+            }
+          }]
+        }
+      }
     });
     
   });
