@@ -121,15 +121,16 @@
   {% endmacro %}
 
   <!-- Code snippet block -->
-  {% macro code_snippet(title, code) %}
+  {% macro code_snippet(title, code, language) %}
   <div class="row">
     <div class="col-lg-12 col-xs-12">
       <div class="code-title">{{ title }}</div>
     </div>
     <div class="col-lg-12 col-xs-12">
       <div class="code-container">
-        <pre class="language-markup"><code>{{ code }}</code></pre>
-        <div class="code-toolbar"><a data-toggle="tooltip" data-placement="top" data-html="true" title="Copy to clipboard!" class="btn btn-sm btn-info copy-to-clipboard">Copy</a></div>
+        <!-- <pre class="language-markup"><code>{{ code }}</code></pre> -->
+        <pre><code class="{{ language }}">{{ code }}</code></pre>
+          <div class="code-toolbar"><a data-toggle="tooltip" data-placement="top" data-html="true" title="Copy to clipboard!" class="btn btn-sm btn-info copy-to-clipboard">Copy</a></div>
       </div>
     </div>
   </div>
