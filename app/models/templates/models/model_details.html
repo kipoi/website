@@ -126,7 +126,7 @@
 
             $('.copy-to-clipboard').on('click', function() {
                 /* Get the code field */
-                var copyCode = $(this).closest('.code-container').find('code').html();
+                var copyCode = $(this).closest('.code-container').find('code').text();
                 var $temp = $("<textarea>");
                 $("body").append($temp);
                 $temp.val(copyCode).select();
