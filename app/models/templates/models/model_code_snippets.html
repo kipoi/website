@@ -16,7 +16,7 @@
     <div class="tab-pane active" id="cli" role="tabpanel">
         <div class="border border-top-0 code-snippet-container">
             {% for label,snippet in code_snippets['cli']%}
-                {{ code_snippet(label, snippet) }}
+                {{ code_snippet(label, snippet, "bash") }}
             {% endfor %}
         </div>
     </div>
@@ -25,7 +25,7 @@
     <div class="tab-pane" id="python" role="tabpanel">
         <div class="border border-top-0 code-snippet-container">
             {% for label,snippet in code_snippets['python']%}
-                {{ code_snippet(label, snippet) }}
+                {{ code_snippet(label, snippet, "python") }}
             {% endfor %}
         </div>
     </div>
@@ -34,7 +34,7 @@
     <div class="tab-pane" id="r" role="tabpanel">
         <div class="border border-top-0 code-snippet-container">
             {% for label,snippet in code_snippets['R']%}
-                {{ code_snippet(label, snippet) }}
+                {{ code_snippet(label, snippet, "R") }}
             {% endfor %}
         </div>
     </div>
