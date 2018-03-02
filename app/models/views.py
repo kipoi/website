@@ -4,6 +4,7 @@ models and the second is the models detail view that describes
 selected model. """
 
 import os
+import pandas as pd
 import kipoi
 from flask import Blueprint, render_template, redirect, url_for
 
@@ -113,6 +114,20 @@ def list_groups(group_name=None):
 def main():
     """Main view
     """
+    GENOMICS_TAGS = ["DNA binding",
+                     "Transcription",
+                     "DNA accessibility",
+                     "RNA binding",
+                     "DNA methylation",
+                     "Replication timing",
+                     "Genotyping",
+                     "3D chromatin structure",
+                     "Proteomics",
+                     "RNA structure",
+                     "DNA sequencing",
+                     "RNA splicing",
+                     "RNA expression",
+                     "Histone modification"]
     # Get the following numbers:
     #
     # - Total number of models
@@ -124,21 +139,41 @@ def main():
 
     # models_by_framework = dict(df.type.value_counts())
     # models_by_license = dict(df.license.value_counts())
-    models_by_framework = dict(dfg.type.apply(lambda x: list(x)[0]).value_counts())
-    models_by_license = dict(dfg.license.apply(lambda x: list(x)[0]).value_counts())
+    models_by_genomics_tag = pd.Series([x for model_groups in dfg.tags
+                                        for x in model_groups]).value_counts()
+    models_by_genomics_tag = models_by_genomics_tag[models_by_genomics_tag.index.isin(GENOMICS_TAGS)]
 
-    # TODO - postprocessing functionality barplot ...
+    models_by_framework = dfg.type.apply(lambda x: list(x)[0]).value_counts()
+    models_by_license = dfg.license.apply(lambda x: list(x)[0]).value_counts()
 
+    # framework_colors = {
+    #     "keras": "#d70000",
+    #     "tensorflow": "#fa9400",
+    #     "pytorch": "#9e529f",  # alternatively "#f05732"
+    #     "sklearn": "#1c97d1",
+    #     "custom": "#18CC5A"}
+
+    framework_colors = {
+        "tensorflow": "#ffd92f",
+        "keras": "#ff8f5a",
+        "pytorch": "#8da0cb",
+        "sklearn": "#e78ac3",
+        "custom": "#66c2a5",
+    }
+    models_by_framework_colors = [framework_colors[x] for x in models_by_framework.index]
     # TODO - put the chart colors also here:
     return render_template("models/main.html",
                            n_models=len(df),
                            n_groups=len(dfg),
                            n_contributors=len({x.name for contributors in df.contributors for x in contributors}),
                            n_postproc_score_variants=dfg.postproc_score_variants.sum(),
-                           models_by_framework_keys=list(models_by_framework),
-                           models_by_framework_values=list(models_by_framework.values()),
-                           models_by_license_keys=list(models_by_license),
-                           models_by_license_values=list(models_by_license.values()))
+                           models_by_framework_keys=list(models_by_framework.index),
+                           models_by_framework_values=list(models_by_framework),
+                           models_by_framework_colors=models_by_framework_colors,
+                           models_by_license_keys=list(models_by_license.index),
+                           models_by_license_values=list(models_by_license),
+                           models_by_genomics_tag_keys=list(models_by_genomics_tag.index)[:7],
+                           models_by_genomics_tag_values=list(models_by_genomics_tag)[:7])
 
 
 @mod.route('/models/<path:model_name>')
