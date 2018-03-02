@@ -1,7 +1,8 @@
 <table id="model-list-table" class="mdl-data-table table-responsive-lg" cellspacing="0" style="width:100%">
     <thead>
         <tr>
-            <th class="text-left">Model name</th>
+            <th class="text-left">Model group</th>
+            <th>Models</th>
             <th>Authors</th>
             <th>Contributed by</th>
             <th>Type</th>
@@ -12,7 +13,8 @@
     </thead>
     <tfoot>
         <tr>
-            <th class="text-left">Model name</th>
+            <th class="text-left">Model group</th>
+            <th>Models</th>
             <th>Authors</th>
             <th>Contributed by</th>
             <th>Type</th>
@@ -34,6 +36,9 @@
                 {{ item.abs_group }}
               </a>
 	      {% endif %}
+            </td>
+            <td>
+              {{ item.N_models }}
             </td>
             <td>
               {{ show_authors(item.authors, short=True) }}
