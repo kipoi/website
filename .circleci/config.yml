@@ -1,0 +1,67 @@
+version: 2
+
+variables:
+  install_git_lfs: &install_git_lfs
+    run:
+      name: Update conda
+      command: conda install --yes -c conda-forge git-lfs
+  install_pip_deps: &install_pip_deps
+    run:
+      name: Install pip dependencies
+      command: pip install -r app/requirements.txt
+  install_kipoi: &install_kipoi
+    run:
+      name: Install Kipoi
+      command: pip install git+ssh://git@github.com/kipoi/kipoi.git
+  kipoi_ls: &kipoi_ls
+    run:
+      name: List kipoi packages
+      command: kipoi ls
+
+jobs:
+
+  build_deploy:
+    docker:
+      # - image: continuumio/miniconda3:4.3.14
+      - image: continuumio/anaconda3:5.0.1
+    working_directory: ~/repo
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 60:0f:05:31:12:3d:bc:8b:df:9d:08:da:71:a5:43:b6
+      - checkout
+      - *install_git_lfs
+      - *install_kipoi
+      - *kipoi_ls
+      - *install_pip_deps
+      - run:
+          name: Build docs
+          command: python freeze.py
+      - run:
+          name: Deploy docs
+          command: .circleci/deploy_docs.bash
+
+
+workflows:
+  version: 2
+
+  build-n-deploy:
+    jobs:
+      - build_deploy:
+          filters:
+            branches:
+              only:
+                - master
+                - setup_deployment
+
+  # nightly
+  kipoi-nightly-test:
+     triggers:
+       - schedule:
+           cron: "0 1 * * *"
+           filters:
+             branches:
+               only:
+                 - master
+     jobs:
+       - build_deploy
