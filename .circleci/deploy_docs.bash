@@ -61,6 +61,9 @@ cd $STAGING
 touch .nojekyll
 git add .nojekyll
 
+echo '<http://kipoi.org>' > README.md
+
+
 # committing with no changes results in exit 1, so check for that case first.
 if git diff --quiet; then
     echo "No changes to push -- exiting cleanly"
