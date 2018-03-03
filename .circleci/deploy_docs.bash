@@ -21,7 +21,7 @@ GITHUB_USERNAME="kipoi"
 KEEP_FOLDER="docs"  # don't overwrite this folder
 
 # DOCHTML is where mkdocs is configured to save the output HTML
-DOCHTML=app/build
+DOCHTML=`pwd`/app/build
 
 # tmpdir to which built docs will be copied
 STAGING=/tmp/${GITHUB_USERNAME}
@@ -52,7 +52,7 @@ cp -r ${KEEP_FOLDER} ${STAGING_KEEP}
 rm -r *
 
 # copy over the main website to tmpdir
-cp -r ${DOCHTML} $STAGING
+cp -r ${DOCHTML}/* $STAGING/
 # copy over the docs
 cp -r ${STAGING_KEEP} ${STAGING}/${KEEP_FOLDER}
 
