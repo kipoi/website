@@ -54,7 +54,7 @@ rm -r *
 # copy over the main website to tmpdir
 cp -r ${DOCHTML}/* $STAGING/
 # copy over the docs
-cp -r ${STAGING_KEEP}/${KEEP_FOLDER} ${STAGING}/${KEEP_FOLDER}
+cp -r ${STAGING_KEEP}/${KEEP_FOLDER} ${STAGING}/
 
 # add .nojekyll
 cd $STAGING
