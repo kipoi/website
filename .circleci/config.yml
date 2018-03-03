@@ -3,7 +3,7 @@ version: 2
 variables:
   install_git_lfs: &install_git_lfs
     run:
-      name: Update conda
+      name: Install git-lfs
       command: conda install --yes -c conda-forge git-lfs
   install_pip_deps: &install_pip_deps
     run:

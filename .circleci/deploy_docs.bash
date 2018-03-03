@@ -34,11 +34,6 @@ BUILD_DOCS_FROM_BRANCH="master"
 # END repository-specific configuration
 # ----------------------------------------------------------------------------
 
-if [[ $CIRCLE_PROJECT_USERNAME != website ]]; then
-    # exit if not in kipoi repo
-    exit 0
-fi
-
 REPO="git@github.com:${GITHUB_USERNAME}/${ORIGIN}.git"
 
 # clone the branch to tmpdir, clean out contents
