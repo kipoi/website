@@ -1,6 +1,6 @@
 # website
 
-Kipoi website
+Kipoi website hosted at <http://kipoi.org>.
 
 ## Pre-requirements
 
