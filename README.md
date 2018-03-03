@@ -6,7 +6,7 @@ Kipoi website hosted at <http://kipoi.org>.
 
 ### Kipoi
 
-Install Kipoi package by following installation process from [official repository](https://github.com/kipoi/kipoi).
+Install Kipoi package by following installation process from <https://github.com/kipoi/kipoi>.
 
 ### git-lfs
 
