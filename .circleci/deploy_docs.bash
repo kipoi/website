@@ -54,13 +54,12 @@ rm -r *
 # copy over the main website to tmpdir
 cp -r ${DOCHTML}/* $STAGING/
 # copy over the docs
-cp -r ${STAGING_KEEP} ${STAGING}/${KEEP_FOLDER}
+cp -r ${STAGING_KEEP}/${KEEP_FOLDER} ${STAGING}/${KEEP_FOLDER}
 
 # add .nojekyll
 cd $STAGING
 touch .nojekyll
 git add .nojekyll
-
 
 # committing with no changes results in exit 1, so check for that case first.
 if git diff --quiet; then
