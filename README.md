@@ -1,12 +1,14 @@
 # website
 
-Kipoi website
+[![CircleCI](https://circleci.com/gh/kipoi/website.svg?style=svg&circle-token=c240f6a27d9bf721d28111e83d28a193c450757e)](https://circleci.com/gh/kipoi/website)
+
+Kipoi website hosted at <http://kipoi.org>.
 
 ## Pre-requirements
 
 ### Kipoi
 
-Install Kipoi package by following installation process from [official repository](https://github.com/kipoi/kipoi).
+Install Kipoi package by following installation process from <https://github.com/kipoi/kipoi>.
 
 ### git-lfs
 
