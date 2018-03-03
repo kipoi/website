@@ -62,7 +62,7 @@ touch .nojekyll
 git add .nojekyll
 
 echo '<http://kipoi.org>' > README.md
-
+echo 'kipoi.org' > CNAME
 
 # committing with no changes results in exit 1, so check for that case first.
 if git diff --quiet; then
