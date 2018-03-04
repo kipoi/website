@@ -6,9 +6,8 @@ selected model. """
 import os
 import pandas as pd
 import kipoi
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, current_app
 
-from app.config import SOURCE
 from app.models.code_snippets import get_snippets
 from app.models.cache import cache
 
@@ -16,9 +15,9 @@ mod = Blueprint('models', __name__, template_folder='templates')
 
 
 @cache.memoize()
-def get_model_groups(group_filter):
+def get_model_groups(source, group_filter):
     """ Cache for list model groups """
-    group_df = kipoi.get_source(SOURCE).list_models_by_group(group_filter=group_filter)
+    group_df = kipoi.get_source(source).list_models_by_group(group_filter=group_filter)
 
     if group_df is None:
         raise ValueError("Unable to handle group_filter: {0}".format(group_filter))
@@ -30,10 +29,11 @@ def get_model_groups(group_filter):
     return group_df
 
 
-@cache.cached(key_prefix='model_list')
-def get_model_list():
+# @cache.cached(key_prefix='model_list')
+@cache.memoize()
+def get_model_list(source):
     """ Cache for kipoi's list models """
-    df = kipoi.get_source(SOURCE).list_models()
+    df = kipoi.get_source(source).list_models()
     return df
 
 
@@ -43,11 +43,11 @@ def get_view(model_path, df):
     Args:
       relative path to the model: i.e. "" for the root, "rbp_eclip" for 
       accessing the rbp_eclip data subset
-      df: pd.DataFrame returned by `kipoi.get_source(SOURCE).list_models()`
+      df: pd.DataFrame returned by `kipoi.get_source(source).list_models()`
 
     to be used in combination with:
     ```
-    df = kipoi.get_source(SOURCE).list_models()
+    df = kipoi.get_source(source).list_models()
     vtype_path = get_view(model_path, df)
     if vtype_path is None:
        # run 404
@@ -61,7 +61,7 @@ def get_view(model_path, df):
         df_subset = df[df.model.str.contains("^" + path)]
         pass
     elif vtype == "group_list":
-        df_groups = kipoi.get_source(SOURCE).list_models_by_group(path)
+        df_groups = kipoi.get_source(source).list_models_by_group(path)
         # render the normal path
         # render the group view
     ```
@@ -102,10 +102,11 @@ def get_view(model_path, df):
 @mod.route("/groups/<path:group_name>")
 def list_groups(group_name=None):
     """ Group list view """
+    source = current_app.config['SOURCE']
     if group_name is None:
         group_name = ""
     group_name = group_name.rstrip('/')
-    group_df = get_model_groups(group_name)
+    group_df = get_model_groups(source, group_name)
     group_list = group_df.to_dict(orient='records')
     return render_template("models/index_groups.html", groups=group_list)
 
@@ -114,6 +115,7 @@ def list_groups(group_name=None):
 def main():
     """Main view
     """
+    source = current_app.config['SOURCE']
     GENOMICS_TAGS = ["DNA binding",
                      "Transcription",
                      "DNA accessibility",
@@ -134,8 +136,8 @@ def main():
     # - number of models supporting variant effect prediction
     # - Number of models by framework
     # - Total number of output dimensions for a variant
-    df = get_model_list()
-    dfg = get_model_groups("")
+    df = get_model_list(source)
+    dfg = get_model_groups(source, "")
 
     # models_by_framework = dict(df.type.value_counts())
     # models_by_license = dict(df.license.value_counts())
@@ -179,7 +181,8 @@ def main():
 @mod.route('/models/<path:model_name>')
 def model_list(model_name):
     """ Models list view """
-    df = get_model_list()
+    source = current_app.config['SOURCE']
+    df = get_model_list(source)
     model_name = model_name.rstrip('/')
     vtype_path = get_view(model_name, df)
 
@@ -193,13 +196,14 @@ def model_list(model_name):
     # render the model detail view
     if vtype == "model":
         # Model info retrieved from kipoi
-        model = kipoi.get_model_descr(model_name, source=SOURCE)
+        model = kipoi.get_model_descr(model_name, source=source)
 
         # Model dataloaders info retrieved from kipoi
-        dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader))
+        dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader),
+                                                source=source)
         title = model_name.split('/')
         # obtain snippets
-        code_snippets = get_snippets(model_name)
+        code_snippets = get_snippets(model_name, source)
 
         return render_template("models/model_details.html",
                                model_name=model_name,
@@ -210,7 +214,7 @@ def model_list(model_name):
 
     # run the normal model list view on a subsetted table
     elif vtype == "model_list":
-        model_df = get_model_list()
+        model_df = get_model_list(source)
         # Filter the results
         model_df = model_df[model_df.model.str.contains("^" + path)]
 

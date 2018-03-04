@@ -3,7 +3,6 @@
 import os
 import kipoi
 import pprint
-from app.config import SOURCE
 from kipoi.cli.env import conda_env_name
 
 
@@ -25,9 +24,9 @@ def get_example_kwargs(model_name):
     return dl.get_example_kwargs()
 
 
-def get_batch_size(model_name):
+def get_batch_size(model_name, source):
     # HACK
-    if SOURCE == "kipoi" and model_name == "Basenji":
+    if source == "kipoi" and model_name == "Basenji":
         return 2
     else:
         return 4
@@ -42,7 +41,7 @@ def py_set_example_kwargs(model_name):
     return "\nkwargs = " + pprint.pformat(example_kwargs)
 
 
-def py_snippet(model_name):
+def py_snippet(model_name, source="kipoi"):
     """Generate the python code snippet
     """
     try:
@@ -51,7 +50,7 @@ def py_snippet(model_name):
         kw = "Error"
     ctx = {"model_name": model_name,
            "example_kwargs": kw,
-           "batch_size": get_batch_size(model_name)}
+           "batch_size": get_batch_size(model_name, source)}
     return [("Get the model", """import kipoi
 model = kipoi.get_model('{model_name}')""".format(**ctx)),
             ("Make a prediction for example files",
@@ -77,21 +76,22 @@ model.predict_on_batch(batch['inputs'])""".format(**ctx)),
 # --------------------------------------------
 # Bash / CLI
 
-def bash_snippet(model_name):
+def bash_snippet(model_name, source="kipoi"):
     try:
         kw = get_example_kwargs(model_name)
-        env_name = conda_env_name(model_name, model_name, SOURCE)
+        env_name = conda_env_name(model_name, model_name, source)
     except Exception:
         kw = "Error"
         env_name = "Error"
     ctx = {"model_name": model_name,
            "model_name_no_slash": model_name.replace("/", "|"),
            "env_name": env_name,
+           "source": source,
            "example_kwargs": kw}
     return [
         ("Create a new conda environment with all dependencies installed", "kipoi env create {model_name}\nsource activate {env_name}".format(**ctx)),
         ("Install model dependencies into current environment", "kipoi env install {model_name}".format(**ctx)),
-        ("Test the model", "kipoi test {model_name} --source=kipoi".format(**ctx)),
+        ("Test the model", "kipoi test {model_name} --source={source}".format(**ctx)),
         ("Make a prediction", """cd ~/.kipoi/models/{model_name}
 kipoi predict {model_name} \\
   --dataloader_args='{example_kwargs}' \\
@@ -130,7 +130,7 @@ def format_R_obj(obj):
         return pprint.pformat(obj)
 
 
-def R_snippet(model_name):
+def R_snippet(model_name, source="kipoi"):
     """Generate the python code snippet
     """
     try:
@@ -139,7 +139,7 @@ def R_snippet(model_name):
         kw = "Error"
     ctx = {"model_name": model_name,
            "example_kwargs": kw,
-           "batch_size": get_batch_size(model_name)}
+           "batch_size": get_batch_size(model_name, source)}
     return [("Get the model", """library(reticulate)
 kipoi <- import('kipoi')
 model <- kipoi$get_model('{model_name}')""".format(**ctx)),
@@ -163,10 +163,10 @@ model$predict_on_batch(batch$inputs)""".format(**ctx)),
 
 # --------------------------------------------
 
-def get_snippets(model_name):
-    return {"cli": bash_snippet(model_name),
-            "python": py_snippet(model_name),
-            "R": R_snippet(model_name)}
+def get_snippets(model_name, source="kipoi"):
+    return {"cli": bash_snippet(model_name, source),
+            "python": py_snippet(model_name, source),
+            "R": R_snippet(model_name, source)}
 
 
 # --------------------------------------------

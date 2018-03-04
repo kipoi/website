@@ -5,6 +5,7 @@ that are available across whole webapp.
 import os
 import base64
 from datetime import datetime
+import kipoi
 from flask import Flask, redirect, url_for
 
 
@@ -45,16 +46,20 @@ def parse_cite_as(cite):
 @app.template_filter('parse_schema')
 def parse_schema(schema):
     """Parse model schema by removing unneeded fields and reordering them."""
-    if isinstance(schema, object):
-        return [schema]
+    if isinstance(schema, kipoi.components.ArraySchema):
+        return {"list": [schema],
+                "type": "Single numpy array"}
     elif isinstance(schema, list):
-        return schema
+        return {"list": schema,
+                "type": "List of numpy arrays"}
     elif isinstance(schema, dict):
         schema_list = []
         for key, value in schema.items():
+            value = value.get_config()
             value["name"] = key
             schema_list.append(value)
-        return schema_list
+        return {"list": schema_list,
+                "type": "Dictionary of numpy arrays"}
 
 
 @app.context_processor
