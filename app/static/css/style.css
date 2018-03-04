@@ -23,6 +23,22 @@ body {
     /* margin-right: 0; */
 }
 
+.nav-button.btn[class*=btn-outline-] {
+    border: .5px solid #ffffff;
+    color: #ffffff;
+    position: relative;
+    -webkit-text-fill-color: #ffffff !important;
+    box-shadow: none;
+    text-transform: capitalize !important;
+    font-size: 1.1em;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.nav-button.btn[class*=btn-outline-]:hover,.btn-active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
 p.header-text {
   /* Kipoi short description on the root page (top right) */
   font-size: 18px;

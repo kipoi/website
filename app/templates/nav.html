@@ -16,18 +16,13 @@
         
         <!-- Links -->
         <ul class="navbar-nav mr-auto text-center">
-	   <!-- Group list --> 
-            <li class="nav-item {% if request.endpoint == "models.list_groups" or request.endpoint == "entry" %}active{% endif %}">
-              <a id="components-related-1" class="nav-link waves-effect waves-light" href="{{ url_for('models.list_groups', group_name='') }}">Models</a>
-            </li>
-            {% if request.endpoint == "models.model_details" %}
-            <li class="nav-item {% if request.endpoint == "models.model_details" %}active{% endif %}">
-              <a id="components-related-2" class="nav-link waves-effect waves-light" href="{{ request.get }}">Model details</a>
-            </li>
-            {% endif %}
-	    <!-- Docs --> 
+	          <!-- Group list --> 
             <li class="nav-item">
-              <a id="components-related-3" class="nav-link waves-effect waves-light" href="/docs/">Docs</a>
+              <a id="components-related-1" class="nav-button btn btn-outline-primary navbar-dark nabar-button {% if request.endpoint == "models.list_groups" or request.endpoint == "entry" or models %}btn-active{% endif %}" href="{{ url_for('models.list_groups', group_name='') }}">Models</a>
+            </li>
+	          <!-- Docs --> 
+            <li class="nav-item">
+              <a id="components-related-3" class="nav-button btn btn-outline-primary navbar-dark nabar-button" href="/docs/">Docs</a>
             </li>
         </ul>
 
