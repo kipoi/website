@@ -1,17 +1,16 @@
 {% from "macros.html" import not_none, parse_cite_as, show_authors %}
 {% extends 'base.html' %}
 {% block content %}
-<!-- <div class="row" style="margin-right: 0; margin-left: 0;"> -->
-<div class="row justify-content-center">
-  <div class="col-lg-9 output min_width_panel_1">
+
+<div class="row" style="margin-right: 0; margin-left: 0;">
+  <div class="col-lg-9 mx-auto">
     <h2> Kipoi: Model zoo for genomics</h2>
-    <!-- <section class="card"> -->
     <div style="padding:10px"></div>
     <div class="row">
-      <div class="col-md-6">
-	      <img src="{{ url_for('static', filename='img/fig1.svg')}}" alt="Kipoi overview figure">
+      <div class="col-md-6 col-sm-11">
+        <img src="{{ url_for('static', filename='img/fig1.svg')}}" class="img-fluid" alt="Kipoi overview figure">
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 col-sm-12">
         <p style="padding:10px">
           Kipoi (pronounce: kípi; from the Greek &kappa;&#x3AE;&pi;&omicron;&iota;: gardens) is an API and a repository of ready-to-use
           trained models for regulatory genomics. It currently contains {{ n_models }}
@@ -49,7 +48,7 @@
 
     <hr class="w-100 clearfix">
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <h4>Numbers</h4>
         <p><strong># of models:</strong> {{n_models}}</p>
         <p><strong># of model groups:</strong> {{n_groups}}</p>
@@ -59,19 +58,21 @@
           <li><strong>Variant effect prediction:</strong> {{ n_postproc_score_variants }}/{{ n_groups }}</li>
         </ul>
       </div>
-      <div class="col-md-4">
+
+      <!--Show some plots about Kipoi-->
+      <div class="col-lg-4 col-md-5 col-sm-6 col-9">
         <h4>Model groups by framework</h4>
-        <div style="height: 200px">
+        <div style="max-width:85%; max-height:85%;" class="px-3">
           <canvas id="models-by-framework"></canvas>
         </div>
       </div>
       <!-- <div class="col-md-4">
-	   <h4>Model groups by <br />license</h4>
-	   <canvas id="models-by-license"></canvas>
-	   </div> -->
-      <div class="col-md-4">
+    <h4>Model groups by <br />license</h4>
+    <canvas id="models-by-license"></canvas>
+    </div> -->
+      <div class="col-lg-4 col-md-4 col-sm-4 col-9">
         <h4>Model groups by tag</h4>
-        <div style="height: 300px">
+        <div style="height: 280px">
           <canvas id="models-by-genomics-tag"></canvas>
         </div>
       </div>
@@ -124,12 +125,12 @@
     <hr class="w-100 clearfix">
 
     <div class="row">
-      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+      <div class="col-lg-4 col-md-12">
           <div style="padding:10px"></div>
           {% include 'models/twitter.html' %}
       </div>
       <hr class="w-100 clearfix d-xl-none">
-      <div class="col-xl-8 col-lg-4 col-md-12 col-sm-12">
+      <div class="col-lg-8 col-md-12">
         <!-- Some news -->  
         <!--<h4>News</h4>
           <ul>
@@ -137,10 +138,8 @@
             <li></li>
             <li></li>
           </ul>-->
-        
       </div>
     </div>
-    <!--Show some plots about Kipoi-->
     
   </div>
 </div>
@@ -171,7 +170,8 @@
         ]
       },
       options: {
-        responsive: false
+        // Shouldn't be true
+        responsive: true
       }    
     });
     // models-by-license

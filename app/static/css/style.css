@@ -1,12 +1,8 @@
-/* old main color: #4c5568*/
+/*   old main color: #4c5568*/
 /*   new main color: #4B515D */
 
 /*   Old table button color: #45526E */
 /*   New table button color: #45526E */
-
-min_width_panel_1 {
-    min-width: 800px;
-}
 
 body {
     color: #4c5568;
