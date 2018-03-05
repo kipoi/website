@@ -4,14 +4,15 @@
 
 <div class="row" style="margin-right: 0; margin-left: 0;">
   <div class="col-lg-9 mx-auto">
-    <h2> Kipoi: Model zoo for genomics</h2>
-    <div style="padding:10px"></div>
-    <div class="row">
-      <div class="col-md-6 col-sm-11">
-        <img src="{{ url_for('static', filename='img/fig1.svg')}}" class="img-fluid" alt="Kipoi overview figure">
+    <div class="row mb-4">
+      <h2 class="col"> Kipoi: Model zoo for genomics</h2>
+    </div>
+    <div class="row mb-5">
+      <div class="col-md-6 col-sm-12">
+        <img src="{{ url_for('static', filename='img/fig1.svg')}}" class="img-fluid p-3" alt="Kipoi overview figure">
       </div>
       <div class="col-md-6 col-sm-12">
-        <p style="padding:10px">
+        <p class="p-3">
           Kipoi (pronounce: kípi; from the Greek &kappa;&#x3AE;&pi;&omicron;&iota;: gardens) is an API and a repository of ready-to-use
           trained models for regulatory genomics. It currently contains {{ n_models }}
           different models, covering canonical predictive tasks in transcriptional and post-transcriptional gene regulation.
@@ -19,7 +20,6 @@
           Kipoi's API is implemented as a python package (github.com/kipoi/kipoi) and it is also accessible from the command line or R.
           <!-- API to use, re-use and combine these models efficiently
               and a flexible toolbox for downstream analysis like variant effect prediction. -->
-
 
           <!-- The model is an abstraction over the model from major machine-learning frameworks in python
               (Keras, TensorFlow, PyTorch, Scikit-learn) with the option to write a custom model.
@@ -42,12 +42,11 @@
           -->
         </p>
       </div>
-      <div style="padding:15px"></div>
     </div>
-    <!-- </section> -->
 
     <hr class="w-100 clearfix">
-    <div class="row">
+
+    <div class="row mb-5">
       <div class="col-lg-4 col-md-6 col-sm-6 col-12">
         <h4>Numbers</h4>
         <p><strong># of models:</strong> {{n_models}}</p>
@@ -67,9 +66,10 @@
         </div>
       </div>
       <!-- <div class="col-md-4">
-    <h4>Model groups by <br />license</h4>
-    <canvas id="models-by-license"></canvas>
-    </div> -->
+        <h4>Model groups by <br />license</h4>
+        <canvas id="models-by-license"></canvas>
+        </div>
+      -->
       <div class="col-lg-4 col-md-4 col-sm-4 col-9">
         <h4>Model groups by tag</h4>
         <div style="height: 280px">
@@ -78,17 +78,15 @@
       </div>
     </div>
     
-    <div style="padding:15px"></div>
-    
     <hr class="w-100 clearfix">
     
     <div class="row">
-      <h3>Getting Started</h3>
+      <div class="col">
+        <h3>Getting Started</h3>
+      </div>
     </div>
     
-    <div style="padding:10px"></div>
-    <div class="row">
-
+    <div class="row mb-5">
       <div class="col-lg-4">
         <h4>Use models</h4>
         <ul>
@@ -124,12 +122,12 @@
 
     <hr class="w-100 clearfix">
 
-    <div class="row">
+    <div class="row mb-4">
       <div class="col-lg-4 col-md-12">
           <div style="padding:10px"></div>
           {% include 'models/twitter.html' %}
       </div>
-      <hr class="w-100 clearfix d-xl-none">
+      
       <div class="col-lg-8 col-md-12">
         <!-- Some news -->  
         <!--<h4>News</h4>

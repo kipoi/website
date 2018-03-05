@@ -100,13 +100,24 @@ div.dataTables_wrapper div.dataTables_filter input {
     font-weight: bold;
 }
 
+.model-search {
+    display: inline-block;
+}
+
 .promenent-search {
     background-color: white;
+    min-width: 200px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.promenent-search label {
+    display: inline-block;
 }
 
 .promenent-search input.model-search {
-    width: 500px !important;
     color: #4c5568 !important;
+    width: 100% !important;
 }
 
 .promenent-search input::-webkit-input-placeholder {
@@ -125,9 +136,6 @@ div.dataTables_wrapper div.dataTables_filter input {
     color: #4c5568 !important;  
 }
 
-.navbar.navbar-dark form input[type=text] {
-    /* border-bottom: none !important; */
-}
 .navbar.navbar-dark form input[type=text]:focus:not([readonly]) {
     box-shadow: none;
 }

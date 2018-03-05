@@ -28,13 +28,15 @@
 
         <!-- Search form -->
         {% if (request.endpoint == "models.model_list" or request.endpoint == "entry" or request.endpoint == "models.list_groups") and not model %}
-        <form class="form-inline promenent-search rounded">
-            <label for="search-bar"><i class="fa fa-search fa-fw px-3" aria-hidden="true"></i></label>
-            <input id="search-bar" class="form-control model-search" type="text" placeholder="Search" aria-label="Search" autofocus/>
-        </form>
+          <form class="navbar-nav form-inline promenent-search rounded">
+            <div class="text-nowrap" style="width: 100%;">
+              <label for="search-bar"><i class="fa fa-search fa-fw px-3" aria-hidden="true"></i></label>
+              <input id="search-bar" class="form-control model-search" type="text" placeholder="Search" aria-label="Search" autofocus/>
+            </div>
+          </form>
         {% endif %}
 
-        <ul class="navbar-nav ml-auto nav-flex-icons text-center">
+        <ul class="navbar-nav ml-auto text-center">
           <li class="nav-item">
             <a id="components-related-4" class="nav-link waves-effect waves-light" href="https://github.com/kipoi/models">Model repository<i class="fa fa-github" aria-hidden="true"></i></a>
           </li>

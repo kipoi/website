@@ -1,4 +1,4 @@
-<table id="model-list-table" class="mdl-data-table table-responsive-lg" cellspacing="0" style="width:100%">
+<table id="model-list-table" class="mdl-data-table table-responsive-xl" cellspacing="0" style="width:100%">
     <thead>
         <tr>
             <th class="text-left">Model name</th>
@@ -8,7 +8,7 @@
             <th>Type</th>
             <th>Cite as</th>
             <th>License</th>
-            <th class="d-lg-none d-md-none d-sm-none d-xs-none">Training procedure</th>
+            <th>Training procedure</th>
         </tr>
     </thead>
     <tfoot>
@@ -20,7 +20,7 @@
             <th>Type</th>
             <th>Cite as</th>
             <th>License</th>
-            <th class="d-lg-none d-md-none d-sm-none d-xs-none">Training procedure</th>
+            <th>Training procedure</th>
         </tr>
     </tfoot>
     <tbody>
@@ -45,11 +45,10 @@
             <td>
                 {{ not_none(item.license) }}
             </td>
-            <td class="d-lg-none d-md-none d-sm-none d-xs-none">
+            <td>
                 {{ not_none(item.training_procedure) }}
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-<!--/Section: Intro-->
