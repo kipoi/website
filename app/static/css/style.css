@@ -15,6 +15,10 @@ body {
    background-repeat: no-repeat;
    } */
 
+.left-margin{
+  margin-left:1rem;
+}
+
 /* model-list DataTables */
 .dataTables_wrapper div.mdl-grid:first-child {
     margin-top: 0.5rem;
