@@ -15,6 +15,9 @@ body {
    background-repeat: no-repeat;
    } */
 
+.navbar-brand-nopad{display:inline-block;padding-top:0rem;padding-bottom:0rem;margin-right:1rem;font-size:1.25rem;line-height:inherit;white-space:nowrap}
+.unique-color-kipoi{background-color:#34669A!important}
+
 .left-margin{
   margin-left:1rem;
 }
