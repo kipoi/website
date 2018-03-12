@@ -214,6 +214,10 @@ hr.clearfix {
   border-color: rgba(0,0,0,.125);
 }
 
+.media-object {
+    box-shadow: none !important;
+}
+
 /* Footer */
 footer.page-footer {
   background-color: #4c5568;
