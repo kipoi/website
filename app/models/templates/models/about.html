@@ -3,85 +3,102 @@
 {% block content %}
 
 <div class="row" style="margin-right: 0; margin-left: 0;">
-  <!-- <div class="col-lg-4 col-sm-12">
-       <img src="{{ url_for('static', filename='img/fig1.svg')}}" class="img-fluid p-3" alt="Kipoi overview figure">
-       </div> -->
   <div class="col-lg-5 mx-auto">
     <!-- <h3 class="media-heading">About</h3> -->
-    <h4>What is Kipoi?</h4>
+    <h3>Kipoi: A model zoo for genomics</h3>
     <p>
-      Kipoi is a repository containing hundreds of predictive models for
-      genomics. It provides unified means to access and use these
-      models. Each model comes with the code to load and preprocess
-      data. This greatly facilitates applying models to new data and
-      creating new models.
+      Kipoi is a repository for predictive models in genomics. It
+      provides a unified framework to archive, share, access, use and
+      build on models developed by the community. Models are
+      associated with code to preprocess and load input data in
+      relevant formats, which facilitates easy application to new
+      datasets and creation of new derived models.
     </p>
 
     <h4>What can I do with Kipoi?</h4>
 
     <p>
-      With Kipoi you can: 
-
       <ul>
-	<li><a href="">Explore</a> hundreds of trained models for genomics and apply them to new data in few
-	  lines of code in 
+	<li><a href="../groups/">Explore</a> hundreds of trained models 
+	  for genomics and apply them to new data in few lines of code in 
 	  <ul>
-	    <li><a href='http://kipoi.org/docs/tutorials/python-api/'>python</a></li>
-	    <li><a href='http://kipoi.org/docs/tutorials/R-api/'>R</a></li>
-	    <li><a href='http://kipoi.org/docs/using/01_Getting_started/#command-line-interface-quick-start'>command line</a>.</li>
+	    <li><a href='../docs/tutorials/python-api/'>python</a></li>
+	    <li><a href='../docs/tutorials/R-api/'>R</a></li>
+	    <li><a href='../docs/using/01_Getting_started/#command-line-interface-quick-start'>command line</a>.</li>
 	  </ul>
-	<li>Evaluate the impact of genetic variants with the majority of Kipoi
-	  models. See <a href='http://kipoi.org/docs/using/02_Variant_effect_prediction/'>docs</a> and <a href='http://kipoi.org/docs/tutorials/variant_effect_prediction/'>notebook</a>.</li>
-	<li>Fine-tune an existing model on a new dataset. See our <a href='http://kipoi.org/docs/tutorials/python-api/#re-train-the-keras-model'>notebook</a> 
-	  and Keras fine-tuning <a href='https://gist.github.com/fchollet/7eb39b44eb9e16e59632d25fb3119975'>example</a>.</li>
-	<li>Compose a new model using other models as building blocks. See <a href='http://kipoi.org/docs/using/02_Variant_effect_prediction/'>notebook</a>.</li>
-	<li>Publish your own models and reach a broad community. See <a href='http://kipoi.org/docs/contributing/01_Getting_started/'>how</a>.</li>
+	</li>
+	<li>Fine-tune an existing model on a new dataset. See our 
+	  <a href='../docs/tutorials/python-api/#re-train-the-keras-model'>notebook</a> 
+	  and the Keras fine-tuning 
+	  <a href='https://gist.github.com/fchollet/7eb39b44eb9e16e59632d25fb3119975'>example</a>.</li>
+	<li>Compose a new model using other models as building blocks. See 
+	  <a href='../docs/using/02_Variant_effect_prediction/'>how</a>.</li>
+	<li>Publish your own models and reach a broad community. See 
+	  <a href='../docs/contributing/01_Getting_started/'>how</a>.</li>
+	<li>Use and develop generic post-processing and model interpretation routines.
+	  <ul>
+	    <li>Scoring the impact of genetic variants on molecular phenotypes. See 
+	      <a href='../docs/using/02_Variant_effect_prediction/'>docs</a> and 
+	      <a href='../docs/tutorials/variant_effect_prediction/'>notebook</a>.</li>
+	  </ul>
+	</li>
       </ul>
     </p>
     
     <p>
-      Machine learning frameworks are easily integrated into Kipoi. So
-      far we integrated:
+      Popular machine learning frameworks are easily integrated into Kipoi. So far we have integrated:
       <ul>
-	<li>Tensorflow</li>
-	<li>Pytorch</li>
-	<li>Keras</li>
-	<li>Scikit-learn</li>
+	<li><a href='https://www.tensorflow.org/'>Tensorflow</a></li>
+	<li><a href='http://pytorch.org/'>Pytorch</a></li>
+	<li><a href='https://keras.io/'>Keras</a></li>
+	<li><a href='http://scikit-learn.org/'>Scikit-learn</a></li>
       </ul>
-
-      Models not developed with one of these frameworks can also be
-      submitted to Kipoi. See <a href='http://kipoi.org/docs/contributing/05_Writing_model.py/'>how</a>.
+      Models developed using other frameworks or custom python code can 
+      also be submitted to Kipoi. See <a href='../docs/contributing/05_Writing_model.py/'>how</a>.
     </p>
 
-    <h4>Why do we need it?</h4>
-    <p>
-      In genomics, we aim to understand how genetic
-      sequence - a text of 3 billion A’s, C’s, G’s, and T’s - encodes
-      biological processes and predisposes to diseases. Worldwide,
-      research labs are deciphering individual aspects of this code by
-      training predictive models to data produced by high-throughput
-      technologies such as sequencing and genome-wide
-      CRISPR-Cas. However, these predictive models are implemented in
-      various programming languages and machine learning
-      frameworks. They are made available through different channels,
-      such as code repositories and supplementary material of
-      articles. This heterogeneity makes it difficult to apply models to
-      new data, to compare models, and to re-use models while developing
-      new ones. By providing a unified access to models, we want to
-      lower the entry barrier to modeling in genomics and to accelerate
-      the translation of basic genomics research into medical
-      applications.
-    </p>
-
-    <h4>Great! How can I help?</h4>
+    <h4>Great! How do I get started?</h4>
     <p>
       <ul>
-	<li>Use Kipoi in your research and provide feedback via <a href='https://github.com/kipoi/kipoi/issues'>github issues</a>.</li>
-	<li>Contribute models. See <a href='http://kipoi.org/docs/contributing/01_Getting_started/'>how</a>.</li>
-	<li>Improve <a href='https://github.com/kipoi/kipoi'>Kipoi python package</a> via pull requests.</li>
-	<li><a href='https://github.com/kipoi/models/issues/55'>Join</a> the development team.</li>
+	<li><a href="../groups/">Explore</a> Kipoi models</li>
+	<li><a href='../docs/using/01_Getting_started/'>Install</a> Kipoi</li>
+	<li><a href='../docs/tutorials/python-api/'>Access and use</a> a Kipoi model</li>
+	<li><a href='../docs/contributing/01_Getting_started/'>Contribute</a> a model</li>
+	<li><a href='https://github.com/kipoi/kipoi/issues'>Report</a> issues and give feedback</li>
+	<li><a href='https://github.com/kipoi/models/issues/55'>Join</a> the development team</li>
       </ul>
     </p>
+    
+
+    <h4>Why do we need a model zoo for genomics?</h4>
+    <p>
+      Genomics uses experimental and computational methods to
+      understand the structure, function and evolution of biomolecules
+      and processes in health and disease through the lens of the
+      genome. Revolutions in DNA sequencing and associated
+      high-throughput assays has led to an explosion of genomic and
+      molecular profiling datasets. Computational models are now
+      routinely used to assimilate and derive predictions from these
+      datasets.
+    </p>
+    <p>
+      While public databases have been developed for easy
+      storage and access to genomic data, there is a lack of analogous
+      repositories for computational models in genomics. Models are
+      implemented in various programming languages and machine
+      learning frameworks, stored in diverse formats and made
+      available through different channels, such as code repositories
+      and supplementary material of articles. Even with the
+      availability of reliable code, replicating large models trained
+      on large datasets can be challenging. The lack of a unified
+      model repository makes it difficult to reproduce results, apply
+      models to new data, systematically compare models and
+      efficiently build on existing ones. Borrowing ideas from model
+      zoos introduced in other application domains, we developed Kipoi
+      with the primary goal of lowering the entry barrier to modeling
+      in genomics.
+    </p>
+
   </div>
 </div>
 {% endblock %}
