@@ -218,6 +218,10 @@ hr.clearfix {
     box-shadow: none !important;
 }
 
+.kipoi-title-box .media-left {
+    padding-right: 0;
+}
+
 /* Footer */
 footer.page-footer {
   background-color: #4c5568;
