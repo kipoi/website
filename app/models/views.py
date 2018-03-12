@@ -178,6 +178,13 @@ def main():
                            models_by_genomics_tag_values=list(models_by_genomics_tag)[:7])
 
 
+@mod.route("/about/")
+def about():
+    """About page
+    """
+    return render_template("models/about.html")
+
+
 @mod.route('/models/<path:model_name>')
 def model_list(model_name):
     """ Models list view """
