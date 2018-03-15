@@ -15,8 +15,23 @@ body {
    background-repeat: no-repeat;
    } */
 
-.navbar-brand-nopad{display:inline-block;padding-top:0rem;padding-bottom:0rem;margin-right:1rem;font-size:1.25rem;line-height:inherit;white-space:nowrap}
-.unique-color-kipoi{background-color:#34669A!important}
+.navbar-brand-nopad {
+    display: inline-block;
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap
+}
+
+.main-content {
+    padding-top: 64px;
+}
+
+.unique-color-kipoi {
+    background-color: #34669a !important;
+}
 
 .left-margin{
   margin-left:1rem;
@@ -224,8 +239,8 @@ hr.clearfix {
 
 /* Footer */
 footer.page-footer {
-  background-color: #4c5568;
-  margin-top: 2rem;
+    background-color: #4c5568;
+    margin-top: 2rem;
 }
 
 /* body { */

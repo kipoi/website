@@ -1,7 +1,10 @@
 
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-expand-md navbar-expand-sm navbar-dark unique-color-kipoi">
-
+{% if (request.endpoint == "models.model_list" or request.endpoint == "entry" or request.endpoint == "models.list_groups") and not model %}
+<nav class="navbar fixed-top navbar-expand-md navbar-dark unique-color-kipoi">
+{% else %}
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark unique-color-kipoi">
+{% endif %}
     <!-- Navbar brand -->
     <span>
       <a class="nav-title-link navbar-brand-nopad text-hide left-margin" href="{{ url_for('models.main') }}"
@@ -40,12 +43,16 @@
           </form>
         {% endif %}
 
-        <ul class="navbar-nav ml-auto text-center">
+      {% if (request.endpoint == "models.model_list" or request.endpoint == "entry" or request.endpoint == "models.list_groups") and not model %}
+        <ul class="navbar-nav ml-auto text-center d-md-none d-lg-flex">
+      {% else %}
+        <ul class="navbar-nav ml-auto text-center d-sm-none d-md-flex">
+      {% endif %}
           <li class="nav-item">
-            <a id="components-related-4" class="nav-link waves-effect waves-light" href="https://github.com/kipoi/models">Model repository<i class="fa fa-github" aria-hidden="true"></i></a>
+            <a id="components-related-4" class="text-nowrap nav-link waves-effect waves-light" href="https://github.com/kipoi/models">Model repository<i class="fa fa-github" aria-hidden="true"></i></a>
           </li>
           <li class="nav-item">
-            <a id="components-related-5" class="nav-link waves-effect waves-light" href="https://github.com/kipoi/kipoi">API repository<i class="fa fa-github" aria-hidden="true"></i></a>
+            <a id="components-related-5" class="text-nowrap nav-link waves-effect waves-light" href="https://github.com/kipoi/kipoi">API repository<i class="fa fa-github" aria-hidden="true"></i></a>
           </li>
         </ul>
         
