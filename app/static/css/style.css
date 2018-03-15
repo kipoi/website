@@ -29,7 +29,7 @@ body {
     padding-top: 64px;
 }
 
-.unique-color-kipoi {
+.unique-color-kipoi, .unique-color {
     background-color: #34669a !important;
 }
 
@@ -115,7 +115,7 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 
 .mdl-button--raised {
-  background: #33597e !important;
+  background: #34669a !important;
 }
 
 .nav-title-link {
@@ -239,10 +239,12 @@ hr.clearfix {
 
 /* Footer */
 footer.page-footer {
-    background-color: #4c5568;
     margin-top: 2rem;
 }
 
+footer.page-footer .footer-copyright {
+    margin-top: 20px;
+}
 /* body { */
 /* Margin bottom by footer height */
 /* margin-bottom: 232px; */
