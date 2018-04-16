@@ -17,7 +17,7 @@ mod = Blueprint('models', __name__, template_folder='templates')
 @cache.memoize()
 def get_model_groups(source, group_filter):
     """ Cache for list model groups """
-    group_df = kipoi.get_source(source).list_models_by_group(group_filter=group_filter)
+    group_df = kipoi.remote.list_models_by_group(get_model_list(source), group_filter=group_filter)
 
     if group_df is None:
         raise ValueError("Unable to handle group_filter: {0}".format(group_filter))
@@ -70,8 +70,9 @@ def get_view(model_path, df):
        a tuple: (type, path), where type can be "model", "model_list" or "group_list"
     """
     if (df.model == model_path).any():
+        # a model matches exactly model_path
         return ("model", model_path)
-    names = df.model[df.model.str.contains("^" + model_path)]
+    names = df.model[df.model.str.contains("^" + model_path + "/")]
     if model_path is not "":
         sub_names = names.str.replace("^" + model_path + "/", "")
     else:
@@ -80,21 +81,28 @@ def get_view(model_path, df):
     if len(sub_names) == 0:
         # error - no right string was found
         return None
-    elif len(sub_names) == 1:
-        # we have found a single one
-        name = sub_names.iloc[0]
-        if name == "":
-            return ("model", model_path)
-        else:
-            return ("model", model_path + "/" + name)
-    elif len(names) > 1:
-        # there is more than one element in the list
-        if sub_names.str.contains("/").any():
-            # some names contain further slashed in the name -
-            return ("group_list", model_path)
-        else:
-            # remain just regular models in the list
-            return ("model_list", model_path)
+    elif sub_names.str.contains("/").any():
+        # some names contain further slashed in the name
+        return ("group_list", model_path)
+    else:
+        # remain just regular models in the list
+        return ("model_list", model_path)
+    # Don't jump over
+    # elif len(sub_names) == 1:
+    #     # we have found a single one
+    #     name = sub_names.iloc[0]
+    #     if name == "":
+    #         return ("model", model_path)
+    #     else:
+    #         return ("model", model_path + "/" + name)
+    # elif len(names) >= 1:
+    #     # there is more than one element in the list
+    #     if sub_names.str.contains("/").any():
+    #         # some names contain further slashed in the name -
+    #         return ("group_list", model_path)
+    #     else:
+    #         # remain just regular models in the list
+    #         return ("model_list", model_path)
 
 
 @mod.route("/groups")
@@ -223,7 +231,7 @@ def model_list(model_name):
     elif vtype == "model_list":
         model_df = get_model_list(source)
         # Filter the results
-        model_df = model_df[model_df.model.str.contains("^" + path)]
+        model_df = model_df[model_df.model.str.contains("^" + path + "/")]
 
         filtered_models = model_df.to_dict(orient='records')
         return render_template("models/index.html", models=filtered_models)
