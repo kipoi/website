@@ -58,7 +58,7 @@
                                     <p>
                                         Postprocessing:
                                         {% if model.postprocessing %}
-                                            {% for k, v in model.postprocessing.get_config().items() %}
+                                            {% for k, v in model.postprocessing.items() %}
 					        {% if v is not none %}
                                                     <a data-toggle="tooltip" data-placement="top" data-html="true" title="{{ postprocessing_info(v) }}"><span class="badge badge-pill rgba-stylish-strong hoverable" >{{ k }}</span></a>
 						{% endif %}
