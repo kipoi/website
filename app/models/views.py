@@ -176,7 +176,7 @@ def main():
                            n_models=len(df),
                            n_groups=len(dfg),
                            n_contributors=len({x.name for contributors in df.contributors for x in contributors}),
-                           n_postproc_score_variants=dfg.postproc_score_variants.sum(),
+                           n_postproc_score_variants=dfg.veff_score_variants.sum(),
                            models_by_framework_keys=list(models_by_framework.index),
                            models_by_framework_values=list(models_by_framework),
                            models_by_framework_colors=models_by_framework_colors,
