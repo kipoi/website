@@ -107,13 +107,16 @@ def get_view(model_path, df):
 
 
 def update_cite_as(cite_as):
+    if cite_as is None:
+        return None
+    
     if isinstance(cite_as, str):
         cite_as = [y.strip()
                    for y in cite_as.split(",")]
     else:
         cite_as = [y.strip()
-                        for x in cite_as
-                        for y in x.split(",")]
+                   for x in cite_as
+                   for y in x.split(",")]
     return cite_as
 
 def update_cite_as_dict(d):
