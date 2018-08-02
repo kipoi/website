@@ -99,8 +99,8 @@
 <!-- List set of strings -->
 {% macro parse_cite_as(set) %}
   {% if set is not none %}
-    {% for element in set|parse_cite_as %}
-      {{ cite_as(element) }}{% if not loop.last %}<br/>{% endif %}
+  {% for element in set %}
+      {{ cite_as(element) }}{% if not loop.last %}<br>{% endif %}
     {% endfor %}
   {% endif %}
 {% endmacro %}

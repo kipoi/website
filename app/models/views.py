@@ -105,6 +105,23 @@ def get_view(model_path, df):
     #         return ("model_list", model_path)
 
 
+
+def update_cite_as(cite_as):
+    if isinstance(cite_as, str):
+        cite_as = [y.strip()
+                   for y in cite_as.split(",")]
+    else:
+        cite_as = [y.strip()
+                        for x in cite_as
+                        for y in x.split(",")]
+    return cite_as
+
+def update_cite_as_dict(d):
+    """Parses comma-separated values in cite_as
+    """
+    d['cite_as'] = update_cite_as(d['cite_as'])
+    return d
+
 @mod.route("/groups")
 @mod.route("/groups/")
 @mod.route("/groups/<path:group_name>")
@@ -116,6 +133,8 @@ def list_groups(group_name=None):
     group_name = group_name.rstrip('/')
     group_df = get_model_groups(source, group_name)
     group_list = group_df.to_dict(orient='records')
+    # parse cite_as
+    group_list = [update_cite_as_dict(x) for x in group_list]
     return render_template("models/index_groups.html", groups=group_list)
 
 
@@ -224,6 +243,7 @@ def model_list(model_name):
                                model_name=model_name,
                                model=model,
                                dataloader=dataloader,
+                               cite_as=update_cite_as(model.info.cite_as),
                                title=title,
                                code_snippets=code_snippets)
 
@@ -234,6 +254,7 @@ def model_list(model_name):
         model_df = model_df[model_df.model.str.contains("^" + path + "/")]
 
         filtered_models = model_df.to_dict(orient='records')
+        filtered_models = [update_cite_as_dict(x) for x in filtered_models]
         return render_template("models/index.html", models=filtered_models)
 
     # redirect to the group list
