@@ -18,7 +18,11 @@ set -eou pipefail
 BRANCH="master"
 ORIGIN="kipoi.github.io"
 GITHUB_USERNAME="kipoi"
-KEEP_FOLDER="docs"  # don't overwrite this folder
+KEEP_FOLDER="docs"  # don't overwrite these folders
+KEEP_FOLDER2="veff-docs"  # ugly hack of repetition. 
+KEEP_FOLDER3="interpret-docs"
+
+
 
 # DOCHTML is where mkdocs is configured to save the output HTML
 DOCHTML=`pwd`/app/build
@@ -26,6 +30,8 @@ DOCHTML=`pwd`/app/build
 # tmpdir to which built docs will be copied
 STAGING=/tmp/${GITHUB_USERNAME}
 STAGING_KEEP=/tmp/${GITHUB_USERNAME}-${KEEP_FOLDER}
+STAGING_KEEP2=/tmp/${GITHUB_USERNAME}-${KEEP_FOLDER2}
+STAGING_KEEP3=/tmp/${GITHUB_USERNAME}-${KEEP_FOLDER3}
 
 # Build docs only if ci-runner is testing this branch:
 BUILD_DOCS_FROM_BRANCH="master"
@@ -41,6 +47,10 @@ rm -rf $STAGING
 mkdir -p $STAGING
 rm -rf ${STAGING_KEEP}
 mkdir -p ${STAGING_KEEP}
+rm -rf ${STAGING_KEEP2}
+mkdir -p ${STAGING_KEEP2}
+rm -rf ${STAGING_KEEP3}
+mkdir -p ${STAGING_KEEP3}
 
 SHA=$(git rev-parse --verify HEAD)
 git clone $REPO $STAGING
@@ -48,6 +58,10 @@ cd $STAGING
 git checkout $BRANCH || git checkout --orphan $BRANCH
 # backup the folder
 cp -r ${KEEP_FOLDER} ${STAGING_KEEP}
+# backup the folder
+cp -r ${KEEP_FOLDER2} ${STAGING_KEEP2}
+# backup the folder
+cp -r ${KEEP_FOLDER3} ${STAGING_KEEP3}
 # remove the existing target folder
 rm -r *
 
@@ -55,6 +69,8 @@ rm -r *
 cp -r ${DOCHTML}/* $STAGING/
 # copy over the docs
 cp -r ${STAGING_KEEP}/${KEEP_FOLDER} ${STAGING}/
+cp -r ${STAGING_KEEP2}/${KEEP_FOLDER2} ${STAGING}/
+cp -r ${STAGING_KEEP3}/${KEEP_FOLDER3} ${STAGING}/
 
 # add .nojekyll
 cd $STAGING
