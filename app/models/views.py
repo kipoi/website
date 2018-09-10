@@ -3,6 +3,7 @@ KIPOI models. First is the model list that shows all available
 models and the second is the models detail view that describes
 selected model. """
 
+import re
 import os
 import pandas as pd
 import kipoi
@@ -11,6 +12,7 @@ import logging
 
 from app.models.code_snippets import get_snippets
 from app.models.cache import cache
+from app.models.authors import get_authors
 
 mod = Blueprint('models', __name__, template_folder='templates')
 
@@ -109,15 +111,10 @@ def get_view(model_path, df):
 def update_cite_as(cite_as):
     if cite_as is None:
         return None
-
     if isinstance(cite_as, str):
-        cite_as = [y.strip()
-                   for y in cite_as.split(",")]
+        return re.split(' |; |, |\*|\n|,|;', cite_as.strip())
     else:
-        cite_as = [y.strip()
-                   for x in cite_as
-                   for y in x.split(",")]
-    return cite_as
+        return [v for c in cite_as for v in update_cite_as(c)]
 
 
 def update_cite_as_dict(d):
@@ -127,29 +124,14 @@ def update_cite_as_dict(d):
     return d
 
 
-@cache.memoize()
-def get_authors(cite_as):
-    """Given a doi, get a list of Authors
-    """
-    # TODO - install
-    from manubot.cite import citation_to_citeproc
-    try:
-        citation = citation_to_citeproc(cite_as)
-        authors = [kipoi.specs.Author(d['given'] + " " + d['family'])
-                   for d in citation['author']]
-        return authors
-    except Exception:
-        logging.warn("Unable to get the authors for: " + cite_as)
-        return []
-
-
 def update_authors(authors, cite_as):
     """Given a list of authors, augment it
     Args:
       authors: a list of kipoi.specs.Author
       cite_as: cite_as field of a model
     """
-    if cite_as is not None:
+    if cite_as is not None and cite_as:
+        cite_as = update_cite_as(cite_as)[0]  # take the first cite_as entry
         scraped_authors = get_authors(cite_as)
     else:
         scraped_authors = []
@@ -157,20 +139,47 @@ def update_authors(authors, cite_as):
     # now we need to merge the existing authors in the model.yaml file
     # with the scraped ones.
 
-    # For now, just use a simple solution of completely overriding the
-    # authors with the parsed ones
-    # TODO - update to a more sofisticated solution?
+    def find_orig_author(author, orig_authors):
+        for orig_author in orig_authors:
+            # dots are ignored
+            if orig_author.name.replace(".", "") == author.name.replace(".", ""):
+                return orig_author
+        return None
+
     if scraped_authors:
-        return scraped_authors
+        # sanity check. No additional authors
+        for orig_author in authors:
+            if find_orig_author(orig_author, scraped_authors) is None:
+                logging.warning("specified author: {} not found in parsed authors:\n {}".format(orig_author, scraped_authors))
+        out = []
+        for author in scraped_authors:
+            orig_author = find_orig_author(author, authors)
+            if orig_author is not None:
+                out.append(orig_author)
+            else:
+                out.append(author)
+        return out
     else:
         return authors
 
 
 def update_authors_as_dict(d):
-    d['authors'] = update_authors(d['authors'], d['cite_as'])
+    if d['cite_as'] is not None and d['cite_as']:
+        d['authors'] = update_authors(d['authors'], d['cite_as'])
     return d
 
 
+def update_contributors(contributors, authors):
+    if contributors:
+        return contributors
+    else:
+        return authors
+
+def update_contributors_as_dict(d):
+    d['contributors'] = update_contributors(d['contributors'], d['authors'])
+    return d
+    
+    
 @mod.route("/groups")
 @mod.route("/groups/")
 @mod.route("/groups/<path:group_name>")
@@ -184,6 +193,10 @@ def list_groups(group_name=None):
     group_list = group_df.to_dict(orient='records')
     # parse cite_as
     group_list = [update_cite_as_dict(x) for x in group_list]
+    
+    # update contributors
+    group_list = [update_contributors_as_dict(x) for x in group_list]
+    
     # update authors
     group_list = [update_authors_as_dict(x) for x in group_list]
 
@@ -294,6 +307,7 @@ def model_list(model_name):
         return render_template("models/model_details.html",
                                model_name=model_name,
                                model=model,
+                               contributors=update_contributors(model.info.contributors, model.info.authors),
                                authors=update_authors(model.info.authors, model.info.cite_as),
                                dataloader=dataloader,
                                cite_as=update_cite_as(model.info.cite_as),
@@ -311,6 +325,10 @@ def model_list(model_name):
 
         filtered_models = model_df.to_dict(orient='records')
         filtered_models = [update_cite_as_dict(x) for x in filtered_models]
+        
+        # update contributors
+        filtered_models = [update_contributors_as_dict(x) for x in filtered_models]
+        
         # update authors
         filtered_models = [update_authors_as_dict(x) for x in filtered_models]
         return render_template("models/index.html", models=filtered_models)

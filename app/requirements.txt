@@ -2,3 +2,4 @@ Flask==0.12.2
 Flask-Caching==1.3.3
 python-memcached==1.59
 Frozen-Flask
+git+https://github.com/greenelab/manubot@472a646873c694fca72d80fb75b1fae648fd2ec0

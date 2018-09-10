@@ -29,7 +29,7 @@
 <!-- Postprocessing tooltip macro -->
 {% macro postprocessing_info(info_args) %}
   <div>
-    {% for key, values in info_args.items() %}
+    {% for key, values in info_args.get_config().items() %}
       {% if values is not none %}
 	<strong>{{ key }}</strong>:
 	{% if values is iterable and values is not string %}
