@@ -21,6 +21,7 @@ GITHUB_USERNAME="kipoi"
 KEEP_FOLDER="docs"  # don't overwrite these folders
 KEEP_FOLDER2="veff-docs"  # ugly hack of repetition. 
 KEEP_FOLDER3="interpret-docs"
+KEEP_FOLDER4="kipoiseq"
 
 
 
@@ -32,6 +33,7 @@ STAGING=/tmp/${GITHUB_USERNAME}
 STAGING_KEEP=/tmp/${GITHUB_USERNAME}-${KEEP_FOLDER}
 STAGING_KEEP2=/tmp/${GITHUB_USERNAME}-${KEEP_FOLDER2}
 STAGING_KEEP3=/tmp/${GITHUB_USERNAME}-${KEEP_FOLDER3}
+STAGING_KEEP4=/tmp/${GITHUB_USERNAME}-${KEEP_FOLDER4}
 
 # Build docs only if ci-runner is testing this branch:
 BUILD_DOCS_FROM_BRANCH="master"
@@ -51,6 +53,9 @@ rm -rf ${STAGING_KEEP2}
 mkdir -p ${STAGING_KEEP2}
 rm -rf ${STAGING_KEEP3}
 mkdir -p ${STAGING_KEEP3}
+rm -rf ${STAGING_KEEP4}
+mkdir -p ${STAGING_KEEP4}
+
 
 SHA=$(git rev-parse --verify HEAD)
 git clone $REPO $STAGING
@@ -62,6 +67,8 @@ cp -r ${KEEP_FOLDER} ${STAGING_KEEP}
 cp -r ${KEEP_FOLDER2} ${STAGING_KEEP2}
 # backup the folder
 cp -r ${KEEP_FOLDER3} ${STAGING_KEEP3}
+# backup the folder
+cp -r ${KEEP_FOLDER4} ${STAGING_KEEP4}
 # remove the existing target folder
 rm -r *
 
@@ -71,6 +78,7 @@ cp -r ${DOCHTML}/* $STAGING/
 cp -r ${STAGING_KEEP}/${KEEP_FOLDER} ${STAGING}/
 cp -r ${STAGING_KEEP2}/${KEEP_FOLDER2} ${STAGING}/
 cp -r ${STAGING_KEEP3}/${KEEP_FOLDER3} ${STAGING}/
+cp -r ${STAGING_KEEP4}/${KEEP_FOLDER4} ${STAGING}/
 
 # add .nojekyll
 cd $STAGING
