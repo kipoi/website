@@ -4,6 +4,19 @@
 
 Kipoi website hosted at <http://kipoi.org>.
 
+## Usage
+
+```
+$ make
+Please use `make <target>' where <target> is one of
+  freeze        to generate a static webpage
+  serve         Serve the flask app
+  serve-freeze  Serve frozen flask app.
+  clean         clean the generated files
+
+$ make serve
+````
+
 ## Pre-requirements
 
 ### Kipoi

@@ -5,18 +5,17 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-5">
-                    <p><strong>Relative path:</strong> {{ model.default_dataloader }}</p>
-                    <p><strong>Version:</strong> {{ dataloader.info.version }}</p>
-                    <p><strong>Doc:</strong> {{ dataloader.info.doc }}</p>
-                    <p><strong>Authors:</strong> {{ show_authors(dataloader.info.authors) }}</p>
-                    <p><strong>Type:</strong> {{ dataloader.type }}</p>
-                    <p><strong>License:</strong> {{ dataloader.info.license }}</p>
+                  <p><strong>Relative path:</strong> {{ dataloader_name }}</p>
+                  <p><strong>Doc:</strong> {{ dataloader.info.doc }}</p>
+                  <p><strong>Authors:</strong> {{ show_authors(dataloader.info.authors) }}</p>
+                  <p><strong>Type:</strong> {{ dataloader.type }}</p>
+                  <p><strong>License:</strong> {{ dataloader.info.license }}</p>
 
                 </div>
                 <hr class="w-100 clearfix d-lg-none">
                 <div class="col-lg-7">
-                    <h4 class="card-title mt-2 mb-3">Arguments</h4>
-                    {{ dataloaders_args(dataloader.args) }}
+                  <h4 class="card-title mt-2 mb-3">Arguments</h4>
+                  {{ dataloaders_args(dataloader_args) }}
                 </div>
             </div>
         </div>

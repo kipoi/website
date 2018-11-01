@@ -13,6 +13,10 @@ variables:
     run:
       name: Install Kipoi
       command: pip install git+ssh://git@github.com/kipoi/kipoi.git
+  install_kipoiseq: &install_kipoiseq
+    run:
+      name: Install Kipoiseq
+      command: pip install git+ssh://git@github.com/kipoi/kipoiseq.git
   kipoi_ls: &kipoi_ls
     run:
       name: List kipoi packages
@@ -32,6 +36,7 @@ jobs:
       - checkout
       - *install_git_lfs
       - *install_kipoi
+      - *install_kipoiseq
       - *kipoi_ls
       - *install_pip_deps
       - run:

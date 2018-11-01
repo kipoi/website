@@ -178,8 +178,8 @@ def update_contributors(contributors, authors):
 def update_contributors_as_dict(d):
     d['contributors'] = update_contributors(d['contributors'], d['authors'])
     return d
-    
-    
+
+
 @mod.route("/groups")
 @mod.route("/groups/")
 @mod.route("/groups/<path:group_name>")
@@ -193,10 +193,10 @@ def list_groups(group_name=None):
     group_list = group_df.to_dict(orient='records')
     # parse cite_as
     group_list = [update_cite_as_dict(x) for x in group_list]
-    
+
     # update contributors
     group_list = [update_contributors_as_dict(x) for x in group_list]
-    
+
     # update authors
     group_list = [update_authors_as_dict(x) for x in group_list]
 
@@ -298,8 +298,15 @@ def model_list(model_name):
         model = kipoi.get_model_descr(model_name, source=source)
 
         # Model dataloaders info retrieved from kipoi
-        dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader),
-                                                source=source)
+        if isinstance(model.default_dataloader, str):
+            dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader),
+                                                    source=source)
+            dataloader_name = model.default_dataloader
+        else:
+            dataloader = model.default_dataloader.get()
+            dataloader_name = model.default_dataloader.defined_as
+            # TODO - provide a url to the dataloader
+
         title = model_name.split('/')
         # obtain snippets
         code_snippets = get_snippets(model_name, source)
@@ -310,6 +317,8 @@ def model_list(model_name):
                                contributors=update_contributors(model.info.contributors, model.info.authors),
                                authors=update_authors(model.info.authors, model.info.cite_as),
                                dataloader=dataloader,
+                               dataloader_args=dataloader.args,
+                               dataloader_name=dataloader_name,
                                cite_as=update_cite_as(model.info.cite_as),
                                title=title,
                                code_snippets=code_snippets)
@@ -325,10 +334,10 @@ def model_list(model_name):
 
         filtered_models = model_df.to_dict(orient='records')
         filtered_models = [update_cite_as_dict(x) for x in filtered_models]
-        
+
         # update contributors
         filtered_models = [update_contributors_as_dict(x) for x in filtered_models]
-        
+
         # update authors
         filtered_models = [update_authors_as_dict(x) for x in filtered_models]
         return render_template("models/index.html", models=filtered_models)
