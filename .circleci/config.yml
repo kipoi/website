@@ -17,7 +17,7 @@ variables:
     run:
       name: Install Kipoiseq
       command: pip install git+ssh://git@github.com/kipoi/kipoiseq.git
-  insall_awscli: &install_awscli
+  install_awscli: &install_awscli
     run:
       name: Install awscli
       command: pip install awscli
@@ -41,6 +41,7 @@ jobs:
       - *install_kipoiseq
       - *kipoi_ls
       - *install_pip_deps
+      - *install_awscli
       - run:
           name: Build docs
           command: python freeze.py
