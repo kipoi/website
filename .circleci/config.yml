@@ -45,7 +45,7 @@ jobs:
       - run:
           name: Build docs
           command: |
-            export FREEZER_BASE_URL=http://kipoi-website.s3-website.eu-central-1.amazonaws.com/test/${CIRCLE_SHA1}/
+            # export FREEZER_BASE_URL=http://kipoi-website.s3-website.eu-central-1.amazonaws.com/test/${CIRCLE_SHA1}/
             export FREEZER_RELATIVE_URLS=True
             python freeze.py
       - run:
