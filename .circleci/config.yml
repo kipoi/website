@@ -44,7 +44,10 @@ jobs:
       - *install_awscli
       - run:
           name: Build docs
-          command: python freeze.py
+          command: >
+            export FREEZER_BASE_URL=http://kipoi-website.s3-website.eu-central-1.amazonaws.com/test/${CIRCLE_SHA1}/
+            export FREEZER_RELATIVE_URLS=True
+            python freeze.py
       - run:
           name: Deploy test website to S3
           command: aws s3 sync app/build s3://kipoi-website/test/${CIRCLE_SHA1}/
