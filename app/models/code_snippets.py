@@ -1,5 +1,6 @@
 """Generate code snippets
 """
+import json
 import os
 import kipoi
 import pprint
@@ -13,15 +14,19 @@ def get_model_dir(model_name):
 
 
 def get_dataloader_descr(model_name):
-    dl_path = os.path.join(model_name, kipoi.get_model_descr(model_name).default_dataloader)
-    return kipoi.get_dataloader_descr(dl_path)
+    md = kipoi.get_model_descr(model_name)
+    if isinstance(md.default_dataloader, str):
+        dl_path = os.path.join(model_name, md.default_dataloader)
+        return kipoi.get_dataloader_descr(dl_path)
+    else:
+        return md.default_dataloader.get()
 
 
-def get_example_kwargs(model_name):
+def get_example_kwargs(model_name, output_dir='example'):
     """Get the example kwargs from the dataloader
     """
     dl = get_dataloader_descr(model_name)
-    return dl.get_example_kwargs()
+    return dl.download_example(output_dir=output_dir, absolute_path=False, dry_run=True)
 
 
 def get_batch_size(model_name, source):
@@ -31,6 +36,13 @@ def get_batch_size(model_name, source):
     else:
         return 4
 
+
+def get_group_name(model_name, source):
+    group = kipoi.get_source(source).get_group_name(model_name)
+    if group is None:
+        return model_name
+    else:
+        return group
 # --------------------------------------------
 # Python
 
@@ -57,9 +69,8 @@ model = kipoi.get_model('{model_name}')""".format(**ctx)),
              """pred = model.pipeline.predict_example()""".format(**ctx)
              ),
             ("Use dataloader and model separately",
-             """# setup the example dataloader kwargs
-dl_kwargs = {example_kwargs}
-import os; os.chdir(os.path.expanduser('~/.kipoi/models/{model_name}'))
+             """# Download example dataloader kwargs
+dl_kwargs = model.default_dataloader.download_example('example')
 # Get the dataloader and instantiate it
 dl = model.default_dataloader(**dl_kwargs)
 # get a batch iterator
@@ -77,22 +88,27 @@ model.predict_on_batch(batch['inputs'])""".format(**ctx)),
 # Bash / CLI
 
 def bash_snippet(model_name, source="kipoi"):
+    output_dir = 'example'
     try:
-        kw = get_example_kwargs(model_name)
-        env_name = conda_env_name(model_name, model_name, source)
+        kw = json.dumps(get_example_kwargs(model_name, output_dir=output_dir))
+        group_name = get_group_name(model_name, source)
+        env_name = conda_env_name(group_name, group_name, source)
     except Exception:
         kw = "Error"
         env_name = "Error"
+        group_name = "Error"
     ctx = {"model_name": model_name,
            "model_name_no_slash": model_name.replace("/", "|"),
+           "group_name": group_name,
            "env_name": env_name,
            "source": source,
+           "output_dir": output_dir,
            "example_kwargs": kw}
     return [
-        ("Create a new conda environment with all dependencies installed", "kipoi env create {model_name}\nsource activate {env_name}".format(**ctx)),
-        ("Install model dependencies into current environment", "kipoi env install {model_name}".format(**ctx)),
+        ("Create a new conda environment with all dependencies installed", "kipoi env create {group_name}\nsource activate {env_name}".format(**ctx)),
+        ("Install model dependencies into current environment", "kipoi env install {group_name}".format(**ctx)),
         ("Test the model", "kipoi test {model_name} --source={source}".format(**ctx)),
-        ("Make a prediction", """cd ~/.kipoi/models/{model_name}
+        ("Make a prediction", """kipoi get-example {model_name} -o {output_dir}
 kipoi predict {model_name} \\
   --dataloader_args='{example_kwargs}' \\
   -o '/tmp/{model_name_no_slash}.example_pred.tsv'
@@ -147,9 +163,10 @@ model <- kipoi$get_model('{model_name}')""".format(**ctx)),
              "predictions <- model$pipeline$predict_example()".format(**ctx)
              ),
             ("Use dataloader and model separately",
-             """# Get the dataloader
-setwd('~/.kipoi/models/{model_name}')
-dl <- model$default_dataloader({example_kwargs})
+             """# Download example dataloader kwargs
+dl_kwargs <- model$default_dataloader$download_example('example')
+# Get the dataloader
+dl <- model$default_dataloader(dl_kwargs)
 # get a batch iterator
 it <- dl$batch_iter(batch_size={batch_size})
 # predict for a batch

@@ -24,6 +24,22 @@ variables:
 
 jobs:
 
+  test_build:
+    docker:
+      # - image: continuumio/miniconda3:4.3.14
+      - image: continuumio/anaconda3:5.0.1
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - *install_git_lfs
+      - *install_kipoi
+      - *install_kipoiseq
+      - *kipoi_ls
+      - *install_pip_deps
+      - run:
+          name: Build docs
+          command: python freeze.py
+
   build_deploy:
     docker:
       # - image: continuumio/miniconda3:4.3.14
@@ -50,6 +66,16 @@ jobs:
 workflows:
   version: 2
 
+  # just build
+  test-build:
+    jobs:
+      - test_build:
+          filters:
+            branches:
+              ignore:
+                - master
+                - setup_deployment
+                
   build-n-deploy:
     jobs:
       - build_deploy:
