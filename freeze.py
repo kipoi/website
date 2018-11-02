@@ -9,6 +9,17 @@ from app.models.views import get_view
 
 # override the database memcache
 cache.init_app(app, config={'CACHE_TYPE': 'simple'})
+
+# always use relative URL's
+if os.environ.get('FREEZER_RELATIVE_URLS'):
+    print("Using FREEZER_RELATIVE_URLS: {}".format(os.environ.get('FREEZER_RELATIVE_URLS')))
+    app.config['FREEZER_RELATIVE_URLS'] = eval(os.environ.get('FREEZER_RELATIVE_URLS'))
+
+# add also a differnet base_URL
+if os.environ.get('FREEZER_BASE_URL'):
+    print("Using FREEZER_BASE_URL: {}".format(os.environ.get('FREEZER_BASE_URL')))
+    app.config['FREEZER_BASE_URL'] = os.environ.get('FREEZER_BASE_URL')
+
 # http://pythonhosted.org/Frozen-Flask/#api-reference
 freezer = Freezer(app,
                   # with_no_argument_rules=False

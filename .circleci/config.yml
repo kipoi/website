@@ -17,6 +17,10 @@ variables:
     run:
       name: Install Kipoiseq
       command: pip install git+ssh://git@github.com/kipoi/kipoiseq.git
+  install_awscli: &install_awscli
+    run:
+      name: Install awscli
+      command: pip install awscli
   kipoi_ls: &kipoi_ls
     run:
       name: List kipoi packages
@@ -24,10 +28,38 @@ variables:
 
 jobs:
 
+  test_build:
+    docker:
+      # - image: continuumio/miniconda3:4.3.14
+      # - image: continuumio/anaconda3:5.0.1
+      - image: kipoi/miniconda3:4.3.14
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - *install_git_lfs
+      - *install_kipoi
+      - *install_kipoiseq
+      - *kipoi_ls
+      - *install_pip_deps
+      - *install_awscli
+      - run:
+          name: Build docs
+          command: |
+            # export FREEZER_BASE_URL=http://kipoi-website.s3-website.eu-central-1.amazonaws.com/test/${CIRCLE_SHA1}/
+            export FREEZER_RELATIVE_URLS=True
+            python freeze.py
+      - run:
+          name: Deploy test website to S3
+          command: aws s3 sync app/build s3://kipoi-website/test/${CIRCLE_SHA1}/
+      - run:
+          name: Get website url
+          command: echo http://kipoi-website.s3-website.eu-central-1.amazonaws.com/test/${CIRCLE_SHA1}/
+          
   build_deploy:
     docker:
       # - image: continuumio/miniconda3:4.3.14
-      - image: continuumio/anaconda3:5.0.1
+      # - image: continuumio/anaconda3:5.0.1
+      - image: kipoi/miniconda3:4.3.14
     working_directory: ~/repo
     steps:
       - add_ssh_keys:
@@ -50,6 +82,16 @@ jobs:
 workflows:
   version: 2
 
+  # just build
+  test-build:
+    jobs:
+      - test_build:
+          filters:
+            branches:
+              ignore:
+                - master
+                - setup_deployment
+                
   build-n-deploy:
     jobs:
       - build_deploy:

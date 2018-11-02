@@ -4,8 +4,13 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-lg-5">
+              <div class="col-lg-5">
+		<!-- TODO - ifelse  -->
+		{% if rel_path %}
                   <p><strong>Relative path:</strong> {{ dataloader_name }}</p>
+		{% else %}
+  		  <p><strong>Defined as:</strong> {{ dataloader_name }}</p>
+		{% endif %}
                   <p><strong>Doc:</strong> {{ dataloader.info.doc }}</p>
                   <p><strong>Authors:</strong> {{ show_authors(dataloader.info.authors) }}</p>
                   <p><strong>Type:</strong> {{ dataloader.type }}</p>
@@ -19,5 +24,5 @@
                 </div>
             </div>
         </div>
-    </div>
+</div>
     
