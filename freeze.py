@@ -11,7 +11,8 @@ from app.models.views import get_view
 cache.init_app(app, config={'CACHE_TYPE': 'simple'})
 
 # always use relative URL's
-app.config['FREEZER_RELATIVE_URLS'] = True
+if os.environ.get('FREEZER_RELATIVE_URLS'):
+    app.config['FREEZER_RELATIVE_URLS'] = eval(os.environ.get('FREEZER_RELATIVE_URLS'))
 
 # http://pythonhosted.org/Frozen-Flask/#api-reference
 freezer = Freezer(app,
