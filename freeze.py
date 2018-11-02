@@ -9,6 +9,10 @@ from app.models.views import get_view
 
 # override the database memcache
 cache.init_app(app, config={'CACHE_TYPE': 'simple'})
+
+# always use relative URL's
+app.config['FREEZER_RELATIVE_URLS'] = True
+
 # http://pythonhosted.org/Frozen-Flask/#api-reference
 freezer = Freezer(app,
                   # with_no_argument_rules=False
