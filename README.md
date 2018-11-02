@@ -68,24 +68,6 @@ Development web server can be run by executing following command from within the
 python run.py
 ```
 
-### Docker
-
-Docker deployment is currently not supported due to the difficulties with git permissions.
-
-Base docker image can be seen [here](https://github.com/tiangolo/uwsgi-nginx-flask-docker).
-
-Build docker image:
-
-```bash
-docker build -t kipoi-webapp .
-```
-
-Run a container based on your image:
-
-```bash
-docker run -d --name kipoi -p 80:80 kipoi-webapp
-```
-
 ### Static webpage
 
 Run
