@@ -27,7 +27,8 @@ jobs:
   test_build:
     docker:
       # - image: continuumio/miniconda3:4.3.14
-      - image: continuumio/anaconda3:5.0.1
+      # - image: continuumio/anaconda3:5.0.1
+      - image: kipoi/miniconda3:4.3.14
     working_directory: ~/repo
     steps:
       - checkout
@@ -43,7 +44,8 @@ jobs:
   build_deploy:
     docker:
       # - image: continuumio/miniconda3:4.3.14
-      - image: continuumio/anaconda3:5.0.1
+      # - image: continuumio/anaconda3:5.0.1
+      - image: kipoi/miniconda3:4.3.14
     working_directory: ~/repo
     steps:
       - add_ssh_keys:
