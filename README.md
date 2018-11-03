@@ -23,15 +23,6 @@ $ make serve
 
 Install Kipoi package by following installation process from <https://github.com/kipoi/kipoi>.
 
-### git-lfs
-
-Easiest way to install `git-lfs` is by adding git-lfs to the apt list following [this](https://packagecloud.io/github/git-lfs/install) tutorial.
-
-```bash
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-sudo apt install git-lfs
-```
-
 ## Requirements
 
 All python requirements are listed in `requirements.txt` file.
