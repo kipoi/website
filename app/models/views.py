@@ -7,9 +7,10 @@ import re
 import os
 import pandas as pd
 import kipoi
-from flask import Blueprint, render_template, redirect, url_for, current_app
+from flask import Blueprint, render_template, redirect, url_for, current_app, Markup
 import logging
 from collections import OrderedDict
+import markdown
 
 from app.models.code_snippets import get_snippets
 from app.models.cache import cache
@@ -330,7 +331,15 @@ def model_list(model_name):
         title = model_name.split('/')
         # obtain snippets
         code_snippets = get_snippets(model_name, source)
-
+        #reading the README content
+        #todo: shabnam
+        readme_dir = kipoi.get_source(current_app.config['SOURCE']).get_model_dir(model_name)
+        try:
+            filecontent = open(os.path.join(readme_dir,"readme.md"), "r").read()
+            readmecontent = Markup(markdown.markdown(filecontent))
+        except IOError:
+            readmecontent = ""
+        
         return render_template("models/model_details.html",
                                model_name=model_name,
                                model=model,
@@ -343,7 +352,8 @@ def model_list(model_name):
                                dl_rel_path=dl_rel_path,
                                cite_as=update_cite_as(model.info.cite_as),
                                title=title,
-                               code_snippets=code_snippets)
+                               code_snippets=code_snippets,
+                               readmecontent = readmecontent)
 
     # run the normal model list view on a subsetted table
     elif vtype == "model_list":
