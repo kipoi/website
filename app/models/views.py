@@ -9,11 +9,12 @@ import pandas as pd
 import kipoi
 from flask import Blueprint, render_template, redirect, url_for, current_app
 import logging
+from collections import OrderedDict
 
 from app.models.code_snippets import get_snippets
 from app.models.cache import cache
 from app.models.authors import get_authors
-
+from app.models.github import github_dir_tree
 mod = Blueprint('models', __name__, template_folder='templates')
 
 
@@ -44,7 +45,7 @@ def get_view(model_path, df):
     """Test if the queried string is a model
 
     Args:
-      relative path to the model: i.e. "" for the root, "rbp_eclip" for 
+      relative path to the model: i.e. "" for the root, "rbp_eclip" for
       accessing the rbp_eclip data subset
       df: pd.DataFrame returned by `kipoi.get_source(source).list_models()`
 
@@ -178,8 +179,8 @@ def update_contributors(contributors, authors):
 def update_contributors_as_dict(d):
     d['contributors'] = update_contributors(d['contributors'], d['authors'])
     return d
-    
-    
+
+
 @mod.route("/groups")
 @mod.route("/groups/")
 @mod.route("/groups/<path:group_name>")
@@ -193,10 +194,10 @@ def list_groups(group_name=None):
     group_list = group_df.to_dict(orient='records')
     # parse cite_as
     group_list = [update_cite_as_dict(x) for x in group_list]
-    
+
     # update contributors
     group_list = [update_contributors_as_dict(x) for x in group_list]
-    
+
     # update authors
     group_list = [update_authors_as_dict(x) for x in group_list]
 
@@ -277,6 +278,11 @@ def about():
     return render_template("models/about.html")
 
 
+dl_skip_arguments = {
+    "kipoiseq.dataloaders.SeqIntervalDl": ['alphabet_axis', 'dummy_axis', 'alphabet', 'dtype']
+}
+
+
 @mod.route('/models/<path:model_name>')
 def model_list(model_name):
     """ Models list view """
@@ -297,9 +303,30 @@ def model_list(model_name):
         # Model info retrieved from kipoi
         model = kipoi.get_model_descr(model_name, source=source)
 
+        src = kipoi.get_source(source)
+        model_dir = kipoi.utils.relative_path(src.get_model_dir(model_name), src.local_path)
+        model_url = github_dir_tree(src.remote_url, model_dir)
         # Model dataloaders info retrieved from kipoi
-        dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader),
-                                                source=source)
+        if isinstance(model.default_dataloader, str):
+            dl_rel_path = True
+            dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader),
+                                                    source=source)
+            dataloader_name = model.default_dataloader
+            dataloader_args = dataloader.args
+        else:
+            dl_rel_path = False
+            dataloader = model.default_dataloader.get()
+            dataloader_name = model.default_dataloader.defined_as
+            dataloader_args = OrderedDict([(k, v)
+                                           for k, v in dataloader.args.items()
+                                           if k not in list(model.default_dataloader.default_args) +
+                                           dl_skip_arguments.get(dataloader_name, [])])
+
+            if model.default_dataloader.defined_as == 'kipoiseq.dataloaders.SeqIntervalDl':
+                # HACK - cleanup some values for SeqIntervalDl
+                if model.default_dataloader.default_args.get("ignore_targets", False):
+                    dataloader_args.pop('label_dtype', None)
+
         title = model_name.split('/')
         # obtain snippets
         code_snippets = get_snippets(model_name, source)
@@ -310,6 +337,10 @@ def model_list(model_name):
                                contributors=update_contributors(model.info.contributors, model.info.authors),
                                authors=update_authors(model.info.authors, model.info.cite_as),
                                dataloader=dataloader,
+                               dataloader_args=dataloader_args,
+                               dataloader_name=dataloader_name,
+                               model_url=model_url,
+                               dl_rel_path=dl_rel_path,
                                cite_as=update_cite_as(model.info.cite_as),
                                title=title,
                                code_snippets=code_snippets)
@@ -325,10 +356,10 @@ def model_list(model_name):
 
         filtered_models = model_df.to_dict(orient='records')
         filtered_models = [update_cite_as_dict(x) for x in filtered_models]
-        
+
         # update contributors
         filtered_models = [update_contributors_as_dict(x) for x in filtered_models]
-        
+
         # update authors
         filtered_models = [update_authors_as_dict(x) for x in filtered_models]
         return render_template("models/index.html", models=filtered_models)

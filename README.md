@@ -4,20 +4,24 @@
 
 Kipoi website hosted at <http://kipoi.org>.
 
+## Usage
+
+```
+$ make
+Please use `make <target>' where <target> is one of
+  freeze        to generate a static webpage
+  serve         Serve the flask app
+  serve-freeze  Serve frozen flask app.
+  clean         clean the generated files
+
+$ make serve
+````
+
 ## Pre-requirements
 
 ### Kipoi
 
 Install Kipoi package by following installation process from <https://github.com/kipoi/kipoi>.
-
-### git-lfs
-
-Easiest way to install `git-lfs` is by adding git-lfs to the apt list following [this](https://packagecloud.io/github/git-lfs/install) tutorial.
-
-```bash
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-sudo apt install git-lfs
-```
 
 ## Requirements
 
@@ -53,24 +57,6 @@ Development web server can be run by executing following command from within the
 
 ```bash
 python run.py
-```
-
-### Docker
-
-Docker deployment is currently not supported due to the difficulties with git permissions.
-
-Base docker image can be seen [here](https://github.com/tiangolo/uwsgi-nginx-flask-docker).
-
-Build docker image:
-
-```bash
-docker build -t kipoi-webapp .
-```
-
-Run a container based on your image:
-
-```bash
-docker run -d --name kipoi -p 80:80 kipoi-webapp
 ```
 
 ### Static webpage
