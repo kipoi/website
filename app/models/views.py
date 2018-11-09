@@ -201,8 +201,21 @@ def list_groups(group_name=None):
 
     # update authors
     group_list = [update_authors_as_dict(x) for x in group_list]
-
-    return render_template("models/index_groups.html", groups=group_list)
+    
+    #get readme file
+    readme_dir = os.path.join(kipoi.get_source(current_app.config['SOURCE']).local_path, group_name)
+    try:
+        #python doesnt handle case sensetive path. so:
+        filelists = os.listdir(readme_dir)
+        readmeindx = [x.lower() for x in filelists].index("readme.md")
+        filecontent = open(os.path.join(readme_dir,filelists[readmeindx]), "r").read()
+        readmecontent = Markup(markdown.markdown(filecontent))
+    except IOError:
+        readmecontent = ""
+    except ValueError:
+        readmecontent = ""
+            
+    return render_template("models/index_groups.html", groups=group_list, readmecontent = readmecontent)
 
 
 @mod.route("/")
@@ -332,12 +345,19 @@ def model_list(model_name):
         # obtain snippets
         code_snippets = get_snippets(model_name, source)
         #reading the README content
-        #todo: shabnam
         readme_dir = kipoi.get_source(current_app.config['SOURCE']).get_model_dir(model_name)
         try:
-            filecontent = open(os.path.join(readme_dir,"readme.md"), "r").read()
+            #python doesnt handle case sensetive path. so:
+            filelists = os.listdir(readme_dir)
+            readmeindx = [x.lower() for x in filelists].index("readme.md")
+            filecontent = open(os.path.join(readme_dir,filelists[readmeindx]), "r").read()
             readmecontent = Markup(markdown.markdown(filecontent))
+            #remove the title because already there is a title
+            readmecontent = re.sub("<[hH][12]>.*</[hH][12]>","",readmecontent,count=1)
+            readmecontent = Markup(readmecontent)
         except IOError:
+            readmecontent = ""
+        except ValueError:
             readmecontent = ""
         
         return render_template("models/model_details.html",
@@ -353,7 +373,7 @@ def model_list(model_name):
                                cite_as=update_cite_as(model.info.cite_as),
                                title=title,
                                code_snippets=code_snippets,
-                               readmecontent = readmecontent)
+                               readmecontent =  readmecontent)
 
     # run the normal model list view on a subsetted table
     elif vtype == "model_list":
@@ -372,7 +392,20 @@ def model_list(model_name):
 
         # update authors
         filtered_models = [update_authors_as_dict(x) for x in filtered_models]
-        return render_template("models/index.html", models=filtered_models)
+        
+        #get readme file
+        readme_dir = os.path.join(kipoi.get_source(current_app.config['SOURCE']).local_path, model_name)
+        try:
+            filelists = os.listdir(readme_dir)
+            readmeindx = [x.lower() for x in filelists].index("readme.md")
+            filecontent = open(os.path.join(readme_dir,filelists[readmeindx]), "r").read()
+            readmecontent = Markup(markdown.markdown(filecontent))
+        except IOError:
+            readmecontent = ""
+        except ValueError:
+            readmecontent = ""
+        
+        return render_template("models/index.html", models=filtered_models, readmecontent=readmecontent)
 
     # redirect to the group list
     elif vtype == "group_list":
