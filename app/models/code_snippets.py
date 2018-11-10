@@ -7,25 +7,22 @@ import pprint
 from kipoi.cli.env import conda_env_name
 
 
-def get_model_dir(model_name):
-    """Get the model directory name
-    """
-    return os.path.join("~/.kipoi/models", model_name)
-
-
-def get_dataloader_descr(model_name):
-    md = kipoi.get_model_descr(model_name)
+def get_dataloader_descr(model_name, source):
+    from kipoi.utils import cd
+    src = kipoi.get_source(source)
+    md = kipoi.get_model_descr(model_name, source=source)
     if isinstance(md.default_dataloader, str):
         dl_path = os.path.join(model_name, md.default_dataloader)
-        return kipoi.get_dataloader_descr(dl_path)
+        return kipoi.get_dataloader_descr(dl_path, source=source)
     else:
-        return md.default_dataloader.get()
+        with cd(src.get_model_dir(model_name)):
+            return md.default_dataloader.get()
 
 
-def get_example_kwargs(model_name, output_dir='example'):
+def get_example_kwargs(model_name, source='kipoi', output_dir='example'):
     """Get the example kwargs from the dataloader
     """
-    dl = get_dataloader_descr(model_name)
+    dl = get_dataloader_descr(model_name, source=source)
     return dl.download_example(output_dir=output_dir, absolute_path=False, dry_run=True)
 
 
@@ -48,16 +45,16 @@ def get_group_name(model_name, source):
 
 
 # python specific snippets
-def py_set_example_kwargs(model_name):
-    example_kwargs = get_example_kwargs(model_name)
-    return "\nkwargs = " + pprint.pformat(example_kwargs)
+# def py_set_example_kwargs(model_name, source):
+#     example_kwargs = get_example_kwargs(model_name, source)
+#     return "\nkwargs = " + pprint.pformat(example_kwargs)
 
 
 def py_snippet(model_name, source="kipoi"):
     """Generate the python code snippet
     """
     try:
-        kw = get_example_kwargs(model_name)
+        kw = get_example_kwargs(model_name, source)
     except Exception:
         kw = "Error"
     ctx = {"model_name": model_name,
@@ -90,7 +87,7 @@ model.predict_on_batch(batch['inputs'])""".format(**ctx)),
 def bash_snippet(model_name, source="kipoi"):
     output_dir = 'example'
     try:
-        kw = json.dumps(get_example_kwargs(model_name, output_dir=output_dir))
+        kw = json.dumps(get_example_kwargs(model_name, source, output_dir=output_dir))
         group_name = get_group_name(model_name, source)
         env_name = conda_env_name(group_name, group_name, source)
     except Exception:
@@ -150,7 +147,7 @@ def R_snippet(model_name, source="kipoi"):
     """Generate the python code snippet
     """
     try:
-        kw = format_R_kwargs(get_example_kwargs(model_name))
+        kw = format_R_kwargs(get_example_kwargs(model_name, source))
     except Exception:
         kw = "Error"
     ctx = {"model_name": model_name,

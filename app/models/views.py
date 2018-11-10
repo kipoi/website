@@ -300,6 +300,7 @@ dl_skip_arguments = {
 @mod.route('/models/<path:model_name>')
 def model_list(model_name):
     """ Models list view """
+    from kipoi.utils import cd
     source = current_app.config['SOURCE']
     df = get_model_list(source)
     model_name = model_name.rstrip('/')
@@ -329,7 +330,8 @@ def model_list(model_name):
             dataloader_args = dataloader.args
         else:
             dl_rel_path = False
-            dataloader = model.default_dataloader.get()
+            with cd(src.get_model_dir(model_name)):
+                dataloader = model.default_dataloader.get()
             dataloader_name = model.default_dataloader.defined_as
             dataloader_args = OrderedDict([(k, v)
                                            for k, v in dataloader.args.items()
