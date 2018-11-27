@@ -32,41 +32,39 @@
                                          {{ model.info.name }}
                                          {% endif %}
 					 </p> -->
-                                    <p>Version: {{ model.info.version }}</p>
+                                    <!-- <p>Version: {{ model.info.version }}</p> -->
                                     <!-- License -->
                                     <p>License: {{ model.info.license }}</p>
                                     <p>Contributed by: {{ show_authors(contributors) }}</p>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-xs-12">
                                     <!-- Cite as -->
                                     <p>Cite as: {{ parse_cite_as(cite_as) }}</p>
-
-                                    <!-- Trained on -->
-                                    <p>Trained on: {{ not_none(model.info.trained_on) }}</p>
-
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-12">
                                     <!-- Model type -->
-                                    <p>
-                                        Type:
+                                    <p>Type:
                                         {% if model.type %}
-                                            <a data-toggle="tooltip" data-placement="top" data-html="true" title="{{ model_args_info(model.args) }}"><span class="badge badge-pill rgba-stylish-strong hoverable" >{{ model.type }}</span></a>
-                                        {% else %}
-                                            None
-                                        {% endif %}
+                                      <a data-toggle="tooltip" data-placement="top" data-html="true" title="{{ model_args_info(model.args) }}"><span class="badge badge-pill rgba-stylish-strong hoverable" >{{ model.type }}</span></a>
+                                      {% else %}
+                                      None
+                                      {% endif %}
                                     </p>
 
                                     <!-- Model postprocessing -->
                                     <p>
-                                        Postprocessing:
-                                        {% if model.postprocessing %}
-                                            {% for k, v in model.postprocessing.items() %}
-					        {% if v is not none %}
-                                                    <a data-toggle="tooltip" data-placement="top" data-html="true" title="{{ postprocessing_info(v) }}"><span class="badge badge-pill rgba-stylish-strong hoverable" >{{ k }}</span></a>
-						{% endif %}
-                                            {% endfor %}
-                                        {% else %}
-                                            None
-                                        {% endif %}
+                                      Postprocessing:
+                                      {% if model.postprocessing %}
+                                      {% for k, v in model.postprocessing.items() %}
+				      {% if v is not none %}
+                                      <a data-toggle="tooltip" data-placement="top" data-html="true" title="{{ postprocessing_info(v) }}"><span class="badge badge-pill rgba-stylish-strong hoverable" >{{ k }}</span></a>
+				      {% endif %}
+                                      {% endfor %}
+                                      {% else %}
+                                      None
+                                      {% endif %}
                                     </p>
+				    
+                                    <!-- Trained on -->
+                                    <p>Trained on: {{ not_none(model.info.trained_on) }}</p>
 
 				    <!-- Model url  -->
 				    <p>
