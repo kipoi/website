@@ -71,6 +71,7 @@ jobs:
           fingerprints:
             - 60:0f:05:31:12:3d:bc:8b:df:9d:08:da:71:a5:43:b6
       - checkout
+      - *update_conda
       - *install_git_lfs  # TODO - remove
       - *install_kipoi
       - *install_kipoiseq
