@@ -12,7 +12,7 @@ variables:
   install_pip_deps: &install_pip_deps
     run:
       name: Install pip dependencies
-      command: pip install -r app/requirements.txt
+      command: pip install -r app/requirements.txt --ignore-installed
   install_kipoi: &install_kipoi
     run:
       name: Install Kipoi
