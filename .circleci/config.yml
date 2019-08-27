@@ -5,6 +5,10 @@ variables:
     run:
       name: Update conda
       command: conda update --yes conda
+  install_kipoiseq_deps: &install_kipoiseq_deps
+    run:
+      name: Install Kipoiseq conda dependencies
+      command: conda install --yes -c bioconda pybedtools pyfaidx
   install_git_lfs: &install_git_lfs
     run:
       name: Install git-lfs
@@ -41,6 +45,7 @@ jobs:
       - checkout
       - *update_conda
       - *install_kipoi
+      - *install_kipoiseq_deps
       - *install_kipoiseq
       - *kipoi_ls
       - *install_pip_deps
@@ -72,6 +77,7 @@ jobs:
       - checkout
       - *update_conda
       - *install_kipoi
+      - *install_kipoiseq_deps
       - *install_kipoiseq
       - *kipoi_ls
       - *install_pip_deps
