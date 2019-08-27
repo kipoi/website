@@ -1,6 +1,14 @@
 version: 2
 
 variables:
+  update_conda: &update_conda
+    run:
+      name: Update conda
+      command: conda update --yes conda
+  install_kipoiseq_deps: &install_kipoiseq_deps
+    run:
+      name: Install Kipoiseq conda dependencies
+      command: conda install --yes -c bioconda pybedtools pyfaidx
   install_git_lfs: &install_git_lfs
     run:
       name: Install git-lfs
@@ -30,14 +38,14 @@ jobs:
 
   test_build:
     docker:
-      # - image: continuumio/miniconda3:4.3.14
-      # - image: continuumio/anaconda3:5.0.1
-      - image: kipoi/miniconda3:4.3.14
+      - image: continuumio/miniconda3:4.5.12
+      # - image: kipoi/miniconda3:4.3.14
     working_directory: ~/repo
     steps:
       - checkout
-      - *install_git_lfs  # TODO - remove
+      - *update_conda
       - *install_kipoi
+      - *install_kipoiseq_deps
       - *install_kipoiseq
       - *kipoi_ls
       - *install_pip_deps
@@ -57,17 +65,19 @@ jobs:
           
   build_deploy:
     docker:
+      - image: continuumio/miniconda3:4.5.12
       # - image: continuumio/miniconda3:4.3.14
       # - image: continuumio/anaconda3:5.0.1
-      - image: kipoi/miniconda3:4.3.14
+      # - image: kipoi/miniconda3:4.3.14
     working_directory: ~/repo
     steps:
       - add_ssh_keys:
           fingerprints:
             - 60:0f:05:31:12:3d:bc:8b:df:9d:08:da:71:a5:43:b6
       - checkout
-      - *install_git_lfs  # TODO - remove
+      - *update_conda
       - *install_kipoi
+      - *install_kipoiseq_deps
       - *install_kipoiseq
       - *kipoi_ls
       - *install_pip_deps
