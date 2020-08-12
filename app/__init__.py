@@ -55,9 +55,16 @@ def parse_schema(schema):
     elif isinstance(schema, dict):
         schema_list = []
         for key, value in schema.items():
-            value = value.get_config()
-            value["name"] = key
-            schema_list.append(value)
+            if isinstance(value, dict):
+                for name_of_schema_in_value, schema_in_value in value.items():
+                    if isinstance(schema_in_value, kipoi.components.ArraySchema):
+                        schema_in_value = schema_in_value.get_config()
+                        schema_in_value["name"] = name_of_schema_in_value
+                        schema_list.append(schema_in_value)
+            else:
+                value = value.get_config()
+                value["name"] = key
+                schema_list.append(value)
         return {"list": schema_list,
                 "type": "Dictionary of numpy arrays"}
 
