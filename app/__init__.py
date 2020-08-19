@@ -7,7 +7,7 @@ import base64
 from datetime import datetime
 import kipoi
 from flask import Flask, redirect, url_for
-
+from kipoi.external import flatten_json
 
 def get_app_base_path():
     """ Get app base path. """
@@ -53,18 +53,12 @@ def parse_schema(schema):
         return {"list": schema,
                 "type": "List of numpy arrays"}
     elif isinstance(schema, dict):
+        flattened_schema = flatten_json.flatten(dd=schema, separator='/')
         schema_list = []
-        for key, value in schema.items():
-            if isinstance(value, dict):
-                for name_of_schema_in_value, schema_in_value in value.items():
-                    if isinstance(schema_in_value, kipoi.components.ArraySchema):
-                        schema_in_value = schema_in_value.get_config()
-                        schema_in_value["name"] = name_of_schema_in_value
-                        schema_list.append(schema_in_value)
-            else:
-                value = value.get_config()
-                value["name"] = key
-                schema_list.append(value)
+        for key, value in flattened_schema.items():
+            value = value.get_config()
+            value["name"] = key
+            schema_list.append(value)
         return {"list": schema_list,
                 "type": "Dictionary of numpy arrays"}
 
