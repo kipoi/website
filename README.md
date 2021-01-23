@@ -19,18 +19,26 @@ $ make serve
 
 ## Pre-requirements
 
+### Virtual python environment with python 3.6
+
+Create a conda (or as per your choice) virtual environment using python 3.6. This is important since for kipoi, 3.6 is the highest maintained version as of now.
+
+```bash
+conda create -n websiteenv python=3.6
+```
+
 ### Kipoi
 
-Install Kipoi package by following installation process from <https://github.com/kipoi/kipoi>.
+Install Kipoi package by following installation process from [here](https://github.com/kipoi/kipoi) and kipoiseq from [here](https://github.com/kipoi/kipoiseq).
 
 ## Requirements
 
-All python requirements are listed in `requirements.txt` file.
+All python requirements are listed in `app/requirements.txt` file.
 
 Installation of python requirements:
 
 ```bash
-pip3 install -r requirements.txt
+pip3 install -r app/requirements.txt
 ```
 
 To speed-up operations like `kipoi.get_source("kipoi").list_models` or `kipoi.get_source("kipoi").list_models_by_group()` that internally trigger `git pull` on kipoi project, we use __memcached__ service to cache results for the duration set in `config.py` under `CACHE_DURATION` entry.
