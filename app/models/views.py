@@ -346,6 +346,11 @@ def model_list(model_name):
         title = model_name.split('/')
         # obtain snippets
         code_snippets = get_snippets(model_name, source)
+        if dataloader_name == "":
+            code_snippets["cli"] = code_snippets["cli"][0:2]
+            code_snippets["python"] = code_snippets["python"][0:1]
+            code_snippets["R"] = code_snippets["R"][0:1]
+
         # reading the README content
         readme_dir = kipoi.get_source(current_app.config['SOURCE']).get_model_dir(model_name)
         try:

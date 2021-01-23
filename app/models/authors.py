@@ -40,9 +40,9 @@ def parse_author(author_dict):
 def get_authors(cite_as):
     """Given a doi, get a list of Authors
     """
-    from manubot.cite import citation_to_citeproc
+    from manubot import cite
     try:
-        citation = citation_to_citeproc(parse_cite_as_url(cite_as))
+        citation = cite.citation_to_citeproc(parse_cite_as_url(cite_as))
         
         authors = [parse_author(d) for d in citation['author']]
         return authors
