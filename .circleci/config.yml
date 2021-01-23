@@ -1,10 +1,6 @@
 version: 2
 
 variables:
-  update_conda: &update_conda
-    run:
-      name: Update conda
-      command: conda update --yes conda
   install_kipoiseq_deps: &install_kipoiseq_deps
     run:
       name: Install Kipoiseq conda dependencies
