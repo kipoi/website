@@ -322,30 +322,42 @@ def model_list(model_name):
         model_dir = kipoi.utils.relative_path(src.get_model_dir(model_name), src.local_path)
         model_url = github_dir_tree(src.remote_url, model_dir)
         # Model dataloaders info retrieved from kipoi
-        if isinstance(model.default_dataloader, str):
-            dl_rel_path = True
-            dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader),
-                                                    source=source)
-            dataloader_name = model.default_dataloader
-            dataloader_args = dataloader.args
-        else:
-            dl_rel_path = False
-            with cd(src.get_model_dir(model_name)):
-                dataloader = model.default_dataloader.get()
-            dataloader_name = model.default_dataloader.defined_as
-            dataloader_args = OrderedDict([(k, v)
-                                           for k, v in dataloader.args.items()
-                                           if k not in list(model.default_dataloader.default_args) +
-                                           dl_skip_arguments.get(dataloader_name, [])])
+        if model.default_dataloader:
+            if isinstance(model.default_dataloader, str):
+                dl_rel_path = True
+                dataloader = kipoi.get_dataloader_descr(os.path.join(model_name, model.default_dataloader),
+                                                        source=source)
+                dataloader_name = model.default_dataloader
+                dataloader_args = dataloader.args
+            else:
+                dl_rel_path = False
+                with cd(src.get_model_dir(model_name)):
+                    dataloader = model.default_dataloader.get()
+                dataloader_name = model.default_dataloader.defined_as
+                dataloader_args = OrderedDict([(k, v)
+                                            for k, v in dataloader.args.items()
+                                            if k not in list(model.default_dataloader.default_args) +
+                                            dl_skip_arguments.get(dataloader_name, [])])
 
-            if model.default_dataloader.defined_as == 'kipoiseq.dataloaders.SeqIntervalDl':
-                # HACK - cleanup some values for SeqIntervalDl
-                if model.default_dataloader.default_args.get("ignore_targets", False):
-                    dataloader_args.pop('label_dtype', None)
+                if model.default_dataloader.defined_as == 'kipoiseq.dataloaders.SeqIntervalDl':
+                    # HACK - cleanup some values for SeqIntervalDl
+                    if model.default_dataloader.default_args.get("ignore_targets", False):
+                        dataloader_args.pop('label_dtype', None)
+        else:
+            dataloader = None
+            dataloader_name = ''
+            dataloader_args = {}
+            dl_rel_path = False
 
         title = model_name.split('/')
         # obtain snippets
         code_snippets = get_snippets(model_name, source)
+        if not model.default_dataloader:
+            # TODO: Check if writing "Error" in CLIs was intentional?
+            code_snippets["cli"] = '' 
+            code_snippets["python"] = ''
+            code_snippets["R"] = ''
+
         # reading the README content
         readme_dir = kipoi.get_source(current_app.config['SOURCE']).get_model_dir(model_name)
         try:

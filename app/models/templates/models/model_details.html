@@ -95,10 +95,12 @@
                             {% include 'models/model_schema.html' %}
                         </div>
                         <hr class="w-100 clearfix d-lg-none">
-                        <div class="col-lg-7 col-md-12">
-                            <!-- Dataloader details -->
-                            {% include 'models/model_dataloaders.html' %}
-                        </div>
+                        {% if model.default_dataloader %}
+                            <div class="col-lg-7 col-md-12">
+                                <!-- Dataloader details -->
+                                {% include 'models/model_dataloaders.html' %}
+                            </div>
+                        {% endif %}
                     </div>
                 
                     <hr class="w-100 clearfix">

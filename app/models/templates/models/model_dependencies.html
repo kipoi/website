@@ -26,15 +26,17 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <strong>conda</strong>:<br>
-                    {{ list_dependencies(dataloader.dependencies.conda) }}
-                </div>
-                <hr class="w-100 clearfix d-sm-none">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <strong>pip</strong>:<br>
-                    {{ list_dependencies(dataloader.dependencies.pip) }}
-                </div>
+                {% if dataloader %}
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <strong>conda</strong>:<br>
+                        {{ list_dependencies(dataloader.dependencies.conda) }}
+                    </div>
+                    <hr class="w-100 clearfix d-sm-none">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <strong>pip</strong>:<br>
+                        {{ list_dependencies(dataloader.dependencies.pip) }}
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
