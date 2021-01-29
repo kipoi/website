@@ -352,8 +352,7 @@ def model_list(model_name):
         title = model_name.split('/')
         # obtain snippets
         code_snippets = get_snippets(model_name, source)
-        if not model.default_dataloader:
-            # TODO: Check if writing "Error" in CLIs was intentional?
+        if model_name == "SeqVec/embedding2structure":
             code_snippets["cli"] = '' 
             code_snippets["python"] = ''
             code_snippets["R"] = ''
