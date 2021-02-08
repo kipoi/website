@@ -41,13 +41,7 @@ def get_group_name(model_name, source):
     else:
         return group
 # --------------------------------------------
-# Python
-
-
-# python specific snippets
-# def py_set_example_kwargs(model_name, source):
-#     example_kwargs = get_example_kwargs(model_name, source)
-#     return "\nkwargs = " + pprint.pformat(example_kwargs)
+# Docker
 
 def docker_snippet(model_name, source="kipoi"):
     """
@@ -83,7 +77,16 @@ model.predict_on_batch(batch['inputs'])""".format(**ctx)),
              """pred = model.pipeline.predict(dl_kwargs, batch_size={batch_size})""".format(**ctx)
              ),
             ]
-            
+
+# --------------------------------------------
+# Python
+
+
+# python specific snippets
+# def py_set_example_kwargs(model_name, source):
+#     example_kwargs = get_example_kwargs(model_name, source)
+#     return "\nkwargs = " + pprint.pformat(example_kwargs)
+
 def py_snippet(model_name, source="kipoi"):
     """Generate the python code snippet
     """
