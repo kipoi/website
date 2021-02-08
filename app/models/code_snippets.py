@@ -49,7 +49,41 @@ def get_group_name(model_name, source):
 #     example_kwargs = get_example_kwargs(model_name, source)
 #     return "\nkwargs = " + pprint.pformat(example_kwargs)
 
+def docker_snippet(model_name, source="kipoi"):
+    """
+    Generate the snippet for the docker containers  
 
+    Args:
+        model_name (str): Name of the model the description being generated for
+        source (str, optional): Where the model is residing. Defaults to "kipoi".
+    """
+    try:
+        kw = get_example_kwargs(model_name, source)
+    except Exception:
+        kw = "Error"
+    ctx = {"model_name": model_name,
+           "example_kwargs": kw,
+           "batch_size": get_batch_size(model_name, source)}
+    return [("Get the model", """import kipoi
+model = kipoi.get_model('{model_name}')""".format(**ctx)),
+            ("Make a prediction for example files",
+             """pred = model.pipeline.predict_example()""".format(**ctx)
+             ),
+            ("Use dataloader and model separately",
+             """# Download example dataloader kwargs
+dl_kwargs = model.default_dataloader.download_example('example')
+# Get the dataloader and instantiate it
+dl = model.default_dataloader(**dl_kwargs)
+# get a batch iterator
+it = dl.batch_iter(batch_size={batch_size})
+# predict for a batch
+batch = next(it)
+model.predict_on_batch(batch['inputs'])""".format(**ctx)),
+            ("Make predictions for custom files directly",
+             """pred = model.pipeline.predict(dl_kwargs, batch_size={batch_size})""".format(**ctx)
+             ),
+            ]
+            
 def py_snippet(model_name, source="kipoi"):
     """Generate the python code snippet
     """
@@ -180,7 +214,8 @@ model$predict_on_batch(batch$inputs)""".format(**ctx)),
 def get_snippets(model_name, source="kipoi"):
     return {"cli": bash_snippet(model_name, source),
             "python": py_snippet(model_name, source),
-            "R": R_snippet(model_name, source)}
+            "R": R_snippet(model_name, source),
+            "docker": docker_snippet(model_name, source)}
 
 
 # --------------------------------------------
