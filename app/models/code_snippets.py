@@ -100,7 +100,7 @@ def docker_snippet(model_name, source="kipoi"):
            "batch_size": get_batch_size(model_name, source),
            "source": source,
            "model_name_no_slash": model_name.replace("/", "|"),
-
+           "output_dir" : "example"
            }
     try:
         docker_image_name = model_group_to_image_dict[model_name.split('/')[0]]
