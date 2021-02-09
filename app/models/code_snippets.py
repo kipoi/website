@@ -110,14 +110,14 @@ def docker_snippet(model_name, source="kipoi"):
              ),
         ("Test the model", "docker run {docker_image_name} kipoi test {model_name} --source={source}".format(**ctx)),
         ("Make prediction for custom files directly", """mkdir -p <absolute path to your data dir>/output \\
-        docker run -v <absolute path to your data dir>:/app/ {docker_image_name} \\
-        kipoi predict {model_name} \\
-        --dataloader_args='{example_kwargs}' \\
-        -o '/app/output/{model_name_no_slash}.example_pred.tsv'
-        # check the results
-        head '<absolute path to your data dir>/output/{model_name_no_slash}.example_pred.tsv'
-        """.format(**ctx)),
-        ]
+docker run -v <absolute path to your data dir>:/app/ {docker_image_name} \\
+kipoi predict {model_name} \\
+--dataloader_args='{example_kwargs}' \\
+-o '/app/output/{model_name_no_slash}.example_pred.tsv'
+# check the results
+head '<absolute path to your data dir>/output/{model_name_no_slash}.example_pred.tsv'
+""".format(**ctx)),
+]
 
 # --------------------------------------------
 # Python
