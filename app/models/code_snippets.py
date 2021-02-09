@@ -93,8 +93,9 @@ def docker_snippet(model_name, source="kipoi"):
         kw = "Error"
     if isinstance(kw, dict):
         for key, value in kw.items():
-            value_inside_a_container = value.replace('example', '/app/example')
-            kw[key] = value_inside_a_container
+            print("key = {}, value={}, type of value={}".format(key, value, type(value)))
+            if isinstance(value, str):
+                kw[key] = value.replace('example', '/app/example')
     ctx = {"model_name": model_name,
            "example_kwargs": kw,
            "batch_size": get_batch_size(model_name, source),
