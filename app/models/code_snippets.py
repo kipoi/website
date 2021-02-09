@@ -103,7 +103,10 @@ def docker_snippet(model_name, source="kipoi"):
            "output_dir" : "example"
            }
     try:
-        docker_image_name = model_group_to_image_dict[model_name.split('/')[0]]
+        if model_name in model_group_to_image_dict: # Special provision for MMSplice
+            docker_image_name =  model_group_to_image_dict[model_name]
+        else:
+            docker_image_name = model_group_to_image_dict[model_name.split('/')[0]]
     except Exception:
         docker_image_name = ""
     ctx["docker_image_name"] = docker_image_name
