@@ -114,6 +114,7 @@ def docker_snippet(model_name, source="kipoi"):
              ),
         ("Test the model", "docker run {docker_image_name} kipoi test {model_name} --source={source}".format(**ctx)),
         ("Make prediction for custom files directly", """mkdir -p <absolute path to your data dir>/output \\
+docker run -v <absolute path to your data dir>:/app/ {docker_image_name} kipoi get-example {model_name} -o /app/{output_dir} \\
 docker run -v <absolute path to your data dir>:/app/ {docker_image_name} \\
 kipoi predict {model_name} \\
 --dataloader_args='{example_kwargs}' \\
