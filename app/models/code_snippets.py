@@ -99,7 +99,7 @@ def docker_snippet(model_name, source="kipoi"):
            "example_kwargs": kw,
            "batch_size": get_batch_size(model_name, source),
            "source": source,
-           "model_name_no_slash": model_name.replace("/", "|"),
+           "model_name_no_slash": model_name.replace("/", "_"),
            "output_dir" : "example"
            }
     try:
