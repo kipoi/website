@@ -53,38 +53,38 @@ def docker_snippet(model_name, source="kipoi"):
     """
     # TODO: read from kipoi-donctainer repo directly. Need an SSH key
     model_group_to_image_dict = {
-    "DeepCpG_DNA": "haimasree/kipoi-docker:sharedpy3keras1.2",
-    "CpGenie": "haimasree/kipoi-docker:sharedpy3keras1.2",
-    "Divergent421": "haimasree/kipoi-docker:sharedpy3keras1.2",
-    "Basenji": "haimasree/kipoi-docker:sharedpy3keras2",
-    "Basset": "haimasree/kipoi-docker:sharedpy3keras2",
-    "HAL": "haimasree/kipoi-docker:sharedpy3keras2",
-    "DeepSEA": "haimasree/kipoi-docker:sharedpy3keras2",
-    "Optimus_5Prime": "haimasree/kipoi-docker:sharedpy3keras2",
-    "labranchor": "haimasree/kipoi-docker:sharedpy3keras2",
-    "CleTimer": "haimasree/kipoi-docker:sharedpy3keras2",
-    "SiSp": "haimasree/kipoi-docker:sharedpy3keras2",
-    "FactorNet": "haimasree/kipoi-docker:sharedpy3keras2",
-    "pwm_HOCOMOCO": "haimasree/kipoi-docker:sharedpy3keras2",
-    "MaxEntScan": "haimasree/kipoi-docker:sharedpy3keras2",
-    "DeepBind": "haimasree/kipoi-docker:sharedpy3keras2",
-    "lsgkm-SVM": "haimasree/kipoi-docker:sharedpy3keras2",
-    "rbp_eclip": "haimasree/kipoi-docker:sharedpy3keras2",
-    "MPRA-DragoNN": "haimasree/kipoi-docker:mpra-dragonn",
-    "extended_coda": "haimasree/kipoi-docker:extended_coda",
-    "MMSplice/pathogenicity": "haimasree/kipoi-docker:mmsplice",
-    "MMSplice/splicingEfficiency": "haimasree/kipoi-docker:mmsplice",
-    "MMSplice/deltaLogitPSI": "haimasree/kipoi-docker:mmsplice",
-    "MMSplice/modularPredictions": "haimasree/kipoi-docker:mmsplice",
-    "MMSplice/mtsplice": "haimasree/kipoi-docker:mmsplice-mtsplice",
-    "DeepMEL": "haimasree/kipoi-docker:deepmel",
-    "Framepool": "haimasree/kipoi-docker:framepool",
-    "KipoiSplice": "haimasree/kipoi-docker:kipoisplice",
-    "deepTarget": "haimasree/kipoi-docker:deeptarget",
-    "AttentiveChrome": "haimasree/kipoi-docker:attentivechrome",
-    "BPNet-OSKN": "haimasree/kipoi-docker:bpnet-oskn",
-    "SeqVec": "haimasree/kipoi-docker:seqvec",
-    "Xpresso": "haimasree/kipoi-docker:sharedpy3keras2"
+        "DeepCpG_DNA": "haimasree/kipoi-docker:sharedpy3keras1.2",
+        "CpGenie": "haimasree/kipoi-docker:sharedpy3keras1.2",
+        "Divergent421": "haimasree/kipoi-docker:sharedpy3keras1.2",
+        "Basenji": "haimasree/kipoi-docker:sharedpy3keras2",
+        "Basset": "haimasree/kipoi-docker:sharedpy3keras2",
+        "HAL": "haimasree/kipoi-docker:sharedpy3keras2",
+        "DeepSEA": "haimasree/kipoi-docker:sharedpy3keras2",
+        "Optimus_5Prime": "haimasree/kipoi-docker:sharedpy3keras2",
+        "labranchor": "haimasree/kipoi-docker:sharedpy3keras2",
+        "CleTimer": "haimasree/kipoi-docker:sharedpy3keras2",
+        "SiSp": "haimasree/kipoi-docker:sharedpy3keras2",
+        "FactorNet": "haimasree/kipoi-docker:sharedpy3keras2",
+        "pwm_HOCOMOCO": "haimasree/kipoi-docker:sharedpy3keras2",
+        "MaxEntScan": "haimasree/kipoi-docker:sharedpy3keras2",
+        "DeepBind": "haimasree/kipoi-docker:sharedpy3keras2",
+        "lsgkm-SVM": "haimasree/kipoi-docker:sharedpy3keras2",
+        "rbp_eclip": "haimasree/kipoi-docker:sharedpy3keras2",
+        "MPRA-DragoNN": "haimasree/kipoi-docker:mpra-dragonn",
+        "extended_coda": "haimasree/kipoi-docker:extended_coda",
+        "MMSplice/pathogenicity": "haimasree/kipoi-docker:mmsplice",
+        "MMSplice/splicingEfficiency": "haimasree/kipoi-docker:mmsplice",
+        "MMSplice/deltaLogitPSI": "haimasree/kipoi-docker:mmsplice",
+        "MMSplice/modularPredictions": "haimasree/kipoi-docker:mmsplice",
+        "MMSplice/mtsplice": "haimasree/kipoi-docker:mmsplice-mtsplice",
+        "DeepMEL": "haimasree/kipoi-docker:deepmel",
+        "Framepool": "haimasree/kipoi-docker:framepool",
+        "KipoiSplice": "haimasree/kipoi-docker:kipoisplice",
+        "deepTarget": "haimasree/kipoi-docker:deeptarget",
+        "AttentiveChrome": "haimasree/kipoi-docker:attentivechrome",
+        "BPNet-OSKN": "haimasree/kipoi-docker:bpnet-oskn",
+        "SeqVec": "haimasree/kipoi-docker:seqvec",
+        "Xpresso": "haimasree/kipoi-docker:sharedpy3keras2"
     }
 
     try:
@@ -116,15 +116,17 @@ def docker_snippet(model_name, source="kipoi"):
              """docker run -it {docker_image_name}""".format(**ctx)
              ),
         ("Test the model", "docker run {docker_image_name} kipoi test {model_name} --source={source}".format(**ctx)),
-        ("Make prediction for custom files directly", """mkdir -p <absolute path to your data dir>/output \\
-docker run -v <absolute path to your data dir>:/app/ {docker_image_name} \\
-kipoi get-example {model_name} -o /app/{output_dir} \\
-docker run -v <absolute path to your data dir>:/app/ {docker_image_name} \\
+        ("Make prediction for custom files directly", """# Create an example directory containing the data
+mkdir -p $PWD/kipoi-example 
+# You can replace $PWD/kipoi-example with a different absolute path containing the data 
+docker run -v $PWD/kipoi-example:/app/ {docker_image_name} \\
+kipoi get-example {model_name} -o /app/{output_dir} 
+docker run -v $PWD/kipoi-example:/app/ {docker_image_name} \\
 kipoi predict {model_name} \\
 --dataloader_args='{example_kwargs}' \\
--o '/app/output/{model_name_no_slash}.example_pred.tsv'
+-o '/app/{model_name_no_slash}.example_pred.tsv' 
 # check the results
-head '<absolute path to your data dir>/output/{model_name_no_slash}.example_pred.tsv'
+head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
 """.format(**ctx)),
 ]
 
