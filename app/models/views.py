@@ -353,6 +353,7 @@ def model_list(model_name):
         # obtain snippets
         code_snippets = get_snippets(model_name, source)
         if model_name == "SeqVec/embedding2structure":
+            code_snippets["docker"] = ''
             code_snippets["cli"] = '' 
             code_snippets["python"] = ''
             code_snippets["R"] = ''

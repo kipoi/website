@@ -41,6 +41,96 @@ def get_group_name(model_name, source):
     else:
         return group
 # --------------------------------------------
+# Docker
+
+def docker_snippet(model_name, source="kipoi"):
+    """
+    Generate the snippet for the docker containers  
+
+    Args:
+        model_name (str): Name of the model the description being generated for
+        source (str, optional): Where the model is residing. Defaults to "kipoi".
+    """
+    # TODO: read from kipoi-donctainer repo directly. Need an SSH key
+    model_group_to_image_dict = {
+        "DeepCpG_DNA": "haimasree/kipoi-docker:sharedpy3keras1.2",
+        "CpGenie": "haimasree/kipoi-docker:sharedpy3keras1.2",
+        "Divergent421": "haimasree/kipoi-docker:sharedpy3keras1.2",
+        "Basenji": "haimasree/kipoi-docker:sharedpy3keras2",
+        "Basset": "haimasree/kipoi-docker:sharedpy3keras2",
+        "HAL": "haimasree/kipoi-docker:sharedpy3keras2",
+        "DeepSEA": "haimasree/kipoi-docker:sharedpy3keras2",
+        "Optimus_5Prime": "haimasree/kipoi-docker:sharedpy3keras2",
+        "labranchor": "haimasree/kipoi-docker:sharedpy3keras2",
+        "CleTimer": "haimasree/kipoi-docker:sharedpy3keras2",
+        "SiSp": "haimasree/kipoi-docker:sharedpy3keras2",
+        "FactorNet": "haimasree/kipoi-docker:sharedpy3keras2",
+        "pwm_HOCOMOCO": "haimasree/kipoi-docker:sharedpy3keras2",
+        "MaxEntScan": "haimasree/kipoi-docker:sharedpy3keras2",
+        "DeepBind": "haimasree/kipoi-docker:sharedpy3keras2",
+        "lsgkm-SVM": "haimasree/kipoi-docker:sharedpy3keras2",
+        "rbp_eclip": "haimasree/kipoi-docker:sharedpy3keras2",
+        "MPRA-DragoNN": "haimasree/kipoi-docker:mpra-dragonn",
+        "extended_coda": "haimasree/kipoi-docker:extended_coda",
+        "MMSplice/pathogenicity": "haimasree/kipoi-docker:mmsplice",
+        "MMSplice/splicingEfficiency": "haimasree/kipoi-docker:mmsplice",
+        "MMSplice/deltaLogitPSI": "haimasree/kipoi-docker:mmsplice",
+        "MMSplice/modularPredictions": "haimasree/kipoi-docker:mmsplice",
+        "MMSplice/mtsplice": "haimasree/kipoi-docker:mmsplice-mtsplice",
+        "DeepMEL": "haimasree/kipoi-docker:deepmel",
+        "Framepool": "haimasree/kipoi-docker:framepool",
+        "KipoiSplice": "haimasree/kipoi-docker:kipoisplice",
+        "deepTarget": "haimasree/kipoi-docker:deeptarget",
+        "AttentiveChrome": "haimasree/kipoi-docker:attentivechrome",
+        "BPNet-OSKN": "haimasree/kipoi-docker:bpnet-oskn",
+        "SeqVec": "haimasree/kipoi-docker:seqvec",
+        "Xpresso": "haimasree/kipoi-docker:sharedpy3keras2"
+    }
+
+    try:
+        kw = get_example_kwargs(model_name, source)
+    except Exception:
+        kw = "Error"
+    if isinstance(kw, dict):
+        for key, value in kw.items():
+            if isinstance(value, str):
+                kw[key] = value.replace('example', '/app/example')
+    ctx = {"model_name": model_name,
+           "example_kwargs": kw,
+           "batch_size": get_batch_size(model_name, source),
+           "source": source,
+           "model_name_no_slash": model_name.replace("/", "_"),
+           "output_dir" : "example"
+           }
+    try:
+        if model_name in model_group_to_image_dict: # Special provision for MMSplice
+            docker_image_name =  model_group_to_image_dict[model_name]
+        else:
+            docker_image_name = model_group_to_image_dict[model_name.split('/')[0]]
+    except Exception:
+        docker_image_name = ""
+    ctx["docker_image_name"] = docker_image_name
+    print("docker image name {}".format(docker_image_name))
+    return [("Get the docker image", """docker pull {docker_image_name}""".format(**ctx)),
+            ("Get the activated conda environment inside the container",
+             """docker run -it {docker_image_name}""".format(**ctx)
+             ),
+        ("Test the model", "docker run {docker_image_name} kipoi test {model_name} --source={source}".format(**ctx)),
+        ("Make prediction for custom files directly", """# Create an example directory containing the data
+mkdir -p $PWD/kipoi-example 
+# You can replace $PWD/kipoi-example with a different absolute path containing the data 
+docker run -v $PWD/kipoi-example:/app/ {docker_image_name} \\
+kipoi get-example {model_name} -o /app/{output_dir} 
+docker run -v $PWD/kipoi-example:/app/ {docker_image_name} \\
+kipoi predict {model_name} \\
+--dataloader_args='{example_kwargs}' \\
+-o '/app/{model_name_no_slash}.example_pred.tsv' 
+# check the results
+head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
+""".format(**ctx)),
+]
+
+# --------------------------------------------
 # Python
 
 
@@ -48,7 +138,6 @@ def get_group_name(model_name, source):
 # def py_set_example_kwargs(model_name, source):
 #     example_kwargs = get_example_kwargs(model_name, source)
 #     return "\nkwargs = " + pprint.pformat(example_kwargs)
-
 
 def py_snippet(model_name, source="kipoi"):
     """Generate the python code snippet
@@ -180,7 +269,8 @@ model$predict_on_batch(batch$inputs)""".format(**ctx)),
 def get_snippets(model_name, source="kipoi"):
     return {"cli": bash_snippet(model_name, source),
             "python": py_snippet(model_name, source),
-            "R": R_snippet(model_name, source)}
+            "R": R_snippet(model_name, source),
+            "docker": docker_snippet(model_name, source)}
 
 
 # --------------------------------------------

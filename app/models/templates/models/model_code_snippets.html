@@ -8,6 +8,9 @@
     <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#r" role="tab">R</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#docker" role="tab">docker</a>
+    </li>
 </ul>
 
 <!-- Tab panes -->
@@ -35,6 +38,15 @@
         <div class="border border-top-0 code-snippet-container">
             {% for label,snippet in code_snippets['R']%}
                 {{ code_snippet(label, snippet, "R") }}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- docker code snippet tab -->
+    <div class="tab-pane" id="docker" role="tabpanel">
+        <div class="border border-top-0 code-snippet-container">
+            {% for label,snippet in code_snippets['docker']%}
+                {{ code_snippet(label, snippet, "docker") }}
             {% endfor %}
         </div>
     </div>
