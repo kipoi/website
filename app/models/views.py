@@ -293,7 +293,7 @@ def about():
 
 @mod.route("/seminar/")
 def seminar():
-    """About page
+    """Seminar page
     """
     return render_template("models/seminar.html")
 
