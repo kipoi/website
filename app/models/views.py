@@ -291,6 +291,12 @@ def about():
     """
     return render_template("models/about.html")
 
+@mod.route("/seminar/")
+def seminar():
+    """About page
+    """
+    return render_template("models/seminar.html")
+
 
 dl_skip_arguments = {
     "kipoiseq.dataloaders.SeqIntervalDl": ['alphabet_axis', 'dummy_axis', 'alphabet', 'dtype']

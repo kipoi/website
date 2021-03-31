@@ -31,6 +31,10 @@
             <li class="nav-item">
               <a id="components-related-3" class="nav-button btn btn-outline-primary navbar-dark nabar-button" href="/docs/">Docs</a>
             </li>
+        <!-- About -->
+            <li class="nav-item">
+              <a id="components-related-1" class="nav-button btn btn-outline-primary navbar-dark nabar-button {% if request.endpoint == "models.seminar" or request.endpoint == "entry" or models %}btn-active{% endif %}" href="{{ url_for('models.seminar') }}">Seminar</a>
+            </li>
         </ul>
 
         <!-- Search form -->
