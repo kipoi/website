@@ -1,0 +1,61 @@
+{% from "macros.html" import not_none, parse_cite_as, show_authors %}
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- - what is it?
+- when is it?
+- how to register?
+- agenda?
+- next speaker?
+- past speakers
+- apply as speaker-->
+<div class="row" style="margin-right: 0; margin-left: 0;">
+  <div class="col-lg-5 mx-auto">
+    <!-- <h3 class="media-heading">About</h3> -->
+    <h3>Kipoi - Seminar</h3>
+    <p>
+        The monthly virtual seminar series is designed as a platform for interested Kipoi users and developers and will host talks on the applications of deep learning on biological data.
+        The seminar is held on every first Wednesday of the month at 5:30 p.m. - 6:30 p.m. CET. We are also happy to share the recordings of the seminar on <a href="https://www.youtube.com/channel/UCL_iKCHUxepOi7_Wk010--g">YouTube</a>.
+    </p>
+    <h4>How to take part</h4>
+    <p>
+        The Virtual Seminar Series takes place via Zoom.
+        To take part in the seminar, you can register for the online Zoom conference <a href='https://tum-conf.zoom.us/meeting/register/u5MpcuCvqDwoHtRxJTdDig7co4LJoiHrYugn'>here</a>.
+        Your personal join link will be valid for all upcoming lectures of the series.
+    </p>
+      <h4>How to apply as a speaker</h4>
+      <p>The seminar is a great opportunity to present your recent work to a nerdy audience.
+        If you want to apply as a speaker, please use the contact in the registration confirmation email.</p>
+    <h4>Next seminar</h4>
+    <h6> SAILER and UFOLD: Deep Learning for scATAC-seq and RNA Secondary Structure Prediction </h6>
+     Date: 07/04/2021 5:30 p.m. - 6:30 p.m. Central European Summer time
+      <p>Speaker: <strong><a href="https://cellfate.uci.edu/themes/center-fellows/">Yingxin Cao</a></strong>, PhD Student at UC Irvine</p>
+    <strong>Abstract:</strong>
+      <p align="justify">
+          SAILER:
+Single-cell sequencing assay for transposase-accessible chromatin (scATAC-seq) provides new opportunities to dissect epigenomic heterogeneity and elucidate transcriptional regulatory mechanisms. However, computational modelling of scATAC-seq data is challenging due to its high dimension, extreme sparsity, complex dependencies, and high sensitivity to confounding factors from various sources.
+In this work we propose a new deep generative model framework, named SAILER, for analyzing scATAC-seq data. SAILER aims to learn a low-dimensional nonlinear latent representation of each cell that defines its intrinsic chromatin state, invariant to extrinsic confounding factors like read depth and batch effects. SAILER adopts the conventional encoder-decoder framework to learn the latent representation but imposes additional constraints to ensure the independence of the learned representations from the confounding factors. Experimental results on both simulated and real scATAC-seq datasets demonstrate that SAILER learns better and biologically more meaningful representations of cells than other methods. Its noise-free cell embeddings bring in significant benefits in downstream analyses: Clustering and imputation based on SAILER result in significant improvements over existing methods, respectively. Moreover, because no matrix factorization is involved, SAILER can easily scale to process millions of cells. We implemented SAILER into a software package, freely available to all for large-scale scATAC-seq data analysis.
+      </p>
+ <p align="justify">
+UFold:
+For many RNA molecules, the secondary structure is essential for the correct function of the RNA. Predicting RNA secondary structure from nucleotide sequences is a long-standing problem in genomics, but the prediction performance has reached a plateau over time. Traditional RNA secondary structure prediction algorithms are primarily based on thermodynamic models through free energy minimization, which imposes strong prior assumptions and is slow to run.
+Here we propose a deep learning-based data-driven method, called UFold, for RNA secondary structure prediction, trained directly on annotated data without any thermodynamic assumptions. UFold improves substantially upon previous models. UFold is also fast with an inference time about 160ms per sequence up to 1600bp length. We provide an online web server that implements UFold for RNA structure prediction and is made freely available.
+</p>
+
+      <h4>Upcoming speakers</h4>
+      <ul>
+          <li>5 May 2021 - <strong>Anshul Kundaje</strong></li>
+          <li>2 June 2021 - <strong>Johannes Linder</strong></li>
+          <li>7 July 2021 - <strong>Qiangfeng Cliff Zhang</strong></li>
+      </ul>
+
+      <h4>Previous speakers</h4>
+      <ul>
+          <li>3 March 2021 - <strong>Avanti Shrikumar</strong></li>
+          <li>3 February 2021 - <strong>Uwe Ohler</strong></li>
+          <li>2 December 2021 - <strong>Ron Schwessinger</strong></li>
+          <li>4 November 2020 - <strong>David Kelley</strong></li>
+          <li>7 October 2020 - <strong>Vikram Agarwal</strong></li>
+      </ul>
+</div>
+{% endblock %}
