@@ -20,7 +20,7 @@ variables:
   install_kipoiseq: &install_kipoiseq
     run:
       name: Install Kipoiseq
-      command: pip install git+ssh://git@github.com/kipoi/kipoiseq.git
+      command: pip install kipoiseq
   install_awscli: &install_awscli
     run:
       name: Install awscli

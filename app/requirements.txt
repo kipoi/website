@@ -5,4 +5,3 @@ Frozen-Flask==0.15
 manubot==0.2.0
 pymdown-extensions==6.0.0
 werkzeug==0.14.1
-pyranges
