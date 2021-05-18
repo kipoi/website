@@ -4,7 +4,7 @@ variables:
   install_kipoiseq_deps: &install_kipoiseq_deps
     run:
       name: Install Kipoiseq conda dependencies
-      command: conda install --yes -c bioconda pybedtools pyfaidx
+      command: conda install --yes -c bioconda pybedtools pyfaidx cython pyranges
   install_git_lfs: &install_git_lfs
     run:
       name: Install git-lfs
@@ -20,7 +20,7 @@ variables:
   install_kipoiseq: &install_kipoiseq
     run:
       name: Install Kipoiseq
-      command: pip install kipoiseq
+      command: pip install git+ssh://git@github.com/kipoi/kipoiseq.git
   install_awscli: &install_awscli
     run:
       name: Install awscli
