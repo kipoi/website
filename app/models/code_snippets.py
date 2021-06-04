@@ -84,7 +84,8 @@ def docker_snippet(model_name, source="kipoi"):
         "AttentiveChrome": "haimasree/kipoi-docker:attentivechrome",
         "BPNet-OSKN": "haimasree/kipoi-docker:bpnet-oskn",
         "SeqVec": "haimasree/kipoi-docker:seqvec",
-        "Xpresso": "haimasree/kipoi-docker:sharedpy3keras2"
+        "Xpresso": "haimasree/kipoi-docker:sharedpy3keras2",
+        "epidermal_basset": "haimasree/kipoi-docker:sharedpy3keras1.2"
     }
 
     try:
