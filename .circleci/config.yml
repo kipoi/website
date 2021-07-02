@@ -5,7 +5,6 @@ variables:
     run:
       name: Install Kipoiseq conda dependencies
       command: |
-        conda create -n py36 python=3.6
         source activate py36
         conda install --yes -c bioconda pybedtools pyfaidx cython pyranges
   install_git_lfs: &install_git_lfs
@@ -24,6 +23,7 @@ variables:
     run:
       name: Install Kipoi
       command: |
+        conda create -n py36 python=3.6
         source activate py36
         pip install git+ssh://git@github.com/kipoi/kipoi.git
   install_kipoiseq: &install_kipoiseq
