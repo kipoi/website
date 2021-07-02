@@ -69,7 +69,9 @@ jobs:
             python freeze.py
       - run:
           name: Deploy test website to S3
-          command: aws s3 sync app/build s3://kipoi-website/test/${CIRCLE_SHA1}/
+          command: |
+            source activate py36
+            aws s3 sync app/build s3://kipoi-website/test/${CIRCLE_SHA1}/
       - run:
           name: Get website url
           command: echo http://kipoi-website.s3-website.eu-central-1.amazonaws.com/test/${CIRCLE_SHA1}/
@@ -93,7 +95,9 @@ jobs:
       - *install_pip_deps
       - run:
           name: Build docs
-          command: python freeze.py
+          command: |
+            source activate py36
+            python freeze.py
       - run:
           name: Deploy docs
           command: .circleci/deploy_docs.bash
