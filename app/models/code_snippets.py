@@ -111,13 +111,8 @@ def docker_snippet(model_name, source="kipoi"):
     except Exception:
         docker_image_name = ""
     ctx["docker_image_name"] = docker_image_name
-    print("docker image name {}".format(docker_image_name))
-    return [("Get the docker image", """docker pull {docker_image_name}""".format(**ctx)),
-            ("Get the activated conda environment inside the container",
-             """docker run -it {docker_image_name}""".format(**ctx)
-             ),
-        ("Test the model", "docker run {docker_image_name} kipoi test {model_name} --source={source}".format(**ctx)),
-        ("Make prediction for custom files directly", """# Create an example directory containing the data
+    test_snippet = "Test the model", "docker run {docker_image_name} kipoi test {model_name} --source={source}".format(**ctx)
+    predict_snippet = "Make prediction for custom files directly", """# Create an example directory containing the data
 mkdir -p $PWD/kipoi-example 
 # You can replace $PWD/kipoi-example with a different absolute path containing the data 
 docker run -v $PWD/kipoi-example:/app/ {docker_image_name} \\
@@ -128,7 +123,27 @@ kipoi predict {model_name} \\
 -o '/app/{model_name_no_slash}.example_pred.tsv' 
 # check the results
 head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
-""".format(**ctx)),
+""".format(**ctx)
+    if model_name == "Basenji":
+        test_snippet = "Test the model", "docker run {docker_image_name} kipoi test {model_name} --batch_size=2 --source={source}".format(**ctx)
+        predict_snippet = "Make prediction for custom files directly", """# Create an example directory containing the data
+mkdir -p $PWD/kipoi-example 
+# You can replace $PWD/kipoi-example with a different absolute path containing the data 
+docker run -v $PWD/kipoi-example:/app/ {docker_image_name} \\
+kipoi get-example {model_name} -o /app/{output_dir} 
+docker run -v $PWD/kipoi-example:/app/ {docker_image_name} \\
+kipoi predict {model_name} \\
+--dataloader_args='{example_kwargs}' \\
+--batch_size=2 -o '/app/{model_name_no_slash}.example_pred.tsv' 
+# check the results
+head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
+""".format(**ctx)
+    return [("Get the docker image", """docker pull {docker_image_name}""".format(**ctx)),
+            ("Get the activated conda environment inside the container",
+             """docker run -it {docker_image_name}""".format(**ctx)
+             ),
+        (test_snippet),
+        (predict_snippet),
 ]
 
 # --------------------------------------------
@@ -191,17 +206,28 @@ def bash_snippet(model_name, source="kipoi"):
            "source": source,
            "output_dir": output_dir,
            "example_kwargs": kw}
-    return [
-        ("Create a new conda environment with all dependencies installed", "kipoi env create {group_name}\nsource activate {env_name}".format(**ctx)),
-        ("Install model dependencies into current environment", "kipoi env install {group_name}".format(**ctx)),
-        ("Test the model", "kipoi test {model_name} --source={source}".format(**ctx)),
-        ("Make a prediction", """kipoi get-example {model_name} -o {output_dir}
+    test_snippet = "Test the model", "kipoi test {model_name} --source={source}".format(**ctx)
+    predict_snippet =  "Make a prediction", """kipoi get-example {model_name} -o {output_dir}
 kipoi predict {model_name} \\
   --dataloader_args='{example_kwargs}' \\
   -o '/tmp/{model_name_no_slash}.example_pred.tsv'
 # check the results
 head '/tmp/{model_name_no_slash}.example_pred.tsv'
-""".format(**ctx)),
+""".format(**ctx)
+    if model_name == "Basenji":
+        test_snippet = "Test the model", "kipoi test {model_name} --batch_size=2 --source={source}".format(**ctx)
+        predict_snippet =  "Make a prediction", """kipoi get-example {model_name} -o {output_dir}
+kipoi predict {model_name} \\
+  --dataloader_args='{example_kwargs}' \\
+  --batch_size=2 -o '/tmp/{model_name_no_slash}.example_pred.tsv'
+# check the results
+head '/tmp/{model_name_no_slash}.example_pred.tsv'
+""".format(**ctx)
+    return [
+        ("Create a new conda environment with all dependencies installed", "kipoi env create {group_name}\nsource activate {env_name}".format(**ctx)),
+        ("Install model dependencies into current environment", "kipoi env install {group_name}".format(**ctx)),
+        (test_snippet),  
+        (predict_snippet),
     ]
 
 
