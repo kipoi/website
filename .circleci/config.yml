@@ -124,6 +124,7 @@ workflows:
               only:
                 - master
                 - setup_deployment
+                - nightly-test
 
   # nightly
   kipoi-nightly-test:
