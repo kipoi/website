@@ -124,7 +124,6 @@ workflows:
               only:
                 - master
                 - setup_deployment
-                - nightly-test
 
   # nightly
   kipoi-nightly-test:
@@ -135,7 +134,7 @@ workflows:
              branches:
                only:
                  - master
-                 - nightly-test
+
      jobs:
        - test_build
        - build_deploy
