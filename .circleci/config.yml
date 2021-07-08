@@ -134,5 +134,7 @@ workflows:
              branches:
                only:
                  - master
+
      jobs:
+       - test_build
        - build_deploy
