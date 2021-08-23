@@ -85,7 +85,8 @@ def docker_snippet(model_name, source="kipoi"):
         "BPNet-OSKN": "haimasree/kipoi-docker:bpnet-oskn",
         "SeqVec": "haimasree/kipoi-docker:seqvec",
         "Xpresso": "haimasree/kipoi-docker:sharedpy3keras2",
-        "epidermal_basset": "haimasree/kipoi-docker:sharedpy3keras1.2"
+        "epidermal_basset": "haimasree/kipoi-docker:sharedpy3keras1.2",
+        "DeepFlyBrain": "haimasree/kipoi-docker:deepflybrain"
     }
 
     try:
