@@ -86,7 +86,9 @@ def docker_snippet(model_name, source="kipoi"):
         "SeqVec": "haimasree/kipoi-docker:seqvec",
         "Xpresso": "haimasree/kipoi-docker:sharedpy3keras2",
         "epidermal_basset": "haimasree/kipoi-docker:sharedpy3keras1.2",
-        "DeepFlyBrain": "haimasree/kipoi-docker:deepflybrain"
+        "DeepFlyBrain": "haimasree/kipoi-docker:deepflybrain",
+        "APARENT/site_probabilities": "haimasree/kipoi-docker:aparent-site_probabilities",
+        "APARENT/veff": "haimasree/kipoi-docker:aparent-veff"
     }
 
     try:
