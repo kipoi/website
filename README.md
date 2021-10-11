@@ -19,12 +19,12 @@ $ make serve
 
 ## Pre-requirements
 
-### Virtual python environment with python 3.6
+### Virtual python environment with python 3.9
 
-Create a conda (or as per your choice) virtual environment using python 3.6. This is important since for kipoi, 3.6 is the highest maintained version as of now.
+Create a conda (or as per your choice) virtual environment using python 3.9. It is also possible to use python version >=3.6<=3.8
 
 ```bash
-conda create -n websiteenv python=3.6
+conda create -n websiteenv python=3.9
 ```
 
 ### Kipoi
