@@ -28,8 +28,8 @@ variables:
     run:
       name: Install Kipoi
       command: |
-        conda create -n py36 python=3.6
-        source activate py36
+        conda create -n py39 python=3.9
+        source activate py39
         pip install git+ssh://git@github.com/kipoi/kipoi.git
   install_kipoiseq: &install_kipoiseq
     run:
@@ -54,7 +54,7 @@ jobs:
 
   test_build:
     docker:
-      - image: continuumio/miniconda3:4.5.12
+      - image: continuumio/miniconda3:latest
       # - image: kipoi/miniconda3:4.3.14
     working_directory: ~/repo
     steps:
@@ -84,7 +84,7 @@ jobs:
           
   build_deploy:
     docker:
-      - image: continuumio/miniconda3:4.5.12
+      - image: continuumio/miniconda3:latest
       # - image: continuumio/miniconda3:4.3.14
       # - image: continuumio/anaconda3:5.0.1
       # - image: kipoi/miniconda3:4.3.14
