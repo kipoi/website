@@ -10,19 +10,19 @@ variables:
     run:
       name: Install Kipoiseq conda dependencies
       command: |
-        source activate py36
-        conda install --yes -c bioconda pybedtools pyfaidx cython pyranges
+        source activate py39
+        conda install --yes -c bioconda pybedtools pyfaidx cython pyranges 
   install_git_lfs: &install_git_lfs
     run:
       name: Install git-lfs
       command: |
-        source activate py36  
+        source activate py39  
         conda install --yes -c conda-forge git-lfs
   install_pip_deps: &install_pip_deps
     run:
       name: Install pip dependencies
       command: |
-        source activate py36
+        source activate py39
         pip install -r app/requirements.txt
   install_kipoi: &install_kipoi
     run:
@@ -30,24 +30,25 @@ variables:
       command: |
         conda create -n py39 python=3.9
         source activate py39
+        conda install --yes -c conda-forge hdf5=1.10.6 pkgconfig
         pip install git+ssh://git@github.com/kipoi/kipoi.git
   install_kipoiseq: &install_kipoiseq
     run:
       name: Install Kipoiseq
       command: |
-        source activate py36
+        source activate py39
         pip install git+ssh://git@github.com/kipoi/kipoiseq.git
   install_awscli: &install_awscli
     run:
       name: Install awscli
       command: |
-        source activate py36
+        source activate py39
         pip install awscli
   kipoi_ls: &kipoi_ls
     run:
       name: List kipoi packages
       command: |
-        source activate py36
+        source activate py39
         kipoi ls
 
 jobs:
@@ -71,12 +72,12 @@ jobs:
           command: |
             # export FREEZER_BASE_URL=http://kipoi-website.s3-website.eu-central-1.amazonaws.com/test/${CIRCLE_SHA1}/
             export FREEZER_RELATIVE_URLS=True
-            source activate py36
+            source activate py39
             python freeze.py
       - run:
           name: Deploy test website to S3
           command: |
-            source activate py36
+            source activate py39
             aws s3 sync app/build s3://kipoi-website/test/${CIRCLE_SHA1}/
       - run:
           name: Get website url
@@ -103,7 +104,7 @@ jobs:
       - run:
           name: Build docs
           command: |
-            source activate py36
+            source activate py39
             python freeze.py
       - run:
           name: Deploy docs
