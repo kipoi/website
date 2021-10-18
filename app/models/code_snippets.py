@@ -171,7 +171,7 @@ def py_snippet(model_name, source="kipoi"):
     return [("Get the model", """import kipoi
 model = kipoi.get_model('{model_name}')""".format(**ctx)),
             ("Make a prediction for example files",
-             """pred = model.pipeline.predict_example()""".format(**ctx)
+             """pred = model.pipeline.predict_example(batch_size={batch_size})""".format(**ctx)
              ),
             ("Use dataloader and model separately",
              """# Download example dataloader kwargs
