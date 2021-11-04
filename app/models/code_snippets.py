@@ -337,6 +337,7 @@ def singularity_snippet(model_name, source="kipoi"):
             singularity_image_url = model_group_to_image_dict[model_name.split('/')[0]]["url"]
     except Exception:
         singularity_image_url = ""
+    ctx["singularity_image_name"] = singularity_image_name
     ctx["singularity_image_url"] = singularity_image_url
     test_snippet = "Test the model", "singularity exec {singularity_image_name} kipoi test {model_name} --source={source}".format(**ctx)
     predict_snippet = "Make prediction for custom files directly", """# Create an example directory containing the data
@@ -524,7 +525,9 @@ def get_snippets(model_name, source="kipoi"):
     return {"cli": bash_snippet(model_name, source),
             "python": py_snippet(model_name, source),
             "R": R_snippet(model_name, source),
-            "docker": docker_snippet(model_name, source)}
+            "docker": docker_snippet(model_name, source),
+            "singularity": singularity_snippet(model_name, source)}
+
 
 
 # --------------------------------------------

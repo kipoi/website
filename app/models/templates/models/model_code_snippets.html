@@ -11,6 +11,9 @@
     <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#docker" role="tab">docker</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#singularity" role="tab">singularity</a>
+    </li>
 </ul>
 
 <!-- Tab panes -->
@@ -50,4 +53,14 @@
             {% endfor %}
         </div>
     </div>
+
+    <!-- singularity code snippet tab -->
+    <div class="tab-pane" id="singularity" role="tabpanel">
+        <div class="border border-top-0 code-snippet-container">
+            {% for label,snippet in code_snippets['singularity']%}
+                {{ code_snippet(label, snippet, "singularity") }}
+            {% endfor %}
+        </div>
+    </div>
+
 </div>
