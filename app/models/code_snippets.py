@@ -312,16 +312,12 @@ def singularity_snippet(model_name, source="kipoi"):
         kw = get_example_kwargs(model_name, source)
     except Exception:
         kw = "Error"
-    if isinstance(kw, dict):
-        for key, value in kw.items():
-            if isinstance(value, str):
-                kw[key] = value.replace('example', '/app/example')
     ctx = {"model_name": model_name,
            "example_kwargs": kw,
            "batch_size": get_batch_size(model_name, source),
            "source": source,
            "model_name_no_slash": model_name.replace("/", "_"),
-           "output_dir" : "example"
+           "output_dir" : "$PWD/kipoi-example/"
            }
     try:
         if model_name in model_group_to_image_dict: # Special provision for MMSplice
@@ -344,11 +340,11 @@ def singularity_snippet(model_name, source="kipoi"):
 mkdir -p $PWD/kipoi-example 
 # You can replace $PWD/kipoi-example with a different absolute path containing the data 
 singularity exec {singularity_image_name} \\
-kipoi get-example {model_name} -o /app/{output_dir} 
+kipoi get-example {model_name} -o {output_dir} 
 singularity exec {singularity_image_name} \\
 kipoi predict {model_name} \\
 --dataloader_args='{example_kwargs}' \\
--o '/app/{model_name_no_slash}.example_pred.tsv' 
+-o '{model_name_no_slash}.example_pred.tsv' 
 # check the results
 head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
 """.format(**ctx)
@@ -358,18 +354,15 @@ head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
 mkdir -p $PWD/kipoi-example 
 # You can replace $PWD/kipoi-example with a different absolute path containing the data 
 singularity exec {singularity_image_name} \\
-kipoi get-example {model_name} -o /app/{output_dir} 
+kipoi get-example {model_name} -o {output_dir} 
 singularity exec {singularity_image_name}  \\
 kipoi predict {model_name} \\
 --dataloader_args='{example_kwargs}' \\
---batch_size=2 -o '/app/{model_name_no_slash}.example_pred.tsv' 
+--batch_size=2 -o '{model_name_no_slash}.example_pred.tsv' 
 # check the results
 head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
 """.format(**ctx)
     return [("Get the singularity image", """wget {singularity_image_url} .""".format(**ctx)),
-            ("Get the activated conda environment inside the container",
-             """singularity shell {singularity_image_name}""".format(**ctx)
-             ),
         (test_snippet),
         (predict_snippet),
 ]
