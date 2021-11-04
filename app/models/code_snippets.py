@@ -362,7 +362,7 @@ kipoi predict {model_name} \\
 # check the results
 head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
 """.format(**ctx)
-    return [("Get the singularity image", """wget {singularity_image_url} .""".format(**ctx)),
+    return [("Get the singularity image", """{singularity_image_url}""".format(**ctx)),
         (test_snippet),
         (predict_snippet),
 ]
