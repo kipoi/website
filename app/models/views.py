@@ -78,7 +78,7 @@ def get_view(model_path, df):
         # a model matches exactly model_path
         return ("model", model_path)
     names = df.model[df.model.str.contains("^" + model_path + "/")]
-    if model_path is not "":
+    if model_path != "":
         sub_names = names.str.replace("^" + model_path + "/", "")
     else:
         sub_names = names
@@ -163,6 +163,14 @@ def update_authors(authors, cite_as):
         return out
     else:
         return authors
+
+def available_postprocessing(model_name):
+    from kipoi_veff2 import variant_centered, interval_based
+    model_group_name = model_name.split('/')[0]
+    if model_group_name in variant_centered.MODEL_GROUPS or model_group_name in interval_based.MODEL_GROUPS:
+        return "variant_effects"
+    return ""
+
 
 
 def update_authors_as_dict(d):
@@ -383,7 +391,6 @@ def model_list(model_name):
             readmecontent = ""
         except ValueError:
             readmecontent = ""
-
         return render_template("models/model_details.html",
                                model_name=model_name,
                                model=model,
@@ -397,7 +404,8 @@ def model_list(model_name):
                                cite_as=update_cite_as(model.info.cite_as),
                                title=title,
                                code_snippets=code_snippets,
-                               readmecontent=readmecontent)
+                               readmecontent=readmecontent,
+                               model_postprocessing=available_postprocessing(model_name))
 
     # run the normal model list view on a subsetted table
     elif vtype == "model_list":
