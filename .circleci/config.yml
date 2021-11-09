@@ -17,7 +17,7 @@ variables:
       name: Install kipoi-veff2 conda dependencies
       command: |
         source activate py39
-        conda install --yes -c bioconda cyvcf2 datclasses
+        conda install --yes -c bioconda cyvcf2
   install_git_lfs: &install_git_lfs
     run:
       name: Install git-lfs
