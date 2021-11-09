@@ -250,6 +250,7 @@ def main():
     # models_by_license = dict(df.license.value_counts())
     models_by_genomics_tag = pd.Series([x for model_groups in dfg.tags
                                         for x in model_groups]).value_counts()
+                                       
     models_by_genomics_tag = models_by_genomics_tag[models_by_genomics_tag.index.isin(GENOMICS_TAGS)]
 
     models_by_framework = dfg.type.apply(lambda x: list(x)[0]).value_counts()
@@ -270,12 +271,15 @@ def main():
         "custom": "#66c2a5",
     }
     models_by_framework_colors = [framework_colors[x] for x in models_by_framework.index]
+    # Add variant effect scoring models from kipoi-veff2
+    from kipoi_veff2 import variant_centered, interval_based
+    number_of_veff_scoring_models = len(variant_centered.MODEL_GROUPS) + len(interval_based.MODEL_GROUPS)
     # TODO - put the chart colors also here:
     return render_template("models/main.html",
                            n_models=len(df),
                            n_groups=len(dfg),
                            n_contributors=len({x.name for contributors in df.contributors for x in contributors}),
-                           n_postproc_score_variants=dfg.veff_score_variants.sum(),
+                           n_postproc_score_variants=number_of_veff_scoring_models,
                            models_by_framework_keys=list(models_by_framework.index),
                            models_by_framework_values=list(models_by_framework),
                            models_by_framework_colors=models_by_framework_colors,
@@ -323,7 +327,6 @@ def model_list(model_name):
     if vtype == "model":
         # Model info retrieved from kipoi
         model = kipoi.get_model_descr(model_name, source=source)
-
         src = kipoi.get_source(source)
         model_dir = kipoi.utils.relative_path(src.get_model_dir(model_name), src.local_path)
         model_url = github_dir_tree(src.remote_url, model_dir)

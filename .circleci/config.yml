@@ -11,7 +11,13 @@ variables:
       name: Install Kipoiseq conda dependencies
       command: |
         source activate py39
-        conda install --yes -c bioconda pybedtools pyfaidx cython pyranges 
+        conda install --yes -c bioconda pybedtools pyfaidx cython pyranges
+  install_kipoi-veff2_deps: &install_kipoi-veff2_deps
+    run:
+      name: Install kipoi-veff2 conda dependencies
+      command: |
+        source activate py39
+        conda install --yes -c bioconda cyvcf2 datclasses
   install_git_lfs: &install_git_lfs
     run:
       name: Install git-lfs
@@ -38,6 +44,12 @@ variables:
       command: |
         source activate py39
         pip install git+ssh://git@github.com/kipoi/kipoiseq.git
+  install_kipoi-veff2: &install_kipoi-veff2
+    run:
+      name: Install kipoi-veff2
+      command: |
+          source activate py39
+          pip install git+ssh://git@github.com/kipoi/kipoi-veff2.git
   install_awscli: &install_awscli
     run:
       name: Install awscli
@@ -65,6 +77,8 @@ jobs:
       - *install_kipoi
       - *install_kipoiseq_deps
       - *install_kipoiseq
+      - *install_kipoi-veff2_deps
+      - *install_kipoi-veff2
       - *kipoi_ls
       - *install_pip_deps
       - *install_awscli
@@ -101,6 +115,8 @@ jobs:
       - *install_kipoi
       - *install_kipoiseq_deps
       - *install_kipoiseq
+      - *install_kipoi-veff2_deps
+      - *install_kipoi-veff2
       - *kipoi_ls
       - *install_pip_deps
       - run:
