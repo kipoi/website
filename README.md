@@ -29,7 +29,14 @@ conda create -n websiteenv python=3.9
 
 ### Kipoi
 
-Install Kipoi package by following installation process from [here](https://github.com/kipoi/kipoi) and kipoiseq from [here](https://github.com/kipoi/kipoiseq).
+Install Kipoi package by following installation process from [here](https://github.com/kipoi/kipoi) and kipoiseq from [here](https://github.com/kipoi/kipoiseq). It is also required to install kipoi-veff2. Please follow the following steps inside your conda environment
+
+```
+pip install cyvcf2 (Use conda if using python=3.6)
+pip install dataclasses (only for python=3.6)
+pip install git+https://github.com/kipoi/kipoi-veff2.git
+```
+
 
 ## Requirements
 

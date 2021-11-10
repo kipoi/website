@@ -78,7 +78,7 @@ def get_view(model_path, df):
         # a model matches exactly model_path
         return ("model", model_path)
     names = df.model[df.model.str.contains("^" + model_path + "/")]
-    if model_path is not "":
+    if model_path != "":
         sub_names = names.str.replace("^" + model_path + "/", "")
     else:
         sub_names = names
@@ -163,6 +163,14 @@ def update_authors(authors, cite_as):
         return out
     else:
         return authors
+
+def available_postprocessing(model_name):
+    from kipoi_veff2 import variant_centered, interval_based
+    model_group_name = model_name.split('/')[0]
+    if model_group_name in variant_centered.MODEL_GROUPS or model_group_name in interval_based.MODEL_GROUPS:
+        return "variant_effects"
+    return ""
+
 
 
 def update_authors_as_dict(d):
@@ -250,6 +258,7 @@ def main():
     # models_by_license = dict(df.license.value_counts())
     models_by_genomics_tag = pd.Series([x for model_groups in dfg.tags
                                         for x in model_groups]).value_counts()
+                                       
     models_by_genomics_tag = models_by_genomics_tag[models_by_genomics_tag.index.isin(GENOMICS_TAGS)]
 
     models_by_framework = dfg.type.apply(lambda x: list(x)[0]).value_counts()
@@ -270,12 +279,15 @@ def main():
         "custom": "#66c2a5",
     }
     models_by_framework_colors = [framework_colors[x] for x in models_by_framework.index]
+    # Add variant effect scoring models from kipoi-veff2
+    from kipoi_veff2 import variant_centered, interval_based
+    number_of_veff_scoring_models = len(variant_centered.MODEL_GROUPS) + len(interval_based.MODEL_GROUPS)
     # TODO - put the chart colors also here:
     return render_template("models/main.html",
                            n_models=len(df),
                            n_groups=len(dfg),
                            n_contributors=len({x.name for contributors in df.contributors for x in contributors}),
-                           n_postproc_score_variants=dfg.veff_score_variants.sum(),
+                           n_postproc_score_variants=number_of_veff_scoring_models,
                            models_by_framework_keys=list(models_by_framework.index),
                            models_by_framework_values=list(models_by_framework),
                            models_by_framework_colors=models_by_framework_colors,
@@ -323,7 +335,6 @@ def model_list(model_name):
     if vtype == "model":
         # Model info retrieved from kipoi
         model = kipoi.get_model_descr(model_name, source=source)
-
         src = kipoi.get_source(source)
         model_dir = kipoi.utils.relative_path(src.get_model_dir(model_name), src.local_path)
         model_url = github_dir_tree(src.remote_url, model_dir)
@@ -380,7 +391,6 @@ def model_list(model_name):
             readmecontent = ""
         except ValueError:
             readmecontent = ""
-
         return render_template("models/model_details.html",
                                model_name=model_name,
                                model=model,
@@ -394,7 +404,8 @@ def model_list(model_name):
                                cite_as=update_cite_as(model.info.cite_as),
                                title=title,
                                code_snippets=code_snippets,
-                               readmecontent=readmecontent)
+                               readmecontent=readmecontent,
+                               model_postprocessing=available_postprocessing(model_name))
 
     # run the normal model list view on a subsetted table
     elif vtype == "model_list":

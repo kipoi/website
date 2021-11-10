@@ -1,4 +1,4 @@
-{% from "macros.html" import show_authors, list_dependencies, postprocessing_info, model_args_info, display_schema_inputs, dataloaders_info, dataloaders_args, code_snippet, not_none, parse_cite_as %}
+{% from "macros.html" import show_authors, list_dependencies, model_args_info, display_schema_inputs, dataloaders_info, dataloaders_args, code_snippet, not_none, parse_cite_as %}
 {% extends 'base.html' %}
 {% block content %}
     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -52,12 +52,8 @@
                                     <!-- Model postprocessing -->
                                     <p>
                                       Postprocessing:
-                                      {% if model.postprocessing %}
-                                      {% for k, v in model.postprocessing.items() %}
-				      {% if v is not none %}
-                                      <a data-toggle="tooltip" data-placement="top" data-html="true" title="{{ postprocessing_info(v) }}"><span class="badge badge-pill rgba-stylish-strong hoverable" >{{ k }}</span></a>
-				      {% endif %}
-                                      {% endfor %}
+                                      {% if model_postprocessing == "variant_effects" %}
+                                          <a data-toggle="tooltip" data-placement="top" data-html="true"><span class="badge badge-pill rgba-stylish-strong hoverable" >{{ model_postprocessing }}</span></a>
                                       {% else %}
                                       None
                                       {% endif %}
