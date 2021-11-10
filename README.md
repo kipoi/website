@@ -34,7 +34,7 @@ Install Kipoi package by following installation process from [here](https://gith
 ```
 pip install cyvcf2 (Use conda if using python=3.6)
 pip install dataclasses (only for python=3.6)
-pip install git+https:/github.com/kipoi/kipoi-veff2
+pip install git+https://github.com/kipoi/kipoi-veff2.git
 ```
 
 
