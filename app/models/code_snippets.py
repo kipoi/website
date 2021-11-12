@@ -6,6 +6,8 @@ import kipoi
 import pprint
 from kipoi.cli.env import conda_env_name
 
+CONTAINER_PREFIX = "shared/containers"
+
 
 def get_dataloader_descr(model_name, source):
     from kipoi.utils import cd
@@ -51,46 +53,11 @@ def docker_snippet(model_name, source="kipoi"):
         model_name (str): Name of the model the description being generated for
         source (str, optional): Where the model is residing. Defaults to "kipoi".
     """
-    # TODO: read from kipoi-donctainer repo directly. Need an SSH key
-    model_group_to_image_dict = {
-        "DeepCpG_DNA": "kipoi/kipoi-docker:sharedpy3keras1.2",
-        "CpGenie": "kipoi/kipoi-docker:sharedpy3keras1.2",
-        "Divergent421": "kipoi/kipoi-docker:sharedpy3keras1.2",
-        "Basenji": "kipoi/kipoi-docker:sharedpy3keras2",
-        "Basset": "kipoi/kipoi-docker:sharedpy3keras2",
-        "HAL": "kipoi/kipoi-docker:sharedpy3keras2",
-        "DeepSEA": "kipoi/kipoi-docker:sharedpy3keras2",
-        "Optimus_5Prime": "kipoi/kipoi-docker:sharedpy3keras2",
-        "labranchor": "kipoi/kipoi-docker:sharedpy3keras2",
-        "CleTimer": "kipoi/kipoi-docker:sharedpy3keras2",
-        "SiSp": "kipoi/kipoi-docker:sharedpy3keras2",
-        "FactorNet": "kipoi/kipoi-docker:sharedpy3keras2",
-        "pwm_HOCOMOCO": "kipoi/kipoi-docker:sharedpy3keras2",
-        "MaxEntScan": "kipoi/kipoi-docker:sharedpy3keras2",
-        "DeepBind": "kipoi/kipoi-docker:sharedpy3keras2",
-        "lsgkm-SVM": "kipoi/kipoi-docker:sharedpy3keras2",
-        "rbp_eclip": "kipoi/kipoi-docker:sharedpy3keras2",
-        "MPRA-DragoNN": "kipoi/kipoi-docker:mpra-dragonn",
-        "extended_coda": "kipoi/kipoi-docker:extended_coda",
-        "MMSplice/pathogenicity": "kipoi/kipoi-docker:mmsplice",
-        "MMSplice/splicingEfficiency": "kipoi/kipoi-docker:mmsplice",
-        "MMSplice/deltaLogitPSI": "kipoi/kipoi-docker:mmsplice",
-        "MMSplice/modularPredictions": "kipoi/kipoi-docker:mmsplice",
-        "MMSplice/mtsplice": "kipoi/kipoi-docker:mmsplice-mtsplice",
-        "DeepMEL": "kipoi/kipoi-docker:deepmel",
-        "Framepool": "kipoi/kipoi-docker:framepool",
-        "KipoiSplice": "kipoi/kipoi-docker:kipoisplice",
-        "deepTarget": "kipoi/kipoi-docker:deeptarget",
-        "AttentiveChrome": "kipoi/kipoi-docker:attentivechrome",
-        "BPNet-OSKN": "kipoi/kipoi-docker:bpnet-oskn",
-        "SeqVec": "kipoi/kipoi-docker:seqvec",
-        "Xpresso": "kipoi/kipoi-docker:sharedpy3keras2",
-        "epidermal_basset": "kipoi/kipoi-docker:sharedpy3keras1.2",
-        "DeepFlyBrain": "kipoi/kipoi-docker:deepflybrain",
-        "APARENT/site_probabilities": "kipoi/kipoi-docker:aparent-site_probabilities",
-        "APARENT/veff": "kipoi/kipoi-docker:aparent-veff"
-    }
-
+    src = kipoi.get_source(source)
+    docker_container_json = os.path.join(src.local_path, CONTAINER_PREFIX, "model-to-docker.json")
+    with open(docker_container_json, 'r') as docker_container_json_filehandle:
+        model_group_to_image_dict = json.load(docker_container_json_filehandle)
+    
     try:
         kw = get_example_kwargs(model_name, source)
     except Exception:
@@ -107,7 +74,7 @@ def docker_snippet(model_name, source="kipoi"):
            "output_dir" : "example"
            }
     try:
-        if model_name in model_group_to_image_dict: # Special provision for MMSplice
+        if model_name in model_group_to_image_dict: # Special provision for MMSplice/mtsplice, APARENT/veff
             docker_image_name =  model_group_to_image_dict[model_name]
         else:
             docker_image_name = model_group_to_image_dict[model_name.split('/')[0]]
@@ -160,154 +127,11 @@ def singularity_snippet(model_name, source="kipoi"):
         model_name (str): Name of the model the description being generated for
         source (str, optional): Where the model is residing. Defaults to "kipoi".
     """
-    # TODO: read from kipoi-donctainer repo directly. Need an SSH key
-    model_group_to_image_dict = {
-        "DeepCpG_DNA": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "CpGenie": {
-            "url": "https://zenodo.org/api/files/909c448f-0740-44bb-959a-21e643e0440a/kipoi-docker_sharedpy3keras1.2.sif?versionId=ef87d9b5-da51-49ec-9661-0a30ae59a20f",
-            "name": "kipoi-docker_sharedpy3keras1.2.sif"
-        },
-        "Divergent421": {
-            "url": "https://zenodo.org/api/files/909c448f-0740-44bb-959a-21e643e0440a/kipoi-docker_sharedpy3keras1.2.sif?versionId=ef87d9b5-da51-49ec-9661-0a30ae59a20f",
-            "name": "kipoi-docker_sharedpy3keras1.2.sif"
-        },
-        "Basenji": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "Basset": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "HAL": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "DeepSEA": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "Optimus_5Prime": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "labranchor": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "CleTimer": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "SiSp": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "FactorNet": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "pwm_HOCOMOCO": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "MaxEntScan": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "DeepBind": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "lsgkm-SVM": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "rbp_eclip": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "MPRA-DragoNN": {
-            "url": "https://zenodo.org/record/5643980/files/kipoi-docker_mpra-dragonn.sif?download=1",
-            "name": "kipoi-docker_mpra-dragonn.sif"
-        },
-        "extended_coda": {
-            "url": "https://zenodo.org/api/files/e48e60fa-544a-4721-821c-37450be3cf5c/kipoi-docker_extended_coda.sif?versionId=88d8d2a2-9bbf-46b4-a802-0c4534405ade",
-            "name": "kipoi-docker_extended_coda.sif"
-        },
-        "MMSplice/pathogenicity": {
-            "url": "https://zenodo.org/api/files/9474d673-ac4a-47b3-b6ba-6c6581db479a/kipoi-docker_mmsplice.sif?versionId=9ca56f66-8535-4179-a7cc-3817dcaf9b9b",
-            "name": "kipoi-docker_mmsplice.sif"
-        },
-        "MMSplice/splicingEfficiency": {
-            "url": "https://zenodo.org/api/files/9474d673-ac4a-47b3-b6ba-6c6581db479a/kipoi-docker_mmsplice.sif?versionId=9ca56f66-8535-4179-a7cc-3817dcaf9b9b",
-            "name": "kipoi-docker_mmsplice.sif"
-        },
-        "MMSplice/deltaLogitPSI": {
-            "url": "https://zenodo.org/api/files/9474d673-ac4a-47b3-b6ba-6c6581db479a/kipoi-docker_mmsplice.sif?versionId=9ca56f66-8535-4179-a7cc-3817dcaf9b9b",
-            "name": "kipoi-docker_mmsplice.sif"
-        },
-        "MMSplice/modularPredictions": {
-            "url": "https://zenodo.org/api/files/9474d673-ac4a-47b3-b6ba-6c6581db479a/kipoi-docker_mmsplice.sif?versionId=9ca56f66-8535-4179-a7cc-3817dcaf9b9b",
-            "name": "kipoi-docker_mmsplice.sif"
-        },
-        "MMSplice/mtsplice": {
-            "url": "https://zenodo.org/record/5643967/files/kipoi-docker_mmsplice-mtsplice.sif?download=1",
-            "name": "kipoi-docker_mmsplice-mtsplice.sif"
-        },
-        "DeepMEL": {
-            "url": "https://zenodo.org/record/5643863/files/kipoi-docker_deepmel.sif?download=1",
-            "name": "kipoi-docker_deepmel.sif"
-        },
-        "Framepool": {
-            "url": "https://zenodo.org/record/5643942/files/kipoi-docker_framepool.sif?download=1",
-            "name": "kipoi-docker_framepool.sif"
-        },
-        "KipoiSplice": {
-            "url": "https://zenodo.org/record/5643955/files/kipoi-docker_kipoisplice.sif?download=1",
-            "name": "kipoi-docker_kipoisplice.sif"
-        },
-        "deepTarget": {
-            "url": "https://zenodo.org/record/5643929/files/kipoi-docker_deeptarget.sif?download=1",
-            "name": "kipoi-docker_deeptarget.sif"
-        },
-        "AttentiveChrome": {
-            "url": "https://zenodo.org/record/5638781/files/kipoi-docker_attentivechrome.sif?download=1",
-            "name": "kipoi-docker_attentivechrome.sif"
-        },
-        "BPNet-OSKN": {
-            "url": "https://zenodo.org/record/5643831/files/kipoi-docker_bpnet-oskn.sif?download=1",
-            "name": "kipoi-docker_bpnet-oskn.sif"
-        },
-        "SeqVec": {
-            "url": "https://zenodo.org/record/5643982/files/kipoi-docker_seqvec.sif?download=1",
-            "name": "kipoi-docker_seqvec.sif"
-        },
-        "Xpresso": {
-            "url": "https://zenodo.org/record/5644007/files/kipoi-docker_sharedpy3keras2.sif?download=1",
-            "name": "kipoi-docker_sharedpy3keras2.sif"
-        },
-        "epidermal_basset": {
-            "url": "https://zenodo.org/api/files/909c448f-0740-44bb-959a-21e643e0440a/kipoi-docker_sharedpy3keras1.2.sif?versionId=ef87d9b5-da51-49ec-9661-0a30ae59a20f",
-            "name": "kipoi-docker_sharedpy3keras1.2.sif"
-        },
-        "DeepFlyBrain": {
-            "url": "https://zenodo.org/record/5643854/files/kipoi-docker_deepflybrain.sif?download=1",
-            "name": "kipoi-docker_deepflybrain.sif"
-        },
-        "APARENT/site_probabilities": {
-            "url": "https://zenodo.org/record/5643783/files/kipoi-docker_aparent-site_probabilities.sif?download=1",
-            "name": "kipoi-docker_aparent-site_probabilities.sif"
-        },
-        "APARENT/veff": {
-            "url": "https://zenodo.org/record/5643822/files/kipoi-docker_aparent-veff.sif?download=1",
-            "name": "kipoi-docker_aparent-veff.sif"
-        },
-    }
-
+    src = kipoi.get_source(source)
+    singularity_container_json = os.path.join(src.local_path, CONTAINER_PREFIX, "model-to-singularity.json")
+    with open(singularity_container_json, 'r') as singularity_container_json_filehandle:
+        model_group_to_image_dict = json.load(singularity_container_json_filehandle)
+    
     try:
         kw = get_example_kwargs(model_name, source)
     except Exception:
