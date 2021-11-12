@@ -144,7 +144,7 @@ def singularity_snippet(model_name, source="kipoi"):
            "output_dir" : "$PWD/kipoi-example/"
            }
     try:
-        if model_name in model_group_to_image_dict: # Special provision for MMSplice
+        if model_name in model_group_to_image_dict: # Special provision for MMSplice/mtsplice, APARENT/veff
             singularity_image_name =  model_group_to_image_dict[model_name]["name"]
         else:
             singularity_image_name = model_group_to_image_dict[model_name.split('/')[0]]["name"]
@@ -157,7 +157,7 @@ def singularity_snippet(model_name, source="kipoi"):
             singularity_image_url = model_group_to_image_dict[model_name.split('/')[0]]["url"]
     except Exception:
         singularity_image_url = ""
-    ctx["singularity_image_name"] = singularity_image_name
+    ctx["singularity_image_name"] = f"{singularity_image_name}.sif"
     ctx["singularity_image_url"] = singularity_image_url
     test_snippet = "Test the model", "singularity exec {singularity_image_name} kipoi test {model_name} --source={source}".format(**ctx)
     predict_snippet = "Make prediction for custom files directly", """# Create an example directory containing the data
