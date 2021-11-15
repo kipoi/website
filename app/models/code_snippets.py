@@ -121,7 +121,7 @@ head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
 
 def singularity_snippet(model_name, source="kipoi"):
     """
-    Generate the snippet for the docker containers  
+    Generate the snippet for the singularity containers  
 
     Args:
         model_name (str): Name of the model the description being generated for
@@ -133,7 +133,7 @@ def singularity_snippet(model_name, source="kipoi"):
         model_group_to_image_dict = json.load(singularity_container_json_filehandle)
     
     try:
-        kw = get_example_kwargs(model_name, source)
+        kw = json.dumps(get_example_kwargs(model_name, source))
     except Exception:
         kw = "Error"
     ctx = {"model_name": model_name,
@@ -141,53 +141,35 @@ def singularity_snippet(model_name, source="kipoi"):
            "batch_size": get_batch_size(model_name, source),
            "source": source,
            "model_name_no_slash": model_name.replace("/", "_"),
-           "output_dir" : "$PWD/kipoi-example/"
+           "output_dir" : "example"
            }
     try:
-        if model_name in model_group_to_image_dict: # Special provision for MMSplice/mtsplice, APARENT/veff
-            singularity_image_name =  model_group_to_image_dict[model_name]["name"]
-        else:
-            singularity_image_name = model_group_to_image_dict[model_name.split('/')[0]]["name"]
-    except Exception:
-        singularity_image_name = ""
-    try:
-        if model_name in model_group_to_image_dict: # Special provision for MMSplice
-            singularity_image_url =  model_group_to_image_dict[model_name]["url"]
-        else:
-            singularity_image_url = model_group_to_image_dict[model_name.split('/')[0]]["url"]
-    except Exception:
-        singularity_image_url = ""
-    ctx["singularity_image_name"] = f"{singularity_image_name}.sif"
-    ctx["singularity_image_url"] = singularity_image_url
-    test_snippet = "Test the model", "singularity exec {singularity_image_name} kipoi test {model_name} --source={source}".format(**ctx)
-    predict_snippet = "Make prediction for custom files directly", """# Create an example directory containing the data
-mkdir -p $PWD/kipoi-example 
-# You can replace $PWD/kipoi-example with a different absolute path containing the data 
-singularity exec {singularity_image_name} \\
-kipoi get-example {model_name} -o {output_dir} 
-singularity exec {singularity_image_name} \\
+        if model_name in model_group_to_image_dict or model_name.split('/')[0] in model_group_to_image_dict:
+            if model_name == "Basenji":
+                predict_snippet = "Make prediction for custom files directly", """kipoi get-example {model_name} -o {output_dir}
 kipoi predict {model_name} \\
 --dataloader_args='{example_kwargs}' \\
--o '{model_name_no_slash}.example_pred.tsv' 
+--batch_size=2 -o '{model_name_no_slash}.example_pred.tsv' \\
+--singularity 
 # check the results
-head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
+head {model_name_no_slash}.example_pred.tsv
 """.format(**ctx)
-    if model_name == "Basenji":
-        test_snippet = "Test the model", "singularity exec {singularity_image_name} kipoi test {model_name} --batch_size=2 --source={source}".format(**ctx)
-        predict_snippet = "Make prediction for custom files directly", """# Create an example directory containing the data
-mkdir -p $PWD/kipoi-example 
-# You can replace $PWD/kipoi-example with a different absolute path containing the data 
-singularity exec {singularity_image_name} \\
-kipoi get-example {model_name} -o {output_dir} 
-singularity exec {singularity_image_name}  \\
+            else:
+                predict_snippet = "Make prediction for custom files directly", """kipoi get-example {model_name} -o {output_dir}
 kipoi predict {model_name} \\
 --dataloader_args='{example_kwargs}' \\
---batch_size=2 -o '{model_name_no_slash}.example_pred.tsv' 
+-o '{model_name_no_slash}.example_pred.tsv' \\
+--singularity 
 # check the results
-head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
+head {model_name_no_slash}.example_pred.tsv
 """.format(**ctx)
-    return [("Get the singularity image", """{singularity_image_url}""".format(**ctx)),
-        (test_snippet),
+    except Exception:
+        predict_snippet = ""
+
+    install_snippet = "Install singularity", """conda install --yes -c conda-forge singularity"""
+
+    return [
+        (install_snippet),
         (predict_snippet),
 ]
 
