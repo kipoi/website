@@ -144,9 +144,8 @@ def singularity_snippet(model_name, source="kipoi"):
            "output_dir" : "example"
            }
     try:
-        if model_name in model_group_to_image_dict or model_name.split('/')[0] in model_group_to_image_dict:
-            if model_name == "Basenji":
-                predict_snippet = "Make prediction for custom files directly", """kipoi get-example {model_name} -o {output_dir}
+        if model_name == "Basenji":
+            predict_snippet = "Make prediction for custom files directly", """kipoi get-example {model_name} -o {output_dir}
 kipoi predict {model_name} \\
 --dataloader_args='{example_kwargs}' \\
 --batch_size=2 -o '{model_name_no_slash}.example_pred.tsv' \\
@@ -154,8 +153,8 @@ kipoi predict {model_name} \\
 # check the results
 head {model_name_no_slash}.example_pred.tsv
 """.format(**ctx)
-            else:
-                predict_snippet = "Make prediction for custom files directly", """kipoi get-example {model_name} -o {output_dir}
+        else:
+            predict_snippet = "Make prediction for custom files directly", """kipoi get-example {model_name} -o {output_dir}
 kipoi predict {model_name} \\
 --dataloader_args='{example_kwargs}' \\
 -o '{model_name_no_slash}.example_pred.tsv' \\
