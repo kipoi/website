@@ -186,12 +186,20 @@ def py_snippet(model_name, source="kipoi"):
     """
     try:
         kw = get_example_kwargs(model_name, source)
+        group_name = get_group_name(model_name, source)
+        env_name = conda_env_name(group_name, group_name, source)
     except Exception:
         kw = "Error"
+        group_name = "Error"
+        env_name = "Error"
     ctx = {"model_name": model_name,
+           "group_name": group_name,
+           "env_name": env_name,
            "example_kwargs": kw,
            "batch_size": get_batch_size(model_name, source)}
-    return [("Get the model", """import kipoi
+    return [
+        ("Create a new conda environment with all dependencies installed", "kipoi env create {group_name}\nsource activate {env_name}".format(**ctx)),
+        ("Get the model", """import kipoi
 model = kipoi.get_model('{model_name}')""".format(**ctx)),
             ("Make a prediction for example files",
              """pred = model.pipeline.predict_example(batch_size={batch_size})""".format(**ctx)
@@ -251,7 +259,6 @@ head '/tmp/{model_name_no_slash}.example_pred.tsv'
 """.format(**ctx)
     return [
         ("Create a new conda environment with all dependencies installed", "kipoi env create {group_name}\nsource activate {env_name}".format(**ctx)),
-        ("Install model dependencies into current environment", "kipoi env install {group_name}".format(**ctx)),
         (test_snippet),  
         (predict_snippet),
     ]
