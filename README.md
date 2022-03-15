@@ -19,12 +19,12 @@ $ make serve
 
 ## Pre-requirements
 
-### Virtual python environment with python 3.9
+### Virtual python environment with python 3.10
 
-Create a conda (or as per your choice) virtual environment using python 3.9. It is also possible to use python version >=3.6<=3.8
+Create a conda (or as per your choice) virtual environment using python 3.10. It is also possible to use python version >=3.6<=3.9
 
 ```bash
-conda create -n websiteenv python=3.9
+conda create -n websiteenv python=3.10
 ```
 
 ### Kipoi
@@ -45,7 +45,7 @@ All python requirements are listed in `app/requirements.txt` file.
 Installation of python requirements:
 
 ```bash
-pip3 install -r app/requirements.txt
+pip install -r app/requirements.txt
 ```
 
 To speed-up operations like `kipoi.get_source("kipoi").list_models` or `kipoi.get_source("kipoi").list_models_by_group()` that internally trigger `git pull` on kipoi project, we use __memcached__ service to cache results for the duration set in `config.py` under `CACHE_DURATION` entry.
