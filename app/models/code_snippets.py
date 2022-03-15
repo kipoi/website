@@ -210,10 +210,10 @@ dl_kwargs = model.default_dataloader.download_example('example')
 # Get the dataloader and instantiate it
 dl = model.default_dataloader(**dl_kwargs)
 # get a batch iterator
-it = dl.batch_iter(batch_size={batch_size})
-# predict for a batch
-batch = next(it)
-model.predict_on_batch(batch['inputs'])""".format(**ctx)),
+batch_iterator = dl.batch_iter(batch_size={batch_size})
+for batch in batch_iterator:
+    # predict for a batch
+    batch_pred = model.predict_on_batch(batch['inputs'])""".format(**ctx)),
             ("Make predictions for custom files directly",
              """pred = model.pipeline.predict(dl_kwargs, batch_size={batch_size})""".format(**ctx)
              ),
