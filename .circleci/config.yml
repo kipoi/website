@@ -11,7 +11,8 @@ variables:
       name: Install Kipoiseq conda dependencies
       command: |
         source activate py310
-        conda install --yes -c bioconda pybedtools pyfaidx cython pyranges
+        conda install --yes -c bioconda cython
+        pip install pybedtools pyfaidx pyranges
   install_kipoi-veff2_deps: &install_kipoi-veff2_deps
     run:
       name: Install kipoi-veff2 conda dependencies
