@@ -165,7 +165,7 @@ head {model_name_no_slash}.example_pred.tsv
     except Exception:
         predict_snippet = ""
 
-    install_snippet = "Install singularity", """conda install --yes -c conda-forge singularity"""
+    install_snippet = "Install apptainer", "https://apptainer.org/docs/user/main/quick_start.html#quick-installation-steps"
 
     return [
         (install_snippet),
