@@ -78,16 +78,19 @@ def docker_snippet(model_name, source="kipoi"):
             docker_image_name =  model_group_to_image_dict[model_name]
         else:
             docker_image_name = model_group_to_image_dict[model_name.split('/')[0]]
+        slim_docker_image_name = f"{docker_image_name}-slim"
     except Exception:
         docker_image_name = ""
+        slim_docker_image_name = ""
     ctx["docker_image_name"] = docker_image_name
-    test_snippet = "Test the model", "docker run {docker_image_name} kipoi test {model_name} --source={source}".format(**ctx)
+    ctx["slim_docker_image_name"] = slim_docker_image_name
+    test_snippet = "Test the model", "docker run {slim_docker_image_name} kipoi test {model_name} --source={source}".format(**ctx)
     predict_snippet = "Make prediction for custom files directly", """# Create an example directory containing the data
 mkdir -p $PWD/kipoi-example 
 # You can replace $PWD/kipoi-example with a different absolute path containing the data 
-docker run -v $PWD/kipoi-example:/app/ {docker_image_name} \\
+docker run -v $PWD/kipoi-example:/app/ {slim_docker_image_name} \\
 kipoi get-example {model_name} -o /app/{output_dir} 
-docker run -v $PWD/kipoi-example:/app/ {docker_image_name} \\
+docker run -v $PWD/kipoi-example:/app/ {slim_docker_image_name} \\
 kipoi predict {model_name} \\
 --dataloader_args='{example_kwargs}' \\
 -o '/app/{model_name_no_slash}.example_pred.tsv' 
@@ -95,22 +98,23 @@ kipoi predict {model_name} \\
 head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
 """.format(**ctx)
     if model_name == "Basenji":
-        test_snippet = "Test the model", "docker run {docker_image_name} kipoi test {model_name} --batch_size=2 --source={source}".format(**ctx)
+        test_snippet = "Test the model", "docker run {slim_docker_image_name} kipoi test {model_name} --batch_size=2 --source={source}".format(**ctx)
         predict_snippet = "Make prediction for custom files directly", """# Create an example directory containing the data
 mkdir -p $PWD/kipoi-example 
 # You can replace $PWD/kipoi-example with a different absolute path containing the data 
-docker run -v $PWD/kipoi-example:/app/ {docker_image_name} \\
+docker run -v $PWD/kipoi-example:/app/ {slim_docker_image_name} \\
 kipoi get-example {model_name} -o /app/{output_dir} 
-docker run -v $PWD/kipoi-example:/app/ {docker_image_name} \\
+docker run -v $PWD/kipoi-example:/app/ {slim_docker_image_name} \\
 kipoi predict {model_name} \\
 --dataloader_args='{example_kwargs}' \\
 --batch_size=2 -o '/app/{model_name_no_slash}.example_pred.tsv' 
 # check the results
 head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
 """.format(**ctx)
-    return [("Get the docker image", """docker pull {docker_image_name}""".format(**ctx)),
+    return [("Get the docker image", """docker pull {slim_docker_image_name}""".format(**ctx)),
+            ("Get the full sized docker image", """docker pull {docker_image_name}""".format(**ctx)),
             ("Get the activated conda environment inside the container",
-             """docker run -it {docker_image_name}""".format(**ctx)
+             """docker run -it {slim_docker_image_name}""".format(**ctx)
              ),
         (test_snippet),
         (predict_snippet),
