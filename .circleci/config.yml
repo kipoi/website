@@ -44,7 +44,7 @@ variables:
       name: Install Kipoiseq
       command: |
         source activate py310
-        pip install git+ssh://git@github.com/kipoi/kipoiseq.git
+        pip install sorted-nearest==0.0.33 git+ssh://git@github.com/kipoi/kipoiseq.git
   install_kipoi-veff2: &install_kipoi-veff2
     run:
       name: Install kipoi-veff2
