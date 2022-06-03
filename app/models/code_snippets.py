@@ -81,11 +81,21 @@ def docker_snippet(model_name, source="kipoi"):
         slim_docker_image_name = f"{docker_image_name}-slim"
     except Exception:
         docker_image_name = ""
-        slim_docker_image_name = ""
+        slim_docker_image_name = ""        
     ctx["docker_image_name"] = docker_image_name
     ctx["slim_docker_image_name"] = slim_docker_image_name
-    test_snippet = "Test the model", "docker run {slim_docker_image_name} kipoi test {model_name} --source={source}".format(**ctx)
-    predict_snippet = "Make prediction for custom files directly", """# Create an example directory containing the data
+    if not slim_docker_image_name and not docker_image_name:
+        pull_snippet =  "Get the docker image", "Not available yet"
+        pull_snippet_fullsized = "Get the full sized docker image", "Not available yet"
+        activated_snippet = "Get the activated conda environment inside the container", "Not available yet"
+        test_snippet = "Test the model", "Not available yet"
+        predict_snippet = "Make prediction for custom files directly",  "Not available yet"
+    else:
+        pull_snippet = "Get the docker image", """docker pull {slim_docker_image_name}""".format(**ctx)
+        pull_snippet_fullsized = "Get the full sized docker image", """docker pull {docker_image_name}""".format(**ctx)
+        activated_snippet = "Get the activated conda environment inside the container", """docker run -it {slim_docker_image_name}""".format(**ctx)
+        test_snippet = "Test the model", "docker run {slim_docker_image_name} kipoi test {model_name} --source={source}".format(**ctx)
+        predict_snippet = "Make prediction for custom files directly", """# Create an example directory containing the data
 mkdir -p $PWD/kipoi-example 
 # You can replace $PWD/kipoi-example with a different absolute path containing the data 
 docker run -v $PWD/kipoi-example:/app/ {slim_docker_image_name} \\
@@ -96,10 +106,10 @@ kipoi predict {model_name} \\
 -o '/app/{model_name_no_slash}.example_pred.tsv' 
 # check the results
 head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
-""".format(**ctx)
-    if model_name == "Basenji":
-        test_snippet = "Test the model", "docker run {slim_docker_image_name} kipoi test {model_name} --batch_size=2 --source={source}".format(**ctx)
-        predict_snippet = "Make prediction for custom files directly", """# Create an example directory containing the data
+    """.format(**ctx)
+        if model_name == "Basenji":
+            test_snippet = "Test the model", "docker run {slim_docker_image_name} kipoi test {model_name} --batch_size=2 --source={source}".format(**ctx)
+            predict_snippet = "Make prediction for custom files directly", """# Create an example directory containing the data
 mkdir -p $PWD/kipoi-example 
 # You can replace $PWD/kipoi-example with a different absolute path containing the data 
 docker run -v $PWD/kipoi-example:/app/ {slim_docker_image_name} \\
@@ -110,15 +120,14 @@ kipoi predict {model_name} \\
 --batch_size=2 -o '/app/{model_name_no_slash}.example_pred.tsv' 
 # check the results
 head $PWD/kipoi-example/{model_name_no_slash}.example_pred.tsv
-""".format(**ctx)
-    return [("Get the docker image", """docker pull {slim_docker_image_name}""".format(**ctx)),
-            ("Get the full sized docker image", """docker pull {docker_image_name}""".format(**ctx)),
-            ("Get the activated conda environment inside the container",
-             """docker run -it {slim_docker_image_name}""".format(**ctx)
-             ),
+    """.format(**ctx)
+    return [
+        (pull_snippet),
+        (pull_snippet_fullsized),
+        (activated_snippet),
         (test_snippet),
         (predict_snippet),
-]
+    ]
 
 # --------------------------------------------
 # Singularity
@@ -135,7 +144,9 @@ def singularity_snippet(model_name, source="kipoi"):
     singularity_container_json = os.path.join(src.local_path, CONTAINER_PREFIX, "model-to-singularity.json")
     with open(singularity_container_json, 'r') as singularity_container_json_filehandle:
         model_group_to_image_dict = json.load(singularity_container_json_filehandle)
-    
+    singularity_image = model_group_to_image_dict.get(model_name, "") # Special case for APARENT/site_probabilities, MMSplice/mtsplice etc
+    if not singularity_image:
+        model_group_to_image_dict.get(model_name.split("/")[0], "")
     try:
         kw = json.dumps(get_example_kwargs(model_name, source))
     except Exception:
@@ -147,9 +158,12 @@ def singularity_snippet(model_name, source="kipoi"):
            "model_name_no_slash": model_name.replace("/", "_"),
            "output_dir" : "example"
            }
-    try:
-        if model_name == "Basenji":
-            predict_snippet = "Make prediction for custom files directly", """kipoi get-example {model_name} -o {output_dir}
+    if not singularity_image:
+        predict_snippet = "Make prediction for custom files directly", "Not available yet"
+    else:
+        try:
+            if model_name == "Basenji":
+                predict_snippet = "Make prediction for custom files directly", """kipoi get-example {model_name} -o {output_dir}
 kipoi predict {model_name} \\
 --dataloader_args='{example_kwargs}' \\
 --batch_size=2 -o '{model_name_no_slash}.example_pred.tsv' \\
@@ -157,8 +171,8 @@ kipoi predict {model_name} \\
 # check the results
 head {model_name_no_slash}.example_pred.tsv
 """.format(**ctx)
-        else:
-            predict_snippet = "Make prediction for custom files directly", """kipoi get-example {model_name} -o {output_dir}
+            else:
+                predict_snippet = "Make prediction for custom files directly", """kipoi get-example {model_name} -o {output_dir}
 kipoi predict {model_name} \\
 --dataloader_args='{example_kwargs}' \\
 -o '{model_name_no_slash}.example_pred.tsv' \\
@@ -166,8 +180,8 @@ kipoi predict {model_name} \\
 # check the results
 head {model_name_no_slash}.example_pred.tsv
 """.format(**ctx)
-    except Exception:
-        predict_snippet = ""
+        except Exception:
+            predict_snippet = ""
 
     install_snippet = "Install apptainer", "https://apptainer.org/docs/user/main/quick_start.html#quick-installation-steps"
 
