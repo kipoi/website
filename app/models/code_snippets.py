@@ -144,6 +144,9 @@ def singularity_snippet(model_name, source="kipoi"):
     singularity_container_json = os.path.join(src.local_path, CONTAINER_PREFIX, "model-to-singularity.json")
     with open(singularity_container_json, 'r') as singularity_container_json_filehandle:
         model_group_to_image_dict = json.load(singularity_container_json_filehandle)
+    singularity_image = model_group_to_image_dict.get(model_name, "") # Special case for APARENT/site_probabilities, MMSplice/mtsplice etc
+    if not singularity_image:
+        model_group_to_image_dict.get(model_name.split("/")[0], "")
     try:
         kw = json.dumps(get_example_kwargs(model_name, source))
     except Exception:
@@ -155,9 +158,12 @@ def singularity_snippet(model_name, source="kipoi"):
            "model_name_no_slash": model_name.replace("/", "_"),
            "output_dir" : "example"
            }
-    try:
-        if model_name == "Basenji":
-            predict_snippet = "Make prediction for custom files directly", """kipoi get-example {model_name} -o {output_dir}
+    if not singularity_image:
+        predict_snippet = "Make prediction for custom files directly", "Not available yet"
+    else:
+        try:
+            if model_name == "Basenji":
+                predict_snippet = "Make prediction for custom files directly", """kipoi get-example {model_name} -o {output_dir}
 kipoi predict {model_name} \\
 --dataloader_args='{example_kwargs}' \\
 --batch_size=2 -o '{model_name_no_slash}.example_pred.tsv' \\
@@ -165,8 +171,8 @@ kipoi predict {model_name} \\
 # check the results
 head {model_name_no_slash}.example_pred.tsv
 """.format(**ctx)
-        else:
-            predict_snippet = "Make prediction for custom files directly", """kipoi get-example {model_name} -o {output_dir}
+            else:
+                predict_snippet = "Make prediction for custom files directly", """kipoi get-example {model_name} -o {output_dir}
 kipoi predict {model_name} \\
 --dataloader_args='{example_kwargs}' \\
 -o '{model_name_no_slash}.example_pred.tsv' \\
@@ -174,8 +180,8 @@ kipoi predict {model_name} \\
 # check the results
 head {model_name_no_slash}.example_pred.tsv
 """.format(**ctx)
-    except Exception:
-        predict_snippet = ""
+        except Exception:
+            predict_snippet = ""
 
     install_snippet = "Install apptainer", "https://apptainer.org/docs/user/main/quick_start.html#quick-installation-steps"
 
