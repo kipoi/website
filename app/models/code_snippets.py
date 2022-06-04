@@ -146,7 +146,7 @@ def singularity_snippet(model_name, source="kipoi"):
         model_group_to_image_dict = json.load(singularity_container_json_filehandle)
     singularity_image = model_group_to_image_dict.get(model_name, "") # Special case for APARENT/site_probabilities, MMSplice/mtsplice etc
     if not singularity_image:
-        model_group_to_image_dict.get(model_name.split("/")[0], "")
+        singularity_image = model_group_to_image_dict.get(model_name.split("/")[0], "")
     try:
         kw = json.dumps(get_example_kwargs(model_name, source))
     except Exception:
