@@ -37,7 +37,6 @@ variables:
       command: |
         conda create -n py310 python=3.10
         source activate py310
-        conda install --yes -c conda-forge hdf5 pkgconfig
         pip install git+ssh://git@github.com/kipoi/kipoi.git
   install_kipoiseq: &install_kipoiseq
     run:
