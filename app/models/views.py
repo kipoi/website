@@ -79,7 +79,7 @@ def get_view(model_path, df):
         return ("model", model_path)
     names = df.model[df.model.str.contains("^" + model_path + "/")]
     if model_path != "":
-        sub_names = names.str.replace("^" + model_path + "/", "")
+        sub_names = names.str.replace("^" + model_path + "/", "", regex=True)
     else:
         sub_names = names
 
@@ -144,7 +144,7 @@ def update_authors(authors, cite_as):
     def find_orig_author(author, orig_authors):
         for orig_author in orig_authors:
             # dots are ignored
-            if orig_author.name.replace(".", "") == author.name.replace(".", ""):
+            if orig_author.name.replace(".", "", regex=True) == author.name.replace(".", "", regex=True):
                 return orig_author
         return None
 
