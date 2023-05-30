@@ -1,0 +1,132 @@
+{% from "macros.html" import not_none, parse_cite_as, show_authors %}
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row" style="margin-right: 0; margin-left: 0;">
+
+    <div class="thumbnail">
+        <img src="{{ url_for('static', filename='img/20160429_Schneefernerhaus_AH_229344-Pano.jpg')}}"
+             alt="Thumbnail Image">
+    </div>
+
+
+    <div class="side-menu">
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#organizer">Organizer</a></li>
+            <li><a href="#speakers">Speakers</a></li>
+<!--            <li><a href="#schedule">Schedule</a></li>-->
+            <li><a href="#submission">Abstract Submission</a></li>
+            <li><a href="#venue">Venue</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="col-lg-9 mx-auto">
+        <!-- <h3 class="media-heading">About</h3> -->
+        <h3>Kipoi Summit </h3>
+        <h3> New horizons in Computational Regulatory Genomics </h3>
+        <p>
+            Join us for an exciting two-day conference September 25 and 26 at the top of Zugspitze, the highest mountain
+            in Germany, as we
+            bring together a small group of scientists that are interested in regulatory genomics.
+        </p>
+        <h4 id="about">About</h4>
+        <!--About Section:
+
+    Conference overview: Provide a comprehensive description of the conference, including its objectives, target audience, and scope.
+    Organizers: Introduce the organizing committee or organization responsible for hosting the conference.
+    Key features: Highlight any special features, such as keynote speakers, workshops, panel discussions, networking opportunities, or any other unique selling points.-->
+        <p>
+            The Kipoi Summit is a two-day conference dedicated to computational regulatory genomics featuring four
+            keynote
+            presentations, a panel discussion, oral presentations based on abstract submissions, and a poster session.
+            This goal of the event is to bring together experts and researchers to share cutting-edge research, exchange
+            knowledge, discuss current challenges and
+            foster collaboration.
+        </p>
+
+        <ul class="list-unstyled">
+            <li><strong>Dates: September 25-26</strong></li>
+            <li><strong>Cost: Free!</strong></li>
+            <li><strong>Abstract submission deadline: July 7</strong></li>
+        </ul>
+
+        <h4 id="organizer">Kipoi Summit organizers</h4>
+        <div class="speakers-container">
+            <div class="speaker">
+                <img src="{{ url_for('static', filename='img/face_julien_gagneur.png')}}" alt="Speaker 1">
+                <p class="speaker-name">Julien Gagneur</p>
+            </div>
+            <div class="speaker">
+                <img src="{{ url_for('static', filename='img/face_eva_holtkamp.jpg')}}" alt="Speaker 2">
+                <p class="speaker-name">Eva Holtkamp</p>
+            </div>
+            <div class="speaker">
+                <img src="{{ url_for('static', filename='img/face_pedro_tomaz.png')}}" alt="Speaker 3">
+                <p class="speaker-name">Pedro Tomaz da Silva</p>
+            </div>
+            <div class="speaker">
+                <img src="{{ url_for('static', filename='img/face_laura_martens.jpeg')}}" alt="Speaker 4">
+                <p class="speaker-name">Laura Martens</p>
+            </div>
+        </div>
+
+
+        <h4 id="speakers">Confirmed Keynote Speakers</h4>
+        <div class="detailed-speakers">
+            <div class="speaker-image">
+                <img src="{{ url_for('static', filename='img/face_ziga_avsec.jpg')}}" alt="Speaker 1">
+            </div>
+            <div class="speaker-details">
+                <div class="speaker-info">
+                    <h3 class="speaker-name">
+                        <a href="https://scholar.google.de/citations?hl=en&user=gojWHbQAAAAJ&view_op=list_works&sortby=pubdate">Ziga
+                            Avsec</a>
+                    </h3>
+                    <p class="speaker-affiliation">DeepMind</p>
+                </div>
+                <p class="speaker-bio"><em>Detailed bio in italics goes here.</em></p>
+            </div>
+        </div>
+        <div class="detailed-speakers">
+            <div class="speaker-image">
+                <img src="{{ url_for('static', filename='img/face_carl_de_boer.jpg')}}" alt="Speaker 1">
+            </div>
+            <div class="speaker-details">
+                <div class="speaker-info">
+                    <h3 class="speaker-name">
+                        <a href="https://deboer.bme.ubc.ca/">Carl de Boer</a>
+                    </h3>
+                    <p class="speaker-affiliation">University of British Columbia</p>
+                </div>
+                <p class="speaker-bio"><em>Detailed bio in italics goes here.</em></p>
+            </div>
+        </div>
+
+        <h4 id="submission">Abstract Submission</h4>
+        <ul class="list">
+            <li><strong>Abstract submission deadline: July 7, 11:59 CET</strong></li>
+            <li><strong>Decision Notification: July 25</strong></li>
+            <li><strong>Conference: September 25-26</strong></li>
+        </ul>
+        We manage the submissions using CMT. We will have four different tracks that you can apply to:
+        <ul class="list">
+            <li>Transcriptional Regulation</li>
+            <li>Post-transcriptional regulation</li>
+            <li>Sequence modeling, interpretation & design</li>
+            <li>Evolution</li>
+        </ul>
+        <p align="center">
+            <a target="_blank" href="https://cmt3.research.microsoft.com/KIPOISUMMIT2023"
+               class="btn btn-primary waves-effect waves-light" rel="nofollow">Submit Abstract</a>
+        </p>
+
+        <h4 id="venue">Venue</h4>
+        <h4 id="venue">Contact</h4>
+    </div>
+</div>
+
+
+{% endblock %}
+    

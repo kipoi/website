@@ -309,6 +309,11 @@ def seminar():
     """
     return render_template("models/seminar.html")
 
+@mod.route("/summit/")
+def summit():
+    """Summit page
+    """
+    return render_template("models/summit.html")
 
 dl_skip_arguments = {
     "kipoiseq.dataloaders.SeqIntervalDl": ['alphabet_axis', 'dummy_axis', 'alphabet', 'dtype']
