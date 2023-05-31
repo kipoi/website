@@ -277,13 +277,13 @@ footer.page-footer .footer-copyright {
 }
 
 .speaker img {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
 }
 
 .speaker-name {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .side-menu {

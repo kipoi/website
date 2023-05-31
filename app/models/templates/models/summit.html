@@ -15,7 +15,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#organizer">Organizer</a></li>
             <li><a href="#speakers">Speakers</a></li>
-<!--            <li><a href="#schedule">Schedule</a></li>-->
+            <!--            <li><a href="#schedule">Schedule</a></li>-->
             <li><a href="#submission">Abstract Submission</a></li>
             <li><a href="#venue">Venue</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -70,6 +70,14 @@
                 <img src="{{ url_for('static', filename='img/face_laura_martens.jpeg')}}" alt="Speaker 4">
                 <p class="speaker-name">Laura Martens</p>
             </div>
+            <div class="speaker">
+                <img src="{{ url_for('static', filename='img/face_oliver_stegle.png')}}" alt="Speaker 5">
+                <p class="speaker-name">Oliver Stegle</p>
+            </div>
+            <div class="speaker">
+                <img src="{{ url_for('static', filename='img/face_michael_ziller.png')}}" alt="Speaker 6">
+                <p class="speaker-name">Michael Ziller</p>
+            </div>
         </div>
 
 
@@ -103,6 +111,21 @@
                 <p class="speaker-bio"><em>Detailed bio in italics goes here.</em></p>
             </div>
         </div>
+        <div class="detailed-speakers">
+            <div class="speaker-image">
+                <img src="{{ url_for('static', filename='img/face_annalisa_marsico.png')}}" alt="Speaker 3">
+            </div>
+            <div class="speaker-details">
+                <div class="speaker-info">
+                    <h3 class="speaker-name">
+                        <a href="https://www.helmholtz-munich.de/en/icb/research-groups/marsico-lab">Annalisa
+                            Marsico</a>
+                    </h3>
+                    <p class="speaker-affiliation">Helmholtz Munich</p>
+                </div>
+                <p class="speaker-bio"><em>Detailed bio in italics goes here.</em></p>
+            </div>
+        </div>
 
         <h4 id="submission">Abstract Submission</h4>
         <ul class="list">
@@ -122,8 +145,27 @@
                class="btn btn-primary waves-effect waves-light" rel="nofollow">Submit Abstract</a>
         </p>
 
+
         <h4 id="venue">Venue</h4>
-        <h4 id="venue">Contact</h4>
+        <p>We are excited to announce that the conference will be held at the Environmental Research Station
+            Schneefernerhaus, nestled at an elevation of 2650m just below the summit of Zugspitze, Germany's highest
+            mountain.As part of the experience, we will embark on a joint travel journey from
+            Garmisch-Partenkirchen.</p>
+        <p>After the abstract decision notification, detailed information regarding travel arrangements and logistics
+            will be provided to all participants. We look forward to welcoming you to this exceptional venue.</p>
+        <div class="col-lg-6 mx-auto">
+            <img src="{{ url_for('static', filename='img/20160429_Schneefernerhaus_AH_229263.jpg')}}" alt="Schneehaus"
+                 class="img-fluid">
+        </div>
+
+        <h4 id="contact">Contact</h4>
+        If you have questions regarding the event, please contact:
+        <ul class="list-unstyled">
+            <li><a href="mailto:Eva.Holtkamp@cit.tum.de">Eva Holtkamp</a></li>
+            <li><a href="mailto:pedro.tomaz-da-silva@tum.de">Pedro Tomaz da Silva</a></li>
+        </ul>
+
+
     </div>
 </div>
 
