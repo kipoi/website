@@ -274,8 +274,8 @@ footer.page-footer .footer-copyright {
 }
 
 .speakers-container {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+  	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .speaker {
