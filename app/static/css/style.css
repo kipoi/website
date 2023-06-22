@@ -9,6 +9,10 @@ body {
     /* color: #4c5568; */
 }
 
+body, html {
+	scroll-padding-top: 80px;
+}
+
 /* nav-title-link navbar-brand text-hide {
    width: 70px;
    height: 38px;
@@ -274,8 +278,8 @@ footer.page-footer .footer-copyright {
 }
 
 .speakers-container {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+  	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .speaker {
@@ -310,6 +314,16 @@ footer.page-footer .footer-copyright {
 
 .side-menu a {
     text-decoration: none;
+	font-weight: 600;
+	font-size: 16px;
+	letter-spacing: 2px;
+	background: white;
+}
+
+@media (max-width: 1000px) {
+  	.side-menu {
+		display: none;
+  	}
 }
 
 

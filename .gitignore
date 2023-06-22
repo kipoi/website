@@ -102,3 +102,5 @@ ENV/
 
 # emacs tmp files
 *~
+
+.DS_Store
