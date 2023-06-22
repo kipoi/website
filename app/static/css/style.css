@@ -9,6 +9,10 @@ body {
     /* color: #4c5568; */
 }
 
+body, html {
+	scroll-padding-top: 80px;
+}
+
 /* nav-title-link navbar-brand text-hide {
    width: 70px;
    height: 38px;
