@@ -310,6 +310,16 @@ footer.page-footer .footer-copyright {
 
 .side-menu a {
     text-decoration: none;
+	font-weight: 600;
+	font-size: 16px;
+	letter-spacing: 2px;
+	background: white;
+}
+
+@media (max-width: 1000px) {
+  	.side-menu {
+		display: none;
+  	}
 }
 
 
