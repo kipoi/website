@@ -33,18 +33,16 @@
         <p>The seminar is a great opportunity to present your recent work to a large international audience.
             If you want to apply as a speaker, please use the contact in the registration confirmation email.</p>
         <h4>Next seminar</h4>
-        <h6> Title: HyenaDNA: Long-range Genomic Sequence Modeling at Single Nucleotide Resolution </h6> 7 February 2024 5:30 p.m. - 6:30 p.m. Central European Time
-        <p>Speaker: <strong><a href="http://erictnguyen.com/">Eric Nguyen, Christopher Ré lab</a></strong>, Stanford University</p>
+        <h6> Title: Bridging AI and Single-cell Genomics: Towards AI-driven Discoveries </h6> 6 March 2024 5:30 p.m. - 6:30 p.m. Central European Time
+        <p>Speaker: <strong><a href="https://people.epfl.ch/maria.brbic">Maria Brbić</a></strong>, EPFL, Lausanne</p>
         <strong>Abstract:</strong>
         <p align="justify">
-            Genomic (DNA) sequences encode an enormous amount of information for gene regulation and protein synthesis. Similar to natural language models, researchers have proposed foundation models in genomics to learn generalizable features from unlabeled genome data that can then be fine-tuned for downstream tasks such as identifying regulatory elements. Due to the quadratic scaling of attention, previous Transformer-based genomic models have used 512 to 4k tokens as context (<0.001% of the human genome), significantly limiting the modeling of long-range interactions in DNA. In addition, these methods rely on tokenizers to aggregate meaningful DNA units, losing single nucleotide resolution where subtle genetic variations can completely alter protein function via single nucleotide polymorphisms (SNPs). Recently, Hyena, a large language model based on implicit convolutions was shown to match attention in quality while allowing longer context lengths and lower time complexity. Leveraging Hyena’s new long-range capabilities, we present HyenaDNA, a genomic foundation model pretrained on the human reference genome with context lengths of up to 1 million tokens at the single nucleotide-level, an up to 500x increase over previous dense attention-based models. HyenaDNA scales sub-quadratically in sequence length (training up to 160x faster than Transformer), uses single nucleotide tokens, and has full global context at each layer. We explore what longer context enables - including the first use of in-context learning in genomics for simple adaptation to novel tasks without updating pretrained model weights. On fine-tuned benchmarks from the Nucleotide Transformer, HyenaDNA reaches state-of-the-art (SotA) on 12 of 17 datasets using a model with orders of magnitude less parameters and pretraining data. On the GenomicBenchmarks, HyenaDNA surpasses SotA on all 8 datasets on average by +9 accuracy points.
+            The advancements in single-cell technologies have enabled the generation of large-scale datasets across different tissues, conditions and species, offering opportunities for defining new cell states and uncovering underlying cellular processes. In this talk, I will present machine learning methods that have the ability to bridge heterogeneity of single cell datasets by enabling analysis, annotation transfer and discovery of novel cell types across different tissues, conditions and species. I will discuss the findings and impact these methods have for annotating comprehensive single-cell atlas datasets, as well as their role in moving beyond conventional machine learning paradigms to enable new scientific discoveries.
         </p>
 
         <h4>Upcoming speakers</h4>
         <div class="container-fluid">
             <ul class="list-unstyled">
-                <li>7 February 2024 - <a href="http://erictnguyen.com/">Eric Nguyen, Christopher Ré lab</a>, Stanford University</li>
-                <li>6 March 2024 - <a href="https://people.epfl.ch/maria.brbic">Maria Brbić</a>, EPFL, Lausanne</li>
                 <li>3 April 2024 - <a href="http://zhoulab.io/">Kseniia Dudnyk, Jian Zhou lab</a>, UT Southwestern Medical Center</li>
                 <li>8 May 2024 - <a href="">TBD</a>, </li>
                 <li>5 June 2024 - <a href="">TBD</a>, </li>
@@ -55,6 +53,7 @@
         <h4>Previous speakers</h4>
         <div class="container-fluid">
         <ul class="list-unstyled">
+            <li>7 February 2024 - <a href="http://erictnguyen.com/">Eric Nguyen, Christopher Ré lab</a>, Stanford University</li>
             <li>10 January 2024 - <a href="http://koolab.cshl.edu/">Peter Koo</a>, Cold Spring Harbor Laboratory</li>
             <li>6 December 2023 - <a href="https://imk1.github.io/">Irene Kaplow</a>, Duke University</li>
             <li>8 November 2023 - <a href="https://www.calicolabs.com/people/david-kelley-ph-d">David Kelley</a>, Calico</li>
