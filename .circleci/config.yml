@@ -75,10 +75,10 @@ jobs:
       - checkout
       - *install_gcc
       - *install_kipoi
-      - *install_kipoiseq_deps
-      - *install_kipoiseq
-      - *install_kipoi-veff2_deps
-      - *install_kipoi-veff2
+#      - *install_kipoiseq_deps
+#      - *install_kipoiseq
+#      - *install_kipoi-veff2_deps
+#      - *install_kipoi-veff2
       - *kipoi_ls
       - *install_pip_deps
       - *install_awscli
@@ -100,8 +100,8 @@ jobs:
           
   build_deploy:
     docker:
-      # - image: continuumio/miniconda3:latest
-      - image: continuumio/miniconda3@sha256:f37f8c7db26ae7ec0098df530e96c9cde139026b9faf3914800d1522c47a49b1
+       - image: continuumio/miniconda3:latest
+#      - image: continuumio/miniconda3@sha256:f37f8c7db26ae7ec0098df530e96c9cde139026b9faf3914800d1522c47a49b1
       # - image: continuumio/anaconda3:5.0.1
       # - image: kipoi/miniconda3:4.3.14
     resource_class: medium
@@ -113,10 +113,10 @@ jobs:
       - checkout
       - *install_gcc
       - *install_kipoi
-      - *install_kipoiseq_deps
-      - *install_kipoiseq
-      - *install_kipoi-veff2_deps
-      - *install_kipoi-veff2
+#      - *install_kipoiseq_deps
+#      - *install_kipoiseq
+#      - *install_kipoi-veff2_deps
+#      - *install_kipoi-veff2
       - *kipoi_ls
       - *install_pip_deps
       - run:
