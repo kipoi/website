@@ -11,7 +11,7 @@ variables:
       name: Install Kipoiseq conda dependencies
       command: |
         source activate py310
-        conda install --yes -c bioconda cython
+        conda install --yes -c bioconda cython 
         pip install pybedtools pyfaidx pyranges
   install_kipoi-veff2_deps: &install_kipoi-veff2_deps
     run:
@@ -100,8 +100,8 @@ jobs:
           
   build_deploy:
     docker:
-      - image: continuumio/miniconda3:latest
-      # - image: continuumio/miniconda3:4.3.14
+      # - image: continuumio/miniconda3:latest
+      - image: continuumio/miniconda3:24.7.1-0
       # - image: continuumio/anaconda3:5.0.1
       # - image: kipoi/miniconda3:4.3.14
     resource_class: medium
