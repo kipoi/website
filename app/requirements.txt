@@ -4,5 +4,5 @@ python-memcached
 Frozen-Flask
 manubot
 pymdown-extensions
-werkzeug
+werkzeug<3.0.0
 itsdangerous
