@@ -113,8 +113,8 @@ jobs:
       - checkout
       - *install_gcc
       - *install_kipoi
-      - *install_kipoiseq_deps
-      - *install_kipoiseq
+      # - *install_kipoiseq_deps
+      # - *install_kipoiseq
       - *install_kipoi-veff2_deps
       - *install_kipoi-veff2
       - *kipoi_ls
