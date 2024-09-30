@@ -76,9 +76,9 @@ jobs:
       - *install_gcc
       - *install_kipoi
 #      - *install_kipoiseq_deps
-#      - *install_kipoiseq
-#      - *install_kipoi-veff2_deps
-#      - *install_kipoi-veff2
+      - *install_kipoiseq
+      - *install_kipoi-veff2_deps
+      - *install_kipoi-veff2
       - *kipoi_ls
       - *install_pip_deps
       - *install_awscli
@@ -114,9 +114,9 @@ jobs:
       - *install_gcc
       - *install_kipoi
 #      - *install_kipoiseq_deps
-#      - *install_kipoiseq
-#      - *install_kipoi-veff2_deps
-#      - *install_kipoi-veff2
+      - *install_kipoiseq
+      - *install_kipoi-veff2_deps
+      - *install_kipoi-veff2
       - *kipoi_ls
       - *install_pip_deps
       - run:
