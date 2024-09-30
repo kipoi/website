@@ -165,9 +165,11 @@ def update_authors(authors, cite_as):
         return authors
 
 def available_postprocessing(model_name):
-    from kipoi_veff2 import variant_centered, interval_based
+    #from kipoi_veff2 import variant_centered, interval_based
+    variant_centered_MODEL_GROUPS = {'Basset', 'MPRA-DragoNN', 'Basenji', 'pwm_HOCOMOCO', 'DeepSEA', 'DeepBind'}
+    interval_based_MODEL_GROUPS = ['MMSplice']
     model_group_name = model_name.split('/')[0]
-    if model_group_name in variant_centered.MODEL_GROUPS or model_group_name in interval_based.MODEL_GROUPS:
+    if model_group_name in variant_centered_MODEL_GROUPS or model_group_name in interval_based_MODEL_GROUPS:
         return "variant_effects"
     return ""
 
