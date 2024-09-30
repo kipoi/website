@@ -101,7 +101,7 @@ jobs:
   build_deploy:
     docker:
       # - image: continuumio/miniconda3:latest
-      - image: continuumio/miniconda3:24.7.1-0
+      - image: continuumio/miniconda3:24.4.0-0
       # - image: continuumio/anaconda3:5.0.1
       # - image: kipoi/miniconda3:4.3.14
     resource_class: medium
