@@ -282,8 +282,10 @@ def main():
     }
     models_by_framework_colors = [framework_colors[x] for x in models_by_framework.index]
     # Add variant effect scoring models from kipoi-veff2
-    from kipoi_veff2 import variant_centered, interval_based
-    number_of_veff_scoring_models = len(variant_centered.MODEL_GROUPS) + len(interval_based.MODEL_GROUPS)
+    # from kipoi_veff2 import variant_centered, interval_based
+    variant_centered_MODEL_GROUPS = {'Basset', 'MPRA-DragoNN', 'Basenji', 'pwm_HOCOMOCO', 'DeepSEA', 'DeepBind'}
+    interval_based_MODEL_GROUPS = ['MMSplice']
+    number_of_veff_scoring_models = len(variant_centered_MODEL_GROUPS) + len(interval_based_MODEL_GROUPS)
     # TODO - put the chart colors also here:
     return render_template("models/main.html",
                            n_models=len(df),
