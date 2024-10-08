@@ -33,17 +33,16 @@
         <p>The seminar is a great opportunity to present your recent work to a large international audience.
             If you want to apply as a speaker, please use the contact in the registration confirmation email.</p>
         <h4>Next seminar</h4>
-        <h6> Title: Decoding sequence determinants of gene expression in diverse cellular and disease states </h6> 2 October 2024 5:30 p.m. - 6:30 p.m. Central European Time
-        <p>Speaker: <strong><a href="https://avantikalal.github.io/">Avantika Lal</a></strong>, Genentech</p>
+        <h6> Title: Detecting and avoiding homology-based data leakage in genome-trained sequence models </h6> 6 November 2024 5:30 p.m. - 6:30 p.m. Central European Time
+        <p>Speaker: <strong><a href="https://deboer.bme.ubc.ca/people/">Abdul Muntakim Rafi (Rafi) - Carl de Boer lab</a></strong>, The University of British Columbia</p>
         <strong>Abstract:</strong>
         <p align="justify">
-            Sequence-to-function models that predict gene expression from genomic DNA sequence have proven valuable for many biological tasks, including understanding cis-regulatory syntax and interpreting non-coding genetic variants. However, current state-of-the-art models have been trained largely on bulk expression profiles from healthy tissues or cell lines, and have not learned the properties of precise cell types and cellular states that are captured in single-cell transcriptomic datasets. To address this gap, I will present Decima, a model that predicts the cell type- and condition- specific expression of a gene from its surrounding DNA sequence. Decima is trained on single-cell or single-nucleus RNA sequencing data from over 22 million cells, and successfully predicts cell type-specific expression profiles of unseen genes based on sequence alone. In this talk, I will demonstrate Decima’s ability to reveal the cis-regulatory mechanisms driving cell type-specific gene expression and disease responses, predict non-coding variant effects at high resolution, and design regulatory DNA elements with precisely tuned, context-specific functions.
+            Models that predict function from sequence have become critical tools in deciphering the functional roles of genomic sequences and genetic variation within them. However, traditional approaches for dividing the genomic sequences into training data, used to create the model, and test data, used to determine the model’s performance on unseen data, fail to account for the widespread homology that permeates the genome. Using models that predict human gene expression from DNA sequence, we demonstrate that model performance on test sequences varies by their homology with training sequences, consistent with a form of ‘data leakage’ that inflates model performance by rewarding overfitting of sequences that are also present in the test data. We also show that for test sequences that share high homology with training data, predictions of gene expression can be accurately made simply by averaging the outputs from the most similar sequences in the training set, underscoring the issue of having homologous sequences across train-test sets. Furthermore, we observe that neural networks fail to generalize when predicting the effects of mutations, with larger expression changes predicted for unseen sequences compared with seen sequences. This issue is particularly concerning because many GWAS SNPs have doppelgangers of alternate alleles present elsewhere in the genome, often multiple times, and may be inadvertently included in the training data, compromising the reliability of model-predicted effects of genetic variation. To prevent leakage in genome-trained models, we introduce ‘hashFrag,' a scalable solution for partitioning data with minimal leakage. Altogether, we address a fundamental challenge in creating appropriate train-test set splits for sequence-based models on genomes, and highlight the consequences of failing to do so.
         </p>
 
         <h4>Upcoming speakers</h4>
         <div class="container-fluid">
             <ul class="list-unstyled">
-                <li>6 November 2024 - <a href="">TBD</a>, TBD</li>
                 <li>4 December 2024 - <a href="https://scholar.google.ru/citations?user=0f5hVB4AAAAJ&hl=en">Ivan Kulakovskiy, Dmitry Penzar</a>, Vavilov Institute of General Genetics</li>
                 
             </ul>
@@ -51,6 +50,7 @@
         <h4>Previous speakers</h4>
         <div class="container-fluid">
         <ul class="list-unstyled">
+            <li>2 October 2024 - <a href="https://avantikalal.github.io/">Avantika Lal</a>, Genentech</li>
             <li>4 September 2024 - <a href="https://www.buenrostrolab.com/">Max Horlbeck and Ruochi Zhang (Buenrostro lab)</a>, Harvard University and Broad Institute</li>
             <li>3 July 2024 - <a href="https://www.sabetilab.org/sager-gosai/">Sagar Gosai - Sabeti (Broad), Reilly (Yale) & Tewhey lab (Jackson laboratories)</a>, Broad Institute of Harvard and MIT</li>
             <li>5 June 2024 - <a href="http://saramostafavi.github.io/">Sara Mostafavi</a>, University of Washington</li>
