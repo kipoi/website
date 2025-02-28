@@ -2,28 +2,7 @@
   "directory_name": "seminar",
   "file_name": "seminar",
   "title": "Advanced training strategies for genomic sequence-tofunction models",
-  "abstract": "Multi-task Convolutional Neural Networks (CNNs) have emerged as powerful tools for
-deciphering how DNA sequence influences gene regulatory features such as chromatin
-accessibility and transcript abundance. These models can learn sequence patterns
-recognized by regulatory factors that control gene expression, theoretically enabling
-prediction of individual genomic variant effects across trained cell types. However, our recent
-studies revealed that despite strong performance on various variant effect prediction
-benchmarks (Avsec et al. 2021), these models fail to correctly determine how variants affect
-gene expression direction across individuals (Sasse et al. 2023), an essential capability for
-associating variants with phenotypes or diseases.
-To address these limitations and enhance model learning from available data, I present two
-strategies. First, training with sequence variation: we developed a modeling approach that
-directly contrasts sequence differences to predict allele-specific and personalized functional
-measurements from RNA-seq, ATAC-seq, and ChIP-seq (Spiro and Tu et al. 2025). We
-applied this approach to F1 mouse data and personal genomes with varying degrees of
-success. Second, training at higher resolution: we created models that analyze ATAC-seq at
-base-pair resolution, capturing both overall chromatin accessibility and the distribution of Tn5
-transposase cuts (Chandra et al. 2025). Our results demonstrate that incorporating ATACprofile information consistently improves differential chromatin accessibility predictions.
-Furthermore, simultaneous learning across related cell types through multi-task modeling
-outperforms single-task approaches. Systematic analysis of the models sequence attributions
-suggests that base-pair resolution training enables the model to learn a more sensitive
-representation of the regulatory syntax driving differences between immunocytes, potentially
-improving variant effect predictions.","present": {
+  "abstract": "Multi-task Convolutional Neural Networks (CNNs) have emerged as powerful tools for deciphering how DNA sequence influences gene regulatory features such as chromatin accessibility and transcript abundance. These models can learn sequence patterns recognized by regulatory factors that control gene expression, theoretically enabling prediction of individual genomic variant effects across trained cell types. However, our recent studies revealed that despite strong performance on various variant effect prediction benchmarks (Avsec et al. 2021), these models fail to correctly determine how variants affect gene expression direction across individuals (Sasse et al. 2023), an essential capability for associating variants with phenotypes or diseases. To address these limitations and enhance model learning from available data, I present two strategies. First, training with sequence variation: we developed a modeling approach that directly contrasts sequence differences to predict allele-specific and personalized functional measurements from RNA-seq, ATAC-seq, and ChIP-seq (Spiro and Tu et al. 2025). We applied this approach to F1 mouse data and personal genomes with varying degrees of success. Second, training at higher resolution: we created models that analyze ATAC-seq at base-pair resolution, capturing both overall chromatin accessibility and the distribution of Tn5 transposase cuts (Chandra et al. 2025). Our results demonstrate that incorporating ATACprofile information consistently improves differential chromatin accessibility predictions. Furthermore, simultaneous learning across related cell types through multi-task modeling outperforms single-task approaches. Systematic analysis of the models sequence attributions suggests that base-pair resolution training enables the model to learn a more sensitive representation of the regulatory syntax driving differences between immunocytes, potentially improving variant effect predictions.","present": {
     "speaker": "Alexander Sasse",
     "date": "5 March 2025",
     "link": "https://www.zmbh.uni-heidelberg.de/sasse/default.shtml",
