@@ -1,0 +1,87 @@
+{% raw %}{% from "macros.html" import not_none, parse_cite_as, show_authors %}
+{% extends 'base.html' %}
+{% block content %}
+{% endraw %}
+
+<!-- - what is it?
+- when is it?
+- how to register?
+- agenda?
+- next speaker?
+- past speakers
+- apply as speaker-->
+<div class="row" style="margin-right: 0; margin-left: 0;">
+    <div class="col-lg-9 mx-auto">
+        <!-- <h3 class="media-heading">About</h3> -->
+        <h3>Kipoi - Seminar</h3>
+        <p>
+            The monthly virtual seminar series is designed as a platform for interested Kipoi users and developers and
+            will host talks on the applications of deep learning on biological data.
+            The seminar is held on every first Wednesday of the month at 5:30 p.m. - 6:30 p.m. CET. We are also happy to
+            share the recordings of the seminar on <a href="https://www.youtube.com/channel/UCL_iKCHUxepOi7_Wk010--g">YouTube</a>.
+        </p>
+        <h4>How to take part</h4>
+        <p>
+            The Virtual Seminar Series takes place via Zoom.
+            To take part in the seminar, you can register for the online Zoom conference.
+            Your personal join link will be valid for all upcoming lectures of the series.
+        </p>
+        <p align="center">
+        <a target="_blank" href="https://tum-conf.zoom.us/meeting/register/u5MpcuCvqDwoHtRxJTdDig7co4LJoiHrYugn" class="btn btn-primary waves-effect waves-light" rel="nofollow">Register</a>
+        </p>
+        <h4>How to apply as a speaker</h4>
+        <p>The seminar is a great opportunity to present your recent work to a large international audience.
+            If you want to apply as a speaker, please use the contact in the registration confirmation email.</p>
+        <h4>Next seminar</h4>
+        <h6> Title: {{cookiecutter.title}} </h6> {{cookiecutter.present.date}} 5:30 p.m. - 6:30 p.m. Central European Time
+        <p>Speaker: <strong><a href="{{cookiecutter.present.link}}">{{cookiecutter.present.speaker}}</a></strong>, {{cookiecutter.present.institute}}</p>
+        <strong>Abstract:</strong>
+        <p align="justify">
+            {{cookiecutter.abstract}}
+        </p>
+
+        <h4>Upcoming speakers</h4>
+        <div class="container-fluid">
+            <ul class="list-unstyled">
+                {% for details in cookiecutter.upcoming.details %}<li>{{details.date}} - <a href="{{details.link}}">{{details.speaker}}</a>, {{details.institute}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <h4>Previous speakers</h4>
+        <div class="container-fluid">
+        <ul class="list-unstyled">
+            {% for details in cookiecutter.past.details %}<li>{{details.date}} - <a href="{{details.link}}">{{details.speaker}}</a>, {{details.institute}}</li>
+            {% endfor %}<li>1 December 2021 - <a
+                        href="https://www.helmholtz-muenchen.de/icb/institute/staff/staff/ma/8559/Dr.-Marsico/index.html">Annalisa
+                    Marsico</a>, Helmholtz Zentrum, Munich
+                </li>
+            <li>3 November 2021 - <a href="">Žiga Avsec</a>, DeepMind, London</li>
+            <li>6 October 2021 - <a href="https://m0hammadl.github.io">Mohammad Lotfollahi</a>, Helmholtz Zentrum, Munich</li>
+            <li>1 September 2021 - <a href = "">Ansh Kapil</a>, AstraZeneca, Munich</li>
+            <li>4 August 2021 - <a href="https://www.mskcc.org/research/ski/labs/christina-leslie">Christina Leslie</a>, Sloan Kettering Institute, New York</li>
+            <li>7 July 2021 - <a href="http://zhanglab.net/">Qiangfeng Cliff Zhang</a>, Tsinghua University, Beijing</li>
+            <li>2 June 2021 - <a href = "https://www.seeliglab.org/">Johannes Linder</a>, University of Washington, Seattle </li>
+            <li>5 May 2021 - <a href = "https://profiles.stanford.edu/anshul-kundaje">Anshul Kundaje</a>, Stanford University, Stanford</li>
+            <li>7 April 2021 - <a href="https://cellfate.uci.edu/themes/center-fellows/">Yingxin Cao</a>, UC Irvine, Irvine </li>
+            <li>3 March 2021 - <a href="https://stanford.edu/~avanti/">Avanti Shrikumar</a>, Stanford University, Stanford  </li>
+            <li>3 February 2021 - <a href = "https://www.mdc-berlin.de/ohler">Uwe Ohler</a>, Max-Delbrück-Center for Molecular Medicine, Berlin</li>
+            <li>2 December 2021 - <a href="https://www.rdm.ox.ac.uk/people/ron-schwessinger">Ron Schwessinger</a>, Radcliffe Department of Medicine, Oxford</li>
+            <li>4 November 2020 - <a href="http://www.davidrkelley.com/">David Kelley</a>, Calico, San Francisco</li>
+            <li>7 October 2020 - <a href="https://www.calicolabs.com/">Vikram Agarwal</a>, Calico, San Francisco</li>
+        </ul>
+        </div>
+        <h4>The scientific committee</h4>
+        <div class="container-fluid">
+            <ul class="list-unstyled">
+                <li><a href="https://www.professoren.tum.de/en/gagneur-julien">Julien Gagneur</a>, Technical University Munich, Munich</li>
+                <li><a href="https://www.helmholtz-munich.de/icb/institute/staff/staff/ma/8559/Dr.-Marsico/index.html">Annalisa Marsico</a>, Helmholtz Zentrum Munich, Munich</li>
+                <li><a href="https://profiles.stanford.edu/johannes-linder">Johannes Linder</a>, Stanford University, Stanford</li>
+                <li><a href="https://www.in.tum.de/gagneurlab/members/laura-martens/">Laura Martens</a>, Technical University Munich & Helmholtz Zentrum Munich, Munich </li>
+            </ul>
+        </div>
+        </div>
+        </div>
+    </div>
+    {% raw %}
+    {% endblock %}
+    {% endraw %}

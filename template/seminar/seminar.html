@@ -1,0 +1,113 @@
+{% from "macros.html" import not_none, parse_cite_as, show_authors %}
+{% extends 'base.html' %}
+{% block content %}
+
+
+<!-- - what is it?
+- when is it?
+- how to register?
+- agenda?
+- next speaker?
+- past speakers
+- apply as speaker-->
+<div class="row" style="margin-right: 0; margin-left: 0;">
+    <div class="col-lg-9 mx-auto">
+        <!-- <h3 class="media-heading">About</h3> -->
+        <h3>Kipoi - Seminar</h3>
+        <p>
+            The monthly virtual seminar series is designed as a platform for interested Kipoi users and developers and
+            will host talks on the applications of deep learning on biological data.
+            The seminar is held on every first Wednesday of the month at 5:30 p.m. - 6:30 p.m. CET. We are also happy to
+            share the recordings of the seminar on <a href="https://www.youtube.com/channel/UCL_iKCHUxepOi7_Wk010--g">YouTube</a>.
+        </p>
+        <h4>How to take part</h4>
+        <p>
+            The Virtual Seminar Series takes place via Zoom.
+            To take part in the seminar, you can register for the online Zoom conference.
+            Your personal join link will be valid for all upcoming lectures of the series.
+        </p>
+        <p align="center">
+        <a target="_blank" href="https://tum-conf.zoom.us/meeting/register/u5MpcuCvqDwoHtRxJTdDig7co4LJoiHrYugn" class="btn btn-primary waves-effect waves-light" rel="nofollow">Register</a>
+        </p>
+        <h4>How to apply as a speaker</h4>
+        <p>The seminar is a great opportunity to present your recent work to a large international audience.
+            If you want to apply as a speaker, please use the contact in the registration confirmation email.</p>
+        <h4>Next seminar</h4>
+        <h6> Title: Nucleotide dependency analysis of DNA language models reveals genomic functional elements </h6> 5 February 2025 5:30 p.m. - 6:30 p.m. Central European Time
+        <p>Speaker: <strong><a href="https://www.cs.cit.tum.de/cmm/members/pedro-tomaz-da-silva/">Pedro Tomaz da Silva, Gagneur lab</a></strong>, Technical University Munich</p>
+        <strong>Abstract:</strong>
+        <p align="justify">
+            Deciphering how nucleotides in genomes encode regulatory instructions and molecular machines is a long-standing goal in biology. DNA language models (LMs) implicitly capture functional elements and their organization from genomic sequences alone by modeling probabilities of each nucleotide given its sequence context. However, using DNA LMs for discovering functional genomic elements has been challenging due to the lack of interpretable methods. Here, we introduce nucleotide dependencies, which quantify how nucleotide substitutions at one genomic position affect the probabilities of nucleotides at other positions. We generated genome-wide maps of pairwise nucleotide dependencies within kilobase ranges for animal, fungal, and bacterial species. Our results demonstrate that nucleotide dependencies indicate deleteriousness of human genetic variants more effectively than alignment-based conservation and DNA LM reconstruction. Regulatory elements appear as dense blocks in dependency maps, enabling the systematic identification of transcription factor binding sites as accurately as models trained on experimental binding data. Additionally, nucleotide dependencies highlight bases in contact within RNA structures, including pseudoknots and tertiary structure contacts, with remarkable accuracy, leading to the discovery of four novel, experimentally validated RNA structures in Escherichia coli. Finally, through benchmarking and visual diagnosis using dependency maps, we reveal critical limitations of several DNA LM architectures and training sequence selection strategies. Altogether, nucleotide dependency analysis opens a new avenue for discovering and studying functional elements and their interactions in genomes.
+        </p>
+
+        <h4>Upcoming speakers</h4>
+        <div class="container-fluid">
+            <ul class="list-unstyled">
+                
+            </ul>
+        </div>
+        <h4>Previous speakers</h4>
+        <div class="container-fluid">
+        <ul class="list-unstyled">
+            <li>4 December 2024 - <a href="https://autosome.org">Dmitry Penzar</a>, autosome.org team</li>
+            <li>6 November 2024 - <a href="https://deboer.bme.ubc.ca/people/">Abdul Muntakim Rafi (Rafi) - Carl de Boer lab</a>, The University of British Columbia</li>
+            <li>2 October 2024 - <a href="https://avantikalal.github.io/">Avantika Lal</a>, Genentech</li>
+            <li>4 September 2024 - <a href="https://www.buenrostrolab.com/">Max Horlbeck and Ruochi Zhang (Buenrostro lab)</a>, Harvard University and Broad Institute</li>
+            <li>3 July 2024 - <a href="https://www.sabetilab.org/sager-gosai/">Sagar Gosai - Sabeti (Broad), Reilly (Yale) & Tewhey lab (Jackson laboratories)</a>, Broad Institute of Harvard and MIT</li>
+            <li>5 June 2024 - <a href="http://saramostafavi.github.io/">Sara Mostafavi</a>, University of Washington</li>
+            <li>8 May 2024 - <a href="https://www.instadeep.com/">Thomas Pierrot</a>, InstaDeep</li>
+            <li>3 April 2024 - <a href="http://zhoulab.io/">Kseniia Dudnyk, Jian Zhou lab</a>, UT Southwestern Medical Center</li>
+            <li>6 March 2024 - <a href="https://people.epfl.ch/maria.brbic">Maria Brbić</a>, EPFL, Lausanne</li>
+            <li>7 February 2024 - <a href="http://erictnguyen.com/">Eric Nguyen, Christopher Ré lab</a>, Stanford University</li>
+            <li>10 January 2024 - <a href="http://koolab.cshl.edu/">Peter Koo</a>, Cold Spring Harbor Laboratory</li>
+            <li>6 December 2023 - <a href="https://imk1.github.io/">Irene Kaplow</a>, Duke University</li>
+            <li>8 November 2023 - <a href="https://www.calicolabs.com/people/david-kelley-ph-d">David Kelley</a>, Calico</li>
+            <li>5 July 2023 - <a href="https://aertslab.org/">Stein Aerts</a>, KU Leuven</li>
+            <li>3 May 2023 - <a href="https://www.cs.cit.tum.de/cmm/home/">Alexander Karollus, Julien Gagneur lab</a>, Technical University Munich</li>
+            <li>5 April 2023 - <a href="https://starklab.org/">Bernardo P. de Almeida, Alex Stark lab</a>, Research Institute of Molecular Pathology, Vienna</li>
+            <li>3 March 2023 - <a href="https://www.mimuw.edu.pl/~szczurek/">Ewa Szczurek</a>, University of Warsaw</li>
+            <li>1 February 2023 - <a href="https://www.med.upenn.edu/apps/faculty/index.php/g275/p8122973">Mingyao Li</a>, University of Pennsylvania</li>
+            <li>7 December 2022 - <a href="https://zhoulab.io/">Jian Zhou</a>, UT Southwestern</li>
+            <li>2 November 2022 - <a href="https://github.com/mhorlacher">Marc Horlacher</a>, Helmholtz Zentrum Munich</li>
+            <li>5 October 2022 - <a href="https://noble.gs.washington.edu/~wnoble/">William Stafford Noble</a>, University of Washington</li>
+            <li>7 September 2022 - <a href="https://www.professoren.tum.de/en/rost-burkhard">Burkhard Rost</a>, Technical University Munich</li>
+            <li>6 July 2022 - <a href="https://www.helmholtz-munich.de/icb/research/groups/machine-learning/overview/index.html">Anna Schaar and David Fischer</a>, Helmholtz Zentrum Munich</li>
+            <li>1 June 2022 - <a href="https://yoshuabengio.org">Yoshua Bengio</a>, Université de Montréal, Mila – Quebec Artificial Intelligence Institute</li>
+            <li>4 May 2022 - <a href="https://www.pioneercampus.org/themenmenue-links/about-us0/principal-investigators/francesco-paolo-casale/index.html#tabs/research">Francesco Paolo Casale</a>, Helmholtz Pioneer Campus, Helmholtz Zentrum Munich</li>
+            <li>6 April 2022 - <a href="">Kyle Farh, Head of Artificial Intelligence Lab</a>, Illumina, San Francisco Bay Area</li>
+            <li>2 March 2022 - <a href="https://www.deboramarkslab.com">Jonathan Frazer & Mafalda Dias, Debora Marks Lab</a>, Harvard Medical School, Boston</li>
+            <li>2 February 2022 - <a href="https://www.helmholtz-munich.de/icb/research/groups/schubert-lab/overview/index.html">Benjamin Schubert</a>, Helmholtz Zentrum, Munich</li>
+            <li>1 December 2021 - <a
+                        href="https://www.helmholtz-muenchen.de/icb/institute/staff/staff/ma/8559/Dr.-Marsico/index.html">Annalisa
+                    Marsico</a>, Helmholtz Zentrum, Munich
+                </li>
+            <li>3 November 2021 - <a href="">Žiga Avsec</a>, DeepMind, London</li>
+            <li>6 October 2021 - <a href="https://m0hammadl.github.io">Mohammad Lotfollahi</a>, Helmholtz Zentrum, Munich</li>
+            <li>1 September 2021 - <a href = "">Ansh Kapil</a>, AstraZeneca, Munich</li>
+            <li>4 August 2021 - <a href="https://www.mskcc.org/research/ski/labs/christina-leslie">Christina Leslie</a>, Sloan Kettering Institute, New York</li>
+            <li>7 July 2021 - <a href="http://zhanglab.net/">Qiangfeng Cliff Zhang</a>, Tsinghua University, Beijing</li>
+            <li>2 June 2021 - <a href = "https://www.seeliglab.org/">Johannes Linder</a>, University of Washington, Seattle </li>
+            <li>5 May 2021 - <a href = "https://profiles.stanford.edu/anshul-kundaje">Anshul Kundaje</a>, Stanford University, Stanford</li>
+            <li>7 April 2021 - <a href="https://cellfate.uci.edu/themes/center-fellows/">Yingxin Cao</a>, UC Irvine, Irvine </li>
+            <li>3 March 2021 - <a href="https://stanford.edu/~avanti/">Avanti Shrikumar</a>, Stanford University, Stanford  </li>
+            <li>3 February 2021 - <a href = "https://www.mdc-berlin.de/ohler">Uwe Ohler</a>, Max-Delbrück-Center for Molecular Medicine, Berlin</li>
+            <li>2 December 2021 - <a href="https://www.rdm.ox.ac.uk/people/ron-schwessinger">Ron Schwessinger</a>, Radcliffe Department of Medicine, Oxford</li>
+            <li>4 November 2020 - <a href="http://www.davidrkelley.com/">David Kelley</a>, Calico, San Francisco</li>
+            <li>7 October 2020 - <a href="https://www.calicolabs.com/">Vikram Agarwal</a>, Calico, San Francisco</li>
+        </ul>
+        </div>
+        <h4>The scientific committee</h4>
+        <div class="container-fluid">
+            <ul class="list-unstyled">
+                <li><a href="https://www.professoren.tum.de/en/gagneur-julien">Julien Gagneur</a>, Technical University Munich, Munich</li>
+                <li><a href="https://www.helmholtz-munich.de/icb/institute/staff/staff/ma/8559/Dr.-Marsico/index.html">Annalisa Marsico</a>, Helmholtz Zentrum Munich, Munich</li>
+                <li><a href="https://profiles.stanford.edu/johannes-linder">Johannes Linder</a>, Stanford University, Stanford</li>
+                <li><a href="https://www.in.tum.de/gagneurlab/members/laura-martens/">Laura Martens</a>, Technical University Munich & Helmholtz Zentrum Munich, Munich </li>
+            </ul>
+        </div>
+        </div>
+        </div>
+    </div>
+    
+    {% endblock %}
+    
