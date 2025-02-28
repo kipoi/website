@@ -1,98 +1,137 @@
 {
   "directory_name": "seminar",
   "file_name": "seminar",
-  "title": "Nucleotide dependency analysis of DNA language models reveals genomic functional elements",
-  "abstract": "Deciphering how nucleotides in genomes encode regulatory instructions and molecular machines is a long-standing goal in biology. DNA language models (LMs) implicitly capture functional elements and their organization from genomic sequences alone by modeling probabilities of each nucleotide given its sequence context. However, using DNA LMs for discovering functional genomic elements has been challenging due to the lack of interpretable methods. Here, we introduce nucleotide dependencies, which quantify how nucleotide substitutions at one genomic position affect the probabilities of nucleotides at other positions. We generated genome-wide maps of pairwise nucleotide dependencies within kilobase ranges for animal, fungal, and bacterial species. Our results demonstrate that nucleotide dependencies indicate deleteriousness of human genetic variants more effectively than alignment-based conservation and DNA LM reconstruction. Regulatory elements appear as dense blocks in dependency maps, enabling the systematic identification of transcription factor binding sites as accurately as models trained on experimental binding data. Additionally, nucleotide dependencies highlight bases in contact within RNA structures, including pseudoknots and tertiary structure contacts, with remarkable accuracy, leading to the discovery of four novel, experimentally validated RNA structures in Escherichia coli. Finally, through benchmarking and visual diagnosis using dependency maps, we reveal critical limitations of several DNA LM architectures and training sequence selection strategies. Altogether, nucleotide dependency analysis opens a new avenue for discovering and studying functional elements and their interactions in genomes.",
-  "present":      {
+  "title": "Advanced training strategies for genomic sequence-tofunction models",
+  "abstract": "Multi-task Convolutional Neural Networks (CNNs) have emerged as powerful tools for
+deciphering how DNA sequence influences gene regulatory features such as chromatin
+accessibility and transcript abundance. These models can learn sequence patterns
+recognized by regulatory factors that control gene expression, theoretically enabling
+prediction of individual genomic variant effects across trained cell types. However, our recent
+studies revealed that despite strong performance on various variant effect prediction
+benchmarks (Avsec et al. 2021), these models fail to correctly determine how variants affect
+gene expression direction across individuals (Sasse et al. 2023), an essential capability for
+associating variants with phenotypes or diseases.
+To address these limitations and enhance model learning from available data, I present two
+strategies. First, training with sequence variation: we developed a modeling approach that
+directly contrasts sequence differences to predict allele-specific and personalized functional
+measurements from RNA-seq, ATAC-seq, and ChIP-seq (Spiro and Tu et al. 2025). We
+applied this approach to F1 mouse data and personal genomes with varying degrees of
+success. Second, training at higher resolution: we created models that analyze ATAC-seq at
+base-pair resolution, capturing both overall chromatin accessibility and the distribution of Tn5
+transposase cuts (Chandra et al. 2025). Our results demonstrate that incorporating ATACprofile information consistently improves differential chromatin accessibility predictions.
+Furthermore, simultaneous learning across related cell types through multi-task modeling
+outperforms single-task approaches. Systematic analysis of the models sequence attributions
+suggests that base-pair resolution training enables the model to learn a more sensitive
+representation of the regulatory syntax driving differences between immunocytes, potentially
+improving variant effect predictions.","present": {
+    "speaker": "Alexander Sasse",
+    "date": "5 March 2025",
+    "link": "https://www.zmbh.uni-heidelberg.de/sasse/default.shtml",
+    "institute": "Heidelberg University"
+  },
+  "upcoming": {
+    "details": [
+      {
+        "speaker": "Lucía Barbadilla, De Ridder Group",
+        "date": "2 April 2025",
+        "link": "https://www.deridderlab.nl/lucia-barbadilla/",
+        "institute": "UMC Utrecht"
+      },
+      {
+        "speaker": "Laura Martens, Gagneur lab",
+        "date": "7 May 2025",
+        "link": "https://www.cs.cit.tum.de/cmm/members/laura-martens/",
+        "institute": "Technical University Munich"
+      },
+      {
+        "speaker": "Katherine Pollard",
+        "date": "4 June 2025",
+        "link": "https://docpollard.org/",
+        "institute": "Gladstone Institute of Data Science & Biotechnology"
+      },
+    ]
+  },
+  "past": {
+    "details": [
+      {
         "speaker": "Pedro Tomaz da Silva, Gagneur lab",
         "date": "5 February 2025",
         "link": "https://www.cs.cit.tum.de/cmm/members/pedro-tomaz-da-silva/",
         "institute": "Technical University Munich"
       },
-
-  "upcoming": {
-    "details": [
-
-    ]
-  },
-  "past": {
-    "details": [
-        {
+      {
         "speaker": "Dmitry Penzar",
         "date": "4 December 2024",
         "link": "https://autosome.org",
         "institute": "autosome.org team"
       },
-        {
+      {
         "speaker": "Abdul Muntakim Rafi (Rafi) - Carl de Boer lab",
         "date": "6 November 2024",
         "link": "https://deboer.bme.ubc.ca/people/",
         "institute": "The University of British Columbia"
       },
-        {
+      {
         "speaker": "Avantika Lal",
         "date": "2 October 2024",
         "link": "https://avantikalal.github.io/",
         "institute": "Genentech"
       },
-        {
+      {
         "speaker": "Max Horlbeck and Ruochi Zhang (Buenrostro lab)",
         "date": "4 September 2024",
         "link": "https://www.buenrostrolab.com/",
         "institute": "Harvard University and Broad Institute"
       },
-             {
+      {
         "speaker": "Sagar Gosai - Sabeti (Broad), Reilly (Yale) & Tewhey lab (Jackson laboratories)",
         "date": "3 July 2024",
         "link": "https://www.sabetilab.org/sager-gosai/",
         "institute": "Broad Institute of Harvard and MIT"
       },
-
-         {
+      {
         "speaker": "Sara Mostafavi",
         "date": "5 June 2024",
         "link": "http://saramostafavi.github.io/",
         "institute": "University of Washington"
       },
-          {
+      {
         "speaker": "Thomas Pierrot",
         "date": "8 May 2024",
         "link": "https://www.instadeep.com/",
         "institute": "InstaDeep"
       },
-                      {
+      {
         "speaker": "Kseniia Dudnyk, Jian Zhou lab",
         "date": "3 April 2024",
         "link": "http://zhoulab.io/",
         "institute": "UT Southwestern Medical Center"
       },
-
-                      {
+      {
         "speaker": "Maria Brbić",
         "date": "6 March 2024",
         "link": "https://people.epfl.ch/maria.brbic",
         "institute": "EPFL, Lausanne"
       },
-                {
+      {
         "speaker": "Eric Nguyen, Christopher Ré lab",
         "date": "7 February 2024",
         "link": "http://erictnguyen.com/",
         "institute": "Stanford University"
       },
-            {
+      {
         "speaker": "Peter Koo",
         "date": "10 January 2024",
         "link": "http://koolab.cshl.edu/",
         "institute": "Cold Spring Harbor Laboratory"
       },
-
-        {
+      {
         "speaker": "Irene Kaplow",
         "date": "6 December 2023",
         "link": "https://imk1.github.io/",
         "institute": "Duke University"
       },
-        {
+      {
         "speaker": "David Kelley",
         "date": "8 November 2023",
         "link": "https://www.calicolabs.com/people/david-kelley-ph-d",
@@ -104,24 +143,24 @@
         "link": "https://aertslab.org/",
         "institute": "KU Leuven"
       },
-        {
+      {
         "speaker": "Alexander Karollus, Julien Gagneur lab",
         "date": "3 May 2023",
         "link": "https://www.cs.cit.tum.de/cmm/home/",
         "institute": "Technical University Munich"
       },
-        {
+      {
         "speaker": "Bernardo P. de Almeida, Alex Stark lab",
         "date": "5 April 2023",
         "link": "https://starklab.org/",
         "institute": "Research Institute of Molecular Pathology, Vienna"
-      } ,
+      },
       {
-    "speaker": "Ewa Szczurek",
-    "date": "3 March 2023",
-    "link": "https://www.mimuw.edu.pl/~szczurek/",
-    "institute": "University of Warsaw"
-  },
+        "speaker": "Ewa Szczurek",
+        "date": "3 March 2023",
+        "link": "https://www.mimuw.edu.pl/~szczurek/",
+        "institute": "University of Warsaw"
+      },
       {
         "speaker": "Mingyao Li",
         "date": "1 February 2023",
