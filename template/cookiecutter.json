@@ -1,21 +1,16 @@
 {
   "directory_name": "seminar",
   "file_name": "seminar",
-  "title": "Advanced training strategies for genomic sequence-to-function models",
-  "abstract": "Multi-task Convolutional Neural Networks (CNNs) have emerged as powerful tools for deciphering how DNA sequence influences gene regulatory features such as chromatin accessibility and transcript abundance. These models can learn sequence patterns recognized by regulatory factors that control gene expression, theoretically enabling prediction of individual genomic variant effects across trained cell types. However, our recent studies revealed that despite strong performance on various variant effect prediction benchmarks (Avsec et al. 2021), these models fail to correctly determine how variants affect gene expression direction across individuals (Sasse et al. 2023), an essential capability for associating variants with phenotypes or diseases. To address these limitations and enhance model learning from available data, I present two strategies. First, training with sequence variation: we developed a modeling approach that directly contrasts sequence differences to predict allele-specific and personalized functional measurements from RNA-seq, ATAC-seq, and ChIP-seq (Spiro and Tu et al. 2025). We applied this approach to F1 mouse data and personal genomes with varying degrees of success. Second, training at higher resolution: we created models that analyze ATAC-seq at base-pair resolution, capturing both overall chromatin accessibility and the distribution of Tn5 transposase cuts (Chandra et al. 2025). Our results demonstrate that incorporating ATACprofile information consistently improves differential chromatin accessibility predictions. Furthermore, simultaneous learning across related cell types through multi-task modeling outperforms single-task approaches. Systematic analysis of the models sequence attributions suggests that base-pair resolution training enables the model to learn a more sensitive representation of the regulatory syntax driving differences between immunocytes, potentially improving variant effect predictions.","present": {
-    "speaker": "Alexander Sasse",
-    "date": "5 March 2025",
-    "link": "https://www.zmbh.uni-heidelberg.de/sasse/default.shtml",
-    "institute": "Heidelberg University"
+  "title": "PARM: The regulatory grammar of human promoters uncovered by MPRA-trained deep learning",
+  "abstract": "One of the major challenges in genomics is to build computational models that accurately predict genome-wide gene expression from the sequences of regulatory elements. At the heart of gene regulation are promoters, yet their regulatory logic is still incompletely understood. Here, we report PARM, a cell-type specific deep learning model trained on specially designed massively parallel reporter assays that query human promoter sequences. PARM reliably predicts autonomous promoter activity throughout the genome from DNA sequence alone, in multiple cell types. PARM can even design purely synthetic strong promoters. We leveraged PARM to systematically identify binding sites of transcription factors (TFs) that are likely to contribute to the activity of each natural human promoter. We uncovered and experimentally confirmed striking positional preferences of TFs that differ between activating and repressive regulatory functions, as well as a complex grammar of motif-motif interactions. For example, many, but not all, TFs act as repressors when their binding motif is located near or just downstream of the transcription start site. Our approach lays the foundation towards a deep understanding of the regulation of human promoters by TFs.",
+  "present": {
+    "speaker": "Lucía Barbadilla, De Ridder Group",
+    "date": "2 April 2025",
+    "link": "https://www.deridderlab.nl/lucia-barbadilla/",
+    "institute": "UMC Utrecht"
   },
   "upcoming": {
     "details": [
-      {
-        "speaker": "Lucía Barbadilla, De Ridder Group",
-        "date": "2 April 2025",
-        "link": "https://www.deridderlab.nl/lucia-barbadilla/",
-        "institute": "UMC Utrecht"
-      },
       {
         "speaker": "Laura Martens, Gagneur lab",
         "date": "7 May 2025",
@@ -32,6 +27,12 @@
   },
   "past": {
     "details": [
+      {
+        "speaker": "Alexander Sasse",
+        "date": "5 March 2025",
+        "link": "https://www.zmbh.uni-heidelberg.de/sasse/default.shtml",
+        "institute": "Heidelberg University"
+      },
       {
         "speaker": "Pedro Tomaz da Silva, Gagneur lab",
         "date": "5 February 2025",
