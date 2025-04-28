@@ -12,8 +12,10 @@ rm ../app/models/templates/models/seminar.html
 cookiecutter . --no-input -f
 # move seminar page to app
 cp seminar/seminar.html ../app/models/templates/models/
-# commit changes and push
+# commit changes and pull
 git add ../app/models/templates/models/seminar.html
+git add seminar/seminar.html
+git add cookiecutter.json
 git commit -m "Update seminar page"
 git pull --rebase
 
