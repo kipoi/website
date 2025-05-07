@@ -4,9 +4,9 @@
   "title": "scooby: Modeling multi-modal genomic profiles from DNA sequence at single-cell resolution",
   "abstract": "Understanding how regulatory DNA elements shape gene expression across individual cells is a fundamental challenge in genomics. Joint RNA-seq and epigenomic profiling provides opportunities to build unifying models of gene regulation capturing sequence determinants across steps of gene expression. However, current models, developed primarily for bulk omics data, fail to capture the cellular heterogeneity and dynamic processes revealed by single-cell multi-modal technologies. Here, we introduce scooby, the first framework to model scRNA-seq coverage and scATAC-seq insertion profiles along the genome from sequence at single-cell resolution. For this, we leverage the pre-trained multi-omics profile predictor Borzoi as a foundation model, equip it with a cell-specific decoder, and fine-tune its sequence embeddings. Specifically, we condition the decoder on the cell position in a precomputed single-cell embedding resulting in strong generalization capability. Applied to a hematopoiesis dataset, scooby recapitulates cell-specific expression levels of held-out genes, and identifies regulators and their putative target genes through in silico motif deletion. Moreover, accurate variant effect prediction with scooby allows for breaking down bulk eQTL effects into single-cell effects and delineating their impact on chromatin accessibility and gene expression. We anticipate scooby to aid unraveling the complexities of gene regulation at the resolution of individual cells.",
   "present": {
-    "speaker": "Laura Martens, Gagneur lab",
+    "speaker": "Laura Martens, Julien Gagneur lab (TUM) & Fabian J. Theis lab (Helmholtz Zentrum Munich)",
     "date": "7 May 2025",
-    "link": "https://www.cs.cit.tum.de/cmm/members/laura-martens/",
+    "link": "https://www.cs.cit.tum.de/cmm/home/",
     "institute": "Technical University Munich"
   },
   "upcoming": {
@@ -48,7 +48,7 @@
       {
         "speaker": "Pedro Tomaz da Silva, Gagneur lab",
         "date": "5 February 2025",
-        "link": "https://www.cs.cit.tum.de/cmm/members/pedro-tomaz-da-silva/",
+        "link": "https://www.cs.cit.tum.de/cmm/home/",
         "institute": "Technical University Munich"
       },
       {
