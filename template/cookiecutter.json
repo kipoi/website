@@ -1,22 +1,17 @@
 {
   "directory_name": "seminar",
   "file_name": "seminar",
-  "title": "scooby: Modeling multi-modal genomic profiles from DNA sequence at single-cell resolution",
-  "abstract": "Understanding how regulatory DNA elements shape gene expression across individual cells is a fundamental challenge in genomics. Joint RNA-seq and epigenomic profiling provides opportunities to build unifying models of gene regulation capturing sequence determinants across steps of gene expression. However, current models, developed primarily for bulk omics data, fail to capture the cellular heterogeneity and dynamic processes revealed by single-cell multi-modal technologies. Here, we introduce scooby, the first framework to model scRNA-seq coverage and scATAC-seq insertion profiles along the genome from sequence at single-cell resolution. For this, we leverage the pre-trained multi-omics profile predictor Borzoi as a foundation model, equip it with a cell-specific decoder, and fine-tune its sequence embeddings. Specifically, we condition the decoder on the cell position in a precomputed single-cell embedding resulting in strong generalization capability. Applied to a hematopoiesis dataset, scooby recapitulates cell-specific expression levels of held-out genes, and identifies regulators and their putative target genes through in silico motif deletion. Moreover, accurate variant effect prediction with scooby allows for breaking down bulk eQTL effects into single-cell effects and delineating their impact on chromatin accessibility and gene expression. We anticipate scooby to aid unraveling the complexities of gene regulation at the resolution of individual cells.",
-  "present": {
-    "speaker": "Laura Martens, Julien Gagneur lab (TUM) & Fabian J. Theis lab (Helmholtz Zentrum Munich)",
-    "date": "7 May 2025",
-    "link": "https://www.cs.cit.tum.de/cmm/home/",
-    "institute": "Technical University Munich"
+  "title": "Human variant interpretation with sequence-to-activity models",
+  "abstract": "The role of computational science in biomedical research has typically been downstream of experiments, where it plays important roles in signal processing, data integration, pattern detection, and hypothesis testing. But this is changing, and predictive models are now being used to generate and test hypotheses in silico. This change has been fueled by experimental technologies that drive rapid growth of biomedical databases couple with breakthroughs in computer hardware and software that have enabled the development of highly accurate, predictive modeling frameworks. My lab leverages these opportunities to decode how the human genome works, evolves, and breaks in disease. In this talk, I will share examples from human genomics, where we have built deep learning models to predict molecular phenotypes, such as epigenetic states, genome folding, and gene expression from DNA sequence alone. Then, we use the models to computationally predict how changing the DNA sequence alters genome function. This strategy leads to causal hypotheses and enables us to prioritize disease variants with predicted functional effects. Experiments designed using model outputs are accelerating the rate of discoveries, shedding light on genetic mechanisms in human evolution and disease. This prediction-first strategy exemplifies my vision for a more proactive, rather than reactive, role for computational science in biomedical research.",
+  "present": 
+  {
+    "speaker": "Katherine Pollard",
+    "date": "4 June 2025",
+    "link": "https://docpollard.org/",
+    "institute": "Gladstone Institute of Data Science & Biotechnology, University of California San Francisco, Chan Zuckerberg Biohub"
   },
   "upcoming": {
     "details": [
-      {
-        "speaker": "Katherine Pollard",
-        "date": "4 June 2025",
-        "link": "https://docpollard.org/",
-        "institute": "Gladstone Institute of Data Science & Biotechnology"
-      },
       {
         "speaker": "Yoseph Barash",
         "date": "2 July 2025",
@@ -33,6 +28,12 @@
   },
   "past": {
     "details": [
+      {
+        "speaker": "Laura Martens, Julien Gagneur lab (TUM) & Fabian J. Theis lab (Helmholtz Zentrum Munich)",
+        "date": "7 May 2025",
+        "link": "https://www.cs.cit.tum.de/cmm/home/",
+        "institute": "Technical University Munich"
+      },
       {
         "speaker": "Lucía Barbadilla, De Ridder Group",
         "date": "2 April 2025",
