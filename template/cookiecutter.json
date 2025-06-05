@@ -23,6 +23,24 @@
         "date": "3 September 2025",
         "link": "https://arcinstitute.org/labs/goodarzilab",
         "institute": "Arc Institute"
+      },
+      {
+        "speaker": "Brendan Frey",
+        "date": "1 October 2025",
+        "link": "https://www.psi.toronto.edu",
+        "institute": "University of Toronto"
+      },
+      {
+        "speaker": "Sameed Siddiqui, Sabeti lab",
+        "date": "5 November 2025",
+        "link": "https://www.sabetilab.org/",
+        "institute": "Broad Institute of MIT and Harvard"
+      },
+      {
+        "speaker": "Gonzalo Benegas, Yun S. Song group",
+        "date": "3 December 2025",
+        "link": "https://people.eecs.berkeley.edu/~yss/group.html",
+        "institute": "University of California, Berkeley"
       }
     ]
   },
