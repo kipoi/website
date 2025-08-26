@@ -1,23 +1,17 @@
 {
   "directory_name": "seminar",
   "file_name": "seminar",
-  "title": "From identifying UTR regulatory elements to potential RNA therapeutic targets",
-  "abstract": "Identifying good therapeutic targets require answers to the basic questions of What/Where/How and sometimes When. One promising way to find such targets is identifying regulatory elements in the UTRs that can have significant effect on the associated gene expression. In this talk I will discuss some of our recent efforts to identify such targets and improve our basic understanding of gene regulation, focusing on a recent LLM we developed for RNA G-Quadruplexes and additional UTR elements.",
+  "title": "Reading and writing the language of life",
+  "abstract": "Evo 2 is a nucleic acid foundation model trained on over 9 trillion base pairs from genomes across all domains of life. With 7B and 40B parameter versions, Evo 2 operates at single-nucleotide resolution and supports context windows up to 1 million tokens. It achieves strong zero-shot performance in predicting the functional impact of genetic variation—including noncoding, splice-altering, and BRCA1/2 mutations—without requiring task-specific finetuning. Mechanistic interpretability reveals that Evo 2 learns biologically meaningful features, from regulatory elements to protein structure. The model also enables genome-scale sequence generation and controllable epigenomic design via inference-time search. Evo 2 is fully open, including model weights, training data (OpenGenome2), and code, offering a scalable platform for predictive genomics and generative biology.",
   "present":
   {
-    "speaker": "Yoseph Barash",
-    "date": "2 July 2025",
-    "link": "https://www.biociphers.org/",
-    "institute": "University of Pennsylvania"
+    "speaker": "Hani Goodarzi",
+    "date": "3 September 2025",
+    "link": "https://arcinstitute.org/labs/goodarzilab",
+    "institute": "Arc Institute"
   },
   "upcoming": {
     "details": [
-      {
-        "speaker": "Hani Goodarzi",
-        "date": "3 September 2025",
-        "link": "https://arcinstitute.org/labs/goodarzilab",
-        "institute": "Arc Institute"
-      },
       {
         "speaker": "Brendan Frey",
         "date": "1 October 2025",
@@ -40,6 +34,12 @@
   },
   "past": {
     "details": [
+        {
+          "speaker": "Yoseph Barash",
+          "date": "2 July 2025",
+          "link": "https://www.biociphers.org/",
+          "institute": "University of Pennsylvania"
+        },
         {
           "speaker": "Katherine Pollard",
           "date": "4 June 2025",
