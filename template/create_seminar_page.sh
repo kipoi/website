@@ -1,6 +1,8 @@
 #!/bin/bash
 
-source $HOME/.bashrc
+[ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
+[ -f "$HOME/.zshrc" ] && source "$HOME/.zshrc"
+
 env_name=kipoiwebsite
 path_to_conda_sh=$(conda info --base)/etc/profile.d/conda.sh
 source $path_to_conda_sh
