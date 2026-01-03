@@ -1,23 +1,17 @@
 {
   "directory_name": "seminar",
   "file_name": "seminar",
-  "title": "Predicting functional constraints across evolutionary timescales with phylogeny-informed genomic language models",
-  "abstract": "Genomic language models (gLMs) have emerged as a powerful approach for learning genome-wide functional constraints directly from DNA sequences. However, standard gLMs adapted from natural language processing often require extremely large model sizes and computational resources, yet still fall short of classical evolutionary models in predictive tasks. Here, we introduce GPN-Star (Genomic Pretrained Network with Species Tree and Alignment Representation), a biologically grounded gLM featuring a phylogeny-aware architecture that leverages whole-genome alignments and species trees to model evolutionary relationships explicitly. Trained on alignments spanning vertebrate, mammalian, and primate evolutionary timescales, GPN-Star achieves state-of-the-art performance across a wide range of variant effect prediction tasks in both coding and non-coding regions of the human genome. Analyses across timescales reveal task-dependent advantages of modeling more recent versus deeper evolution. To demonstrate its potential to advance human genetics, we show that GPN-Star substantially outperforms prior methods in prioritizing pathogenic and fine-mapped GWAS variants; yields unprecedented enrichments of complex trait heritability; and improves power in rare variant association testing. Extending beyond humans, we train GPN-Star for five model organisms – Mus musculus, Gallus gallus, Drosophila melanogaster, Caenorhabditis elegans, and Arabidopsis thaliana – demonstrating the robustness and generalizability of the framework. Taken together, these results position GPN-Star as a scalable, powerful, and flexible new tool for genome interpretation, well suited to leverage the growing abundance of comparative genomics data.",
+  "title": "Predicting expression-altering promoter mutations with deep learning",
+  "abstract": "Only a minority of patients with rare genetic diseases are currently diagnosed by exome sequencing, suggesting that additional unrecognized pathogenic variants may reside in non-coding sequence. Here, we describe PromoterAI, a deep neural network that accurately identifies non-coding promoter variants which dysregulate gene expression. We show that promoter variants with predicted expression-altering consequences produce outlier expression at both RNA and protein levels in thousands of individuals, and that these variants experience strong negative selection in human populations. We observe that clinically relevant genes in rare disease patients are enriched for such variants and validate their functional impact through reporter assays. Our estimates suggest that promoter variation accounts for 6% of the genetic burden associated with rare diseases.",
   "present":
   {
-    "speaker": "Gonzalo Benegas",
-    "date": "3 December 2025",
-    "link": "https://gonzalobenegas.github.io/",
-    "institute": "Yun S. Song group, University of California, Berkeley; Open Athena"
+    "speaker": "Kishore Jaganathan",
+    "date": "7 January 2026",
+    "link": "https://emea.illumina.com/science/genomics-research.html",
+    "institute": "Illumina"
   },
   "upcoming": {
     "details": [
-      {
-        "speaker": "Kishore Jaganathan",
-        "date": "7 January 2026",
-        "link": "https://emea.illumina.com/science/genomics-research.html",
-        "institute": "Illumina"
-      },
       {
         "speaker": "Jun Cheng",
         "date": "4 February 2026",
@@ -28,6 +22,12 @@
   },
   "past": {
     "details": [
+        {
+          "speaker": "Gonzalo Benegas",
+          "date": "3 December 2025",
+          "link": "https://gonzalobenegas.github.io/",
+          "institute": "Yun S. Song group, University of California, Berkeley; Open Athena"
+        },
         {
           "speaker": "Sameed Siddiqui, Sabeti lab",
           "date": "5 November 2025",
