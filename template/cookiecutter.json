@@ -1,8 +1,8 @@
 {
   "directory_name": "seminar",
   "file_name": "seminar",
-  "title": "",
-  "abstract": "",
+  "title": "TBA",
+  "abstract": "TBA",
   "present":
   {
     "speaker": "Sam Boshar",
@@ -12,6 +12,12 @@
   },
   "upcoming": {
     "details": [
+      {
+        "speaker": "Nilah Ioannidis",
+        "date": "1 April 2026",
+        "link": "https://www2.eecs.berkeley.edu/Faculty/Homepages/nilah.html",
+        "institute": "UC Berkeley"
+      }
     ]
   },
   "past": {
