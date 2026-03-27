@@ -1,27 +1,33 @@
 {
   "directory_name": "seminar",
   "file_name": "seminar",
-  "title": "A foundational model for joint sequence-function multi-species modeling at scale for long-range genomic prediction",
-  "abstract": "We present Nucleotide Transformer v3 (NTv3), a multi-species genomic foundation model that unifies long-range sequence modeling, base-resolution functional prediction, genome annotation, and controllable sequence generation within a single efficient architecture. NTv3 employs a U-Net–like design to model up to 1 Mb of genomic context at single-nucleotide resolution. It is pre-trained on 9 trillion base pairs using masked language modeling and post-trained on ~16,000 functional genomics tracks and annotation labels across 24 animal and plant species. NTv3 achieves state-of-the-art performance on functional-track and genome-annotation benchmarks across species, consolidates shared regulatory grammar for long-range genome-to-function inference, and supports variant interpretation. We fine-tune NTv3 into a controllable generative model via masked diffusion, enabling the design of enhancer sequences with specified activity and promoter selectivity, which we validate experimentally. The NTv3 model family, benchmarks, and practical training and design tools are released to support broad genomic applications.",
-  "present":
+  "title": "Modeling the impact of personal genome variation on molecular phenotypes",
+  "abstract": "Understanding inter-individual variation in molecular, cellular, and other clinically-relevant phenotypes is an important challenge in precision medicine. Sequence-based genomic deep learning models that predict gene expression and other molecular phenotypes directly from DNA sequence have great potential to predict the genetic contribution to variation in such phenotypes. Despite their success in explaining variation in molecular phenotypes across the genome and across a variety of cell types, we and others recently found that current sequence-based genomic deep learning models have limited ability to explain variation in gene expression across different individuals based on their personal genome sequences. I will discuss our work to characterize the cross-individual performance of such models on gene expression and other molecular phenotypes, with resulting insights into their understanding of regulatory variation. I will also discuss our efforts to develop models with improved understanding of variation across individuals using several strategies, such as incorporating personal genome and transcriptome data during model training, modeling locally-regulated phenotypes such as chromatin accessibility, and augmenting models with additional molecular information.",
+  "present":  
   {
-    "speaker": "Sam Boshar",
-    "date": "4 March 2026",
-    "link": "https://instadeep.com/",
-    "institute": "Instadeep"
-  },
+      "speaker": "Nilah Ioannidis",
+      "date": "1 April 2026",
+      "link": "https://campusdirectory.ucsc.edu/cd_detail?uid=nioannid",
+      "institute": "University of California Santa Cruz"
+    },
   "upcoming": {
     "details": [
       {
-        "speaker": "Nilah Ioannidis",
-        "date": "1 April 2026",
-        "link": "https://www2.eecs.berkeley.edu/Faculty/Homepages/nilah.html",
-        "institute": "UC Berkeley"
+        "speaker": "Zeming Lin",
+        "date": "3 June 2026",
+        "link": "https://www.evolutionaryscale.ai/",
+        "institute": "EvolutionaryScale"
       }
     ]
   },
   "past": {
-    "details": [      
+    "details": [     
+      {
+        "speaker": "Sam Boshar",
+        "date": "4 March 2026",
+        "link": "https://instadeep.com/",
+        "institute": "Instadeep"
+      }, 
       {
       "speaker": "Jun Cheng",
       "date": "4 February 2026",
