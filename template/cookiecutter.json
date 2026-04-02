@@ -1,14 +1,14 @@
 {
   "directory_name": "seminar",
   "file_name": "seminar",
-  "title": "Modeling the impact of personal genome variation on molecular phenotypes",
-  "abstract": "Understanding inter-individual variation in molecular, cellular, and other clinically-relevant phenotypes is an important challenge in precision medicine. Sequence-based genomic deep learning models that predict gene expression and other molecular phenotypes directly from DNA sequence have great potential to predict the genetic contribution to variation in such phenotypes. Despite their success in explaining variation in molecular phenotypes across the genome and across a variety of cell types, we and others recently found that current sequence-based genomic deep learning models have limited ability to explain variation in gene expression across different individuals based on their personal genome sequences. I will discuss our work to characterize the cross-individual performance of such models on gene expression and other molecular phenotypes, with resulting insights into their understanding of regulatory variation. I will also discuss our efforts to develop models with improved understanding of variation across individuals using several strategies, such as incorporating personal genome and transcriptome data during model training, modeling locally-regulated phenotypes such as chromatin accessibility, and augmenting models with additional molecular information.",
+  "title": "TBA",
+  "abstract": "TBA",
   "present":  
   {
-      "speaker": "Nilah Ioannidis",
-      "date": "1 April 2026",
-      "link": "https://campusdirectory.ucsc.edu/cd_detail?uid=nioannid",
-      "institute": "University of California Santa Cruz"
+      "speaker": "Noor Youssef",
+      "date": "6 May 2026",
+      "link": "https://www.deboramarkslab.com/",
+      "institute": "UC Santa Cruz, UC Berkley"
     },
   "upcoming": {
     "details": [
@@ -21,7 +21,13 @@
     ]
   },
   "past": {
-    "details": [     
+    "details": [   
+  {
+      "speaker": "Nilah Ioannidis",
+      "date": "1 April 2026",
+      "link": "https://campusdirectory.ucsc.edu/cd_detail?uid=nioannid",
+      "institute": "UC Santa Cruz, UC Berkley"
+    },  
       {
         "speaker": "Sam Boshar",
         "date": "4 March 2026",
