@@ -21,7 +21,7 @@ $ make serve
 
 ### Virtual python environment with python 3.10
 
-Create a conda (or as per your choice) virtual environment using python 3.10. It is also possible to use python version >=3.6<=3.9
+Create a conda (or as per your choice) virtual environment using python 3.10.
 
 ```bash
 conda create -n websiteenv python=3.10
@@ -29,12 +29,11 @@ conda create -n websiteenv python=3.10
 
 ### Kipoi
 
-Install Kipoi package by following installation process from [here](https://github.com/kipoi/kipoi) and kipoiseq from [here](https://github.com/kipoi/kipoiseq). It is also required to install kipoi-veff2. Please follow the following steps inside your conda environment
+Install Kipoi package by following installation process from [here](https://github.com/kipoi/kipoi) and kipoiseq from [here](https://github.com/kipoi/kipoiseq).
 
-```
-pip install cyvcf2 (Use conda if using python=3.6)
-pip install dataclasses (only for python=3.6)
-pip install git+https://github.com/kipoi/kipoi-veff2.git
+```bash
+pip install git+https://github.com/kipoi/kipoi.git
+pip install git+https://github.com/kipoi/kipoiseq.git
 ```
 
 

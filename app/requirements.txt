@@ -6,3 +6,7 @@ manubot
 pymdown-extensions
 werkzeug<3.0.0
 itsdangerous
+setuptools<70.0.0
+pandas
+tqdm
+attrs<=21.4.0
