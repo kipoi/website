@@ -1,27 +1,27 @@
 {
   "directory_name": "seminar",
   "file_name": "seminar",
-  "title": "Predicting Viral Evolution to Accelerate Vaccine and Therapeutic Design",
-  "abstract": "Viruses have an enormous impact on humanity, causing billions of deaths and trillions of dollars in economic losses. Yet our responses to viral threats have largely been, and continue to be, reactive. We wait for a virus to spill over into humans, evolve within individuals, and ultimately spread across the global population before acting. My research aims to build a proactive framework for responding to viral threats aimed at identifying potential dangers before they cause their first human infection and developing medical countermeasures (e.g., vaccines and therapeutic antibodies) before widespread transmission occurs. Achieving this goal depends on three key pillars: Can we predict how viruses will evolve? Can we anticipate how those changes will affect immune recognition and protection? And how can we use this knowledge to design vaccines and therapeutics that protect against both current and future viral diversity? In this seminar, I will highlight how my work has made progress on each of these fronts, and lay out a vision for how the remaining gaps can be closed. Together, these advances point toward a future in which we are no longer chasing viruses, but staying ahead of them.",
+  "title": "TBA",
+  "abstract": "TBA",
   "present":  
+      {
+        "speaker": "Zeming Lin",
+        "date": "3 June 2026",
+        "link": "https://biohub.org/",
+        "institute": "Biohub"
+      },
+  "upcoming": {
+    "details": [
+    ]
+  },
+  "past": {
+    "details": [   
   {
       "speaker": "Noor Youssef",
       "date": "6 May 2026",
       "link": "https://www.deboramarkslab.com/",
       "institute": "Harvard Medical School"
     },
-  "upcoming": {
-    "details": [
-      {
-        "speaker": "Zeming Lin",
-        "date": "3 June 2026",
-        "link": "https://biohub.org/",
-        "institute": "Biohub"
-      }
-    ]
-  },
-  "past": {
-    "details": [   
   {
       "speaker": "Nilah Ioannidis",
       "date": "1 April 2026",
