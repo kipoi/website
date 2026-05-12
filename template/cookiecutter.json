@@ -12,6 +12,12 @@
       },
   "upcoming": {
     "details": [
+      {
+        "speaker": "Wout Bittremieux",
+        "date": "7 October 2026",
+        "link": "https://bittremieux.be/",
+        "institute": "Adrem Data Lab, University of Antwerp"
+      }
     ]
   },
   "past": {
