@@ -13,6 +13,12 @@
   "upcoming": {
     "details": [
       {
+        "speaker": "Jian Zhou",
+        "date": "1 July 2026",
+        "link": "https://zhoulab.io/thepi",
+        "institute": "University of Chicago"
+      },
+      {
         "speaker": "Wout Bittremieux",
         "date": "7 October 2026",
         "link": "https://bittremieux.be/",
