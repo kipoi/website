@@ -1,8 +1,8 @@
 {
   "directory_name": "seminar",
   "file_name": "seminar",
-  "title": "TBA",
-  "abstract": "TBA",
+  "title": "Protein Language Models",
+  "abstract": "Proteins are fundamental to life. Accurate digital representations could accelerate the discovery of protein biology through virtual experiments. Built on decades of sequencing data, foundation models over protein sequences are transforming our understanding of biology. In this talk, I will detail the next generation of protein language models, ESMC, and the challenges involved in training such a model. We will then explore the representations of these protein language models and how interpretability techniques can lead to the alignment of protein function with textual data. Finally, we show how building on these frontier representations results in ESMFold2, a state-of-the-art protein structure prediction model capable of predicting protein and antibody complexes without explicit coevolutionary data. A simple search procedure using this folding model yields high experimental success rates for discovering proteins with nanomolar binding affinities for both miniproteins and single-chain antibodies, a modality critical for therapeutic design.",
   "present":  
       {
         "speaker": "Zeming Lin",
