@@ -1,14 +1,14 @@
 {
   "directory_name": "seminar",
   "file_name": "seminar",
-  "title": "Sequence-based regulatory code for heterogeneous and dynamic chromatin",
-  "abstract": "Genome regulation unfolds through dynamic and stochastic single-molecular events, yet most predictive models reduce this complexity to population-level averages. Although sequence-to-function deep learning has markedly advanced our ability to predict and understand average chromatin events, it cannot, in principle, capture the full spectrum of heterogeneity and dynamics exhibited by individual molecules, let alone reveal the sequence code. Here, we closed this gap by integrating single-molecule regulatory genomics with a deep generative AI model to develop a sequence-to-distribution (s2d) framework that directly models the entire probabilistic distribution of single-molecule chromatin from DNA sequence. We use this framework to uncover sequence-based regulatory code and novel mechanisms for dynamic chromatin regulation. By quantifying sequence-driven nucleosome opening and phasing power, we reveal distinct modes of transcription factor engagement with nucleosomes. We decode the sequence grammar governing the +1 nucleosome after transcription start sites, and identify the strongest +1 nucleosome positioning factor. We further examine the sequence basis of co-accessibility between distal regulatory elements, pinpointing transcription factors that orchestrate long-range regulatory communication. Single-molecule joint prediction of DNA methylation and accessibility reveals a bistable chromatin state driven by DNA methylation-sensitive transcription factors. Beyond static single-molecule snapshots, the s2d framework can also generate the in silico single-molecule chromatin-state trajectories, a step toward genome-wide chromatin dynamics. S2d models can be also used to predict and interpret the effects of genetic variants at single-molecule resolution. Together, this model framework establishes a foundation for decoding and predicting how genomic sequence encodes stochastic and dynamic chromatin regulation.",
+  "title": "TBD",
+  "abstract": "TBD",
   "present":  
       {
-        "speaker": "Ruoyu Wang, Zhou Lab",
-        "date": "1 July 2026",
-        "link": "https://zhoulab.io",
-        "institute": "University of Chicago"
+        "speaker": "Michael Vollenweider",
+        "date": "2 September 2026",
+        "link": "https://math.ethz.ch/sfs/",
+        "institute": "Peter Bühlmann group, Seminar for Statistics, ETH Zurich"
       },
   "upcoming": {
     "details": [
@@ -22,6 +22,12 @@
   },
   "past": {
     "details": [  
+      {
+        "speaker": "Ruoyu Wang, Zhou Lab",
+        "date": "1 July 2026",
+        "link": "https://zhoulab.io",
+        "institute": "University of Chicago"
+      },
     {
       "speaker": "Zeming Lin",
       "date": "3 June 2026",
