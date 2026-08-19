@@ -1,8 +1,12 @@
 {
   "directory_name": "seminar",
   "file_name": "seminar",
-  "title": "TBD",
-  "abstract": "TBD",
+  "title": "Signal, Bounds, and Baselines: Principles for Evaluating Virtual Cell Perturbation Models",
+  "abstract": """Foundation models and deep learning systems are increasingly proposed as core components of \"virtual cells\" that forecast transcriptomic responses to unseen perturbations. But evaluating such predictions in high-dimensional gene expression space is harder than it looks, and reported performance often does not survive closer inspection. 
+
+This talk introduces the SBB principles (Signal, Bounds, and Baselines) for evaluating biological perturbation prediction. 
+
+The Signal pillar provides diagnostic meta-metrics that assess how sensitive an evaluation metric is to biological signal masked by high-dimensional noise, and how much signal a dataset contains in the first place. The Bounds pillar uses technical duplicates and uninformative controls as empirical reference points, showing how far a model is from the achievable optimum on a given perturbation, and whether that gap is meaningful. The Baselines pillar establishes a hierarchy of interpretable linear models as performance floors. Across seven single- and double-perturbation datasets, deep learning methods often fail to meaningfully surpass simple linear baselines, and substantial room for improvement remains where they do.""",
   "present":  
       {
         "speaker": "Michael Vollenweider",
