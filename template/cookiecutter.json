@@ -1,27 +1,28 @@
 {
   "directory_name": "seminar",
   "file_name": "seminar",
-  "title": "Signal, Bounds, and Baselines: Principles for Evaluating Virtual Cell Perturbation Models",
-  "abstract": "Foundation models and deep learning systems are increasingly proposed as core components of \"virtual cells\" that forecast transcriptomic responses to unseen perturbations. But evaluating such predictions in high-dimensional gene expression space is harder than it looks, and reported performance often does not survive closer inspection.\nThis talk introduces the SBB principles (Signal, Bounds, and Baselines) for evaluating biological perturbation prediction.\nThe Signal pillar provides diagnostic meta-metrics that assess how sensitive an evaluation metric is to biological signal masked by high-dimensional noise, and how much signal a dataset contains in the first place. The Bounds pillar uses technical duplicates and uninformative controls as empirical reference points, showing how far a model is from the achievable optimum on a given perturbation, and whether that gap is meaningful. The Baselines pillar establishes a hierarchy of interpretable linear models as performance floors. Across seven single- and double-perturbation datasets, deep learning methods often fail to meaningfully surpass simple linear baselines, and substantial room for improvement remains where they do.",
-  "present":  
-      {
-        "speaker": "Michael Vollenweider",
-        "date": "2 September 2026",
-        "link": "https://math.ethz.ch/sfs/",
-        "institute": "Peter Bühlmann group, Seminar for Statistics, ETH Zurich"
-      },
-  "upcoming": {
-    "details": [
+  "title": "Artificial intelligence for molecular discovery to illuminate the dark proteome",
+  "abstract": "Mass spectrometry-based proteomics has generated vast amounts of publicly available data, yet much of this information remains unexplored. In this talk, I will discuss how artificial intelligence can transform large-scale proteomics repositories into discovery platforms, revealing biological insights hidden within existing datasets. I will introduce a neural network-based embedding and clustering approach that learns representations across millions of mass spectra, enabling the discovery of molecular patterns and the exploration of the "dark proteome" beyond the limits of conventional database searches. Next, I will discuss how the Casanovo encoder–decoder model enables direct interpretation of mass spectra using de novo peptide sequencing, uncovering unexpected peptides and expanding our view of complex proteomes. Finally, I will describe our efforts to integrate these approaches with large language models that automatically extract metadata from public proteomics datasets and associated open-access scientific manuscripts. By combining spectral analysis, peptide sequence interpretation, and experimental context, we aim to build AI-driven systems that illuminate what has remained hidden within existing proteomics data. Together, these developments represent a shift toward data-driven discovery systems that can extract new biological knowledge from the ever-growing wealth of molecular data.",
+  "present": 
       {
         "speaker": "Wout Bittremieux",
         "date": "7 October 2026",
         "link": "https://bittremieux.be/",
         "institute": "Adrem Data Lab, University of Antwerp"
       }
+,
+  "upcoming": {
+    "details": [
     ]
   },
   "past": {
     "details": [  
+      {
+        "speaker": "Michael Vollenweider",
+        "date": "2 September 2026",
+        "link": "https://math.ethz.ch/sfs/",
+        "institute": "Peter Bühlmann group, Seminar for Statistics, ETH Zurich"
+      },
       {
         "speaker": "Ruoyu Wang, Zhou Lab",
         "date": "1 July 2026",
