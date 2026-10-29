@@ -1,56 +1,64 @@
-version: 2
+version: 2.1
 
-variables:
-  install_gcc: &install_gcc
-    run:
-      name: Install gcc and g++
-      command: |
-        apt-get update && apt-get -y install gcc g++
-  install_kipoiseq_deps: &install_kipoiseq_deps
-    run:
-      name: Install Kipoiseq conda dependencies
-      command: |
-        source activate py310
-        conda install --yes -c bioconda cython 
-        pip install pybedtools pyfaidx pyranges
-  install_git_lfs: &install_git_lfs
-    run:
-      name: Install git-lfs
-      command: |
-        source activate py310  
-        conda install --yes -c conda-forge git-lfs
-  install_pip_deps: &install_pip_deps
-    run:
-      name: Install pip dependencies
-      command: |
-        source activate py310
-        pip install -r app/requirements.txt
-  install_kipoi: &install_kipoi
-    run:
-      name: Install Kipoi
-      command: |
-        conda create -n py310 python=3.10
-        source activate py310
-        pip install 'setuptools<70.0.0' 'attrs<=21.4.0'
-        pip install git+ssh://git@github.com/kipoi/kipoi.git
-  install_kipoiseq: &install_kipoiseq
-    run:
-      name: Install Kipoiseq
-      command: |
-        source activate py310
-        pip install git+ssh://git@github.com/kipoi/kipoiseq.git
-  install_awscli: &install_awscli
-    run:
-      name: Install awscli
-      command: |
-        source activate py310
-        pip install awscli
-  kipoi_ls: &kipoi_ls
-    run:
-      name: List kipoi packages
-      command: |
-        source activate py310
-        kipoi ls
+commands:
+  install_gcc:
+    steps:
+      - run:
+          name: Install gcc and g++
+          command: |
+            apt-get update && apt-get -y install gcc g++
+  install_kipoiseq_deps:
+    steps:
+      - run:
+          name: Install Kipoiseq conda dependencies
+          command: |
+            source activate py310
+            conda install --yes -c bioconda cython 
+            pip install pybedtools pyfaidx pyranges
+  install_git_lfs:
+    steps:
+      - run:
+          name: Install git-lfs
+          command: |
+            source activate py310  
+            conda install --yes -c conda-forge git-lfs
+  install_pip_deps:
+    steps:
+      - run:
+          name: Install pip dependencies
+          command: |
+            source activate py310
+            pip install -r app/requirements.txt
+  install_kipoi:
+    steps:
+      - run:
+          name: Install Kipoi
+          command: |
+            conda create -n py310 python=3.10
+            source activate py310
+            pip install 'setuptools<70.0.0' 'attrs<=21.4.0'
+            pip install git+ssh://git@github.com/kipoi/kipoi.git
+  install_kipoiseq:
+    steps:
+      - run:
+          name: Install Kipoiseq
+          command: |
+            source activate py310
+            pip install git+ssh://git@github.com/kipoi/kipoiseq.git
+  install_awscli:
+    steps:
+      - run:
+          name: Install awscli
+          command: |
+            source activate py310
+            pip install awscli
+  kipoi_ls:
+    steps:
+      - run:
+          name: List kipoi packages
+          command: |
+            source activate py310
+            kipoi ls
 
 jobs:
 
@@ -62,13 +70,13 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - *install_gcc
-      - *install_kipoi
-#      - *install_kipoiseq_deps
-      - *install_kipoiseq
-      - *kipoi_ls
-      - *install_pip_deps
-      - *install_awscli
+      - install_gcc
+      - install_kipoi
+#      - install_kipoiseq_deps
+      - install_kipoiseq
+      - kipoi_ls
+      - install_pip_deps
+      - install_awscli
       - run:
           name: Build docs
           command: |
@@ -98,12 +106,12 @@ jobs:
           fingerprints:
             - 60:0f:05:31:12:3d:bc:8b:df:9d:08:da:71:a5:43:b6
       - checkout
-      - *install_gcc
-      - *install_kipoi
-#      - *install_kipoiseq_deps
-      - *install_kipoiseq
-      - *kipoi_ls
-      - *install_pip_deps
+      - install_gcc
+      - install_kipoi
+#      - install_kipoiseq_deps
+      - install_kipoiseq
+      - kipoi_ls
+      - install_pip_deps
       - run:
           name: Build docs
           command: |
@@ -115,8 +123,6 @@ jobs:
 
 
 workflows:
-  version: 2
-
   # just build
   test-build:
     jobs:
