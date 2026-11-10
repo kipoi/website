@@ -1,5 +1,5 @@
 import pymdownx
-from flask import Markup
+from markupsafe import Markup
 import markdown
 
 

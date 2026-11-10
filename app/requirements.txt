@@ -4,9 +4,9 @@ python-memcached
 Frozen-Flask
 manubot
 pymdown-extensions
-werkzeug<3.0.0
+werkzeug>=3.1.5
 itsdangerous
-setuptools<70.0.0
+setuptools>=83.0.0
 pandas
 tqdm
 attrs<=21.4.0

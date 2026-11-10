@@ -7,7 +7,8 @@ import re
 import os
 import pandas as pd
 import kipoi
-from flask import Blueprint, render_template, redirect, url_for, current_app, Markup
+from flask import Blueprint, render_template, redirect, url_for, current_app
+from markupsafe import Markup
 import logging
 from collections import OrderedDict
 

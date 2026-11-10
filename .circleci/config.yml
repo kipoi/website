@@ -36,7 +36,8 @@ commands:
           command: |
             conda create -n py310 python=3.10
             source activate py310
-            pip install 'setuptools<70.0.0' 'attrs<=21.4.0'
+            pip install 'setuptools>=83.0.0' 'attrs<=21.4.0'
+            pip install git+ssh://git@github.com/kipoi/kipoi-conda.git
             pip install git+ssh://git@github.com/kipoi/kipoi.git
   install_kipoiseq:
     steps:
