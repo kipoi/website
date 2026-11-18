@@ -1,28 +1,27 @@
 {
   "directory_name": "seminar",
   "file_name": "seminar",
-  "title": "Accelerating Molecular Design with generative and agentic AI",
-  "abstract": "Molecular discovery requires balancing competing biological objectives and adapting design strategies as new evidence emerges. In this talk, I will present two complementary approaches to building AI agents for molecular design. SAGA uses large language model agents to analyze optimization results and evolve scoring functions, with applications to experimentally validated antibiotic and nanobody design. MolRSI combines systematic optimization of models and workflows with persistent memory across tasks, enabling accumulated experience to improve subsequent searches. In experiments, MolRSI increased antibiotic screening hit rates from 8.7% to 15.9% and produced eight peptide–MHC binder hits with preferential binding over tested off-targets. Together, these studies demonstrate how agents can refine both what they optimize and how they search, advancing molecular discovery through adaptive objectives and learning from experience.",
+  "title": "Programming Biology: Building Foundation Model and AI Co-scientists for Accelerating End-to-End R&D",
+  "abstract": "Modern biology is becoming an information-rich, programmable discipline, but translating data into actionable hypotheses and physical experiments remains slow and expensive. We bring together three complementary advances to move from molecules to machines: a generalist RNA foundation model (RNAGenesis), a large‑language‑model agent for gene editing (CRISPR‑GPT) and a multimodal AI‑XR co‑scientist (LabOS). RNAGenesis combines a BERT‑style encoder, query‑based latent compression and diffusion‑guided decoding to unify sequence representation and de novo design, enabling generation of highly functional aptamers and gene-editing RNAs. For end-to-end workflows, LabOS AI-XR co-scientist connects computational design with physical experimentation. A multi‑agent system performs planning, coding and critique, while an extended‑reality interface allows AI to see what scientists see and provide context‑aware guidance. Multi-modal AI captures spatiotemporal lab workflows and enables human-AI-robotics collaboration. Across applications—from cancer immunotherapy target discovery to cell engineering—LabOS turns the laboratory into an intelligent, collaborative environment where human and machine discovery evolve together.",
   "present": 
-      {
-        "speaker": "Wengong Jin",
-        "date": "4 November 2026",
-        "link": "https://wengong-jin.github.io/",
-        "institute": "Khoury College of Computer Sciences, Northeastern University; Eric and Wendy Schmidt Center, Broad Institute"
-      }
-,
-  "upcoming": {
-    "details": [
       {
         "speaker": "Le Cong",
         "date": "2 December 2026",
         "link": "https://clbiology.com/",
         "institute": "Stanford University"
-      }
+      },
+  "upcoming": {
+    "details": [
     ]
   },
   "past": {
     "details": [  
+      {
+        "speaker": "Wengong Jin",
+        "date": "4 November 2026",
+        "link": "https://wengong-jin.github.io/",
+        "institute": "Khoury College of Computer Sciences, Northeastern University; Eric and Wendy Schmidt Center, Broad Institute"
+      },
       {
         "speaker": "Wout Bittremieux",
         "date": "7 October 2026",
